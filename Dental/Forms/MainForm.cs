@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Dental.Forms
+{
+    public partial class MainForm: Form
+    {
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        public void loadMainForm(object Form)
+        {
+            if (this.mainpanel.Controls.Count > 0)
+                this.mainpanel.Controls.RemoveAt(0);
+
+            Form f = Form as Form;
+            f.TopLevel = false;
+            f.Dock = DockStyle.Fill;
+            this.mainpanel.Controls.Add(f);
+            this.mainpanel.Tag = f;
+            f.Show();
+        }
+
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void dashboard_btn_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Dashboard());
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Patients());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Dentists());
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Appointments());
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Reports());
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Settings());
+        }
+    }
+}
