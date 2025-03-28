@@ -42,7 +42,7 @@ namespace Dental.Forms.Dialogs
         private void btnSave_Click(object sender, EventArgs e)
         {
             string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
-            string query = "INSERT INTO Dental.laravel_user.Dentists (FullName, Address, Gender, DOB, Phone, Email, Specialization) VALUES (@FullName, @Address, @Gender, @DOB, @Phone, @Email, @Specialization)";
+            string query = "INSERT INTO Dentists (FullName, Address, Gender, DOB, Phone, Email, Specialization) VALUES (@FullName, @Address, @Gender, @DOB, @Phone, @Email, @Specialization)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -75,7 +75,7 @@ namespace Dental.Forms.Dialogs
 
 
 
-    }
+     }
         public event EventHandler DentistAdded;
     }
 }

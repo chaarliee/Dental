@@ -17,6 +17,7 @@ namespace Dental.Forms
         public Dentists()
         {
             InitializeComponent();
+            loadData();
         }
 
     
@@ -26,17 +27,7 @@ namespace Dental.Forms
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //AddDentists addDentistControl = new AddDentists();
-            //this.Controls.Add(addDentistControl);
-            //addDentistControl.BringToFront();
-
-            AddDentists addDentistControl = new AddDentists();
-            addDentistControl.DentistAdded += AddDentistControl_DentistAdded; // Subscribe to the event
-            this.Controls.Add(addDentistControl);
-            addDentistControl.BringToFront();
-        }
+       
 
         private void AddDentistControl_DentistAdded(object sender, EventArgs e)
         {
@@ -47,7 +38,7 @@ namespace Dental.Forms
         private void loadData()
         {
             string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
-            string query = "SELECT * FROM Dental.laravel_user.Dentists";
+            string query = "SELECT * FROM Dentists";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -73,6 +64,22 @@ namespace Dental.Forms
         {
             base.OnLoad(e);
             loadData();
+        }
+
+        private void Dentists_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'dataSet1.Dentists' table. You can move, or remove it, as needed.
+            this.dentistsTableAdapter.Fill(this.dataSet1.Dentists);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            AddDentists addDentistControl = new AddDentists();
+            addDentistControl.DentistAdded += AddDentistControl_DentistAdded; // Subscribe to the event
+            this.Controls.Add(addDentistControl);
+            addDentistControl.BringToFront();
         }
     }
 }

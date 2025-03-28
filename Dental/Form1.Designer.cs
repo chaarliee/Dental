@@ -1,4 +1,8 @@
-﻿namespace Dental
+﻿using System.Drawing.Drawing2D;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Dental
 {
     partial class Form1
     {
@@ -102,6 +106,7 @@
             this.login_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(11)))), ((int)(((byte)(97)))));
             this.login_btn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.login_btn.FlatAppearance.BorderSize = 0;
+            this.login_btn.Paint += new System.Windows.Forms.PaintEventHandler(this.login_btn_Paint);
             this.login_btn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
             this.login_btn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
             this.login_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -210,6 +215,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
+        }
+
+        private void login_btn_Paint(object sender, PaintEventArgs e)
+        {
+            Button btn = sender as Button;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.Clear(btn.Parent.BackColor);
+            using (Brush brush = new SolidBrush(btn.BackColor))
+            {
+                using (GraphicsPath path = new GraphicsPath())
+                {
+                    path.AddArc(0, 0, btn.Height, btn.Height, 90, 180);
+                    path.AddArc(btn.Width - btn.Height, 0, btn.Height, btn.Height, 270, 180);
+                    path.CloseFigure();
+                    g.FillPath(brush, path);
+                }
+            }
+            TextRenderer.DrawText(g, btn.Text, btn.Font, btn.ClientRectangle, btn.ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
         #endregion

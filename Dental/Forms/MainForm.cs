@@ -15,6 +15,8 @@ namespace Dental.Forms
         public MainForm()
         {
             InitializeComponent();
+
+            loadMainForm(new Dashboard());
         }
 
         public void loadMainForm(object Form)
@@ -28,6 +30,7 @@ namespace Dental.Forms
             this.mainpanel.Controls.Add(f);
             this.mainpanel.Tag = f;
             f.Show();
+
         }
 
 
@@ -64,6 +67,21 @@ namespace Dental.Forms
         private void button5_Click(object sender, EventArgs e)
         {
             loadMainForm(new Settings());
+        }
+
+        private void mainpanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Services());
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            loadMainForm(new Billing());
         }
     }
 }
