@@ -1,12 +1,87 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Application_project\\C#\\Dental\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\dialogs\\addpatients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\dialogs\\addpatients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\patients.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\patients.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\dialogs\\addservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\dialogs\\addservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\dialogs\\addpatients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\dialogs\\addpatients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Patients.Designer.cs",
+              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Patients.Designer.cs",
+              "RelativeDocumentMoniker": "Dental\\Forms\\Patients.Designer.cs",
+              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Patients.Designer.cs",
+              "RelativeToolTip": "Dental\\Forms\\Patients.Designer.cs",
+              "ViewState": "AgIAAA4BAAAAAAAAAAAIwB0BAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T07:44:43.887Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddServices.cs",
+              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Dialogs\\AddServices.cs",
+              "RelativeDocumentMoniker": "Dental\\Forms\\Dialogs\\AddServices.cs",
+              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Dialogs\\AddServices.cs",
+              "RelativeToolTip": "Dental\\Forms\\Dialogs\\AddServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T07:44:38.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddPatients.cs",
+              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Dialogs\\AddPatients.cs",
+              "RelativeDocumentMoniker": "Dental\\Forms\\Dialogs\\AddPatients.cs",
+              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Dialogs\\AddPatients.cs",
+              "RelativeToolTip": "Dental\\Forms\\Dialogs\\AddPatients.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAIwDkAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T07:23:23.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddPatients.cs [Design]",
+              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Dialogs\\AddPatients.cs",
+              "RelativeDocumentMoniker": "Dental\\Forms\\Dialogs\\AddPatients.cs",
+              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Dialogs\\AddPatients.cs [Design]",
+              "RelativeToolTip": "Dental\\Forms\\Dialogs\\AddPatients.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T07:23:21.257Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

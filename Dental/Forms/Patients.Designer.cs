@@ -33,12 +33,10 @@ namespace Dental.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery2 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Patients));
             this.label1 = new System.Windows.Forms.Label();
             this.exit = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.sqlDataSource1 = new DevExpress.DataAccess.Sql.SqlDataSource(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dentalDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dentalDataSet = new Dental.DentalDataSet();
@@ -98,13 +96,7 @@ namespace Dental.Forms
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionName = "localhost_Connection";
-            this.sqlDataSource1.Name = "sqlDataSource1";
-            customSqlQuery2.Name = "Query";
-            customSqlQuery2.Sql = "select * from Dental.dbo.Patients";
-            this.sqlDataSource1.Queries.AddRange(new DevExpress.DataAccess.Sql.SqlQuery[] {
-            customSqlQuery2});
-            this.sqlDataSource1.ResultSchemaSerializable = resources.GetString("sqlDataSource1.ResultSchemaSerializable");
+            
             // 
             // textBox1
             // 
@@ -293,7 +285,6 @@ namespace Dental.Forms
         private System.Windows.Forms.Label exit;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox1;
-        private DevExpress.DataAccess.Sql.SqlDataSource sqlDataSource1;
         private System.Windows.Forms.BindingSource dentalDataSetBindingSource;
         private DentalDataSet dentalDataSet;
         private System.Windows.Forms.DataGridView dataGridView1;
