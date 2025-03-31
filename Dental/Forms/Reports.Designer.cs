@@ -1,4 +1,6 @@
-﻿namespace Dental.Forms
+﻿using System.Windows.Forms;
+
+namespace Dental.Forms
 {
     partial class Reports
     {
@@ -31,6 +33,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.exit = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxMonthDate = new System.Windows.Forms.ComboBox();
+            this.comboBoxYearDate = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxPatient = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,11 +77,126 @@
             this.panel1.Size = new System.Drawing.Size(800, 41);
             this.panel1.TabIndex = 1;
             // 
+            // comboBoxMonthDate
+            // 
+            this.comboBoxMonthDate.FormattingEnabled = true;
+            this.comboBoxMonthDate.Items.AddRange(new object[] {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "Septemper",
+            "October",
+            "November",
+            "December"});
+            this.comboBoxMonthDate.Location = new System.Drawing.Point(252, 174);
+            this.comboBoxMonthDate.Name = "comboBoxMonthDate";
+            this.comboBoxMonthDate.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMonthDate.TabIndex = 4;
+            // 
+            // comboBoxYearDate
+            // 
+            this.comboBoxYearDate.FormattingEnabled = true;
+            this.comboBoxYearDate.Items.AddRange(new object[] {
+            "2024",
+            "2025",
+            "2026",
+            "2027",
+            "2028",
+            "2029",
+            "2030"});
+            this.comboBoxYearDate.Location = new System.Drawing.Point(388, 174);
+            this.comboBoxYearDate.Name = "comboBoxYearDate";
+            this.comboBoxYearDate.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxYearDate.TabIndex = 5;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(674, 415);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(85, 23);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Print PDF";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Generate Patient Monthly Report",
+            "Generate Click Monthly Report"});
+            this.comboBox3.Location = new System.Drawing.Point(26, 127);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(432, 21);
+            this.comboBox3.TabIndex = 8;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(26, 159);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Patient Name";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(249, 158);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Month";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(385, 158);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Year";
+            // 
+            // comboBoxPatient
+            // 
+            this.comboBoxPatient.FormattingEnabled = true;
+            this.comboBoxPatient.Items.AddRange(new object[] {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "Septemper",
+            "October",
+            "November",
+            "December"});
+            this.comboBoxPatient.Location = new System.Drawing.Point(29, 175);
+            this.comboBoxPatient.Name = "comboBoxPatient";
+            this.comboBoxPatient.Size = new System.Drawing.Size(217, 21);
+            this.comboBoxPatient.TabIndex = 12;
+            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBoxPatient);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.comboBoxYearDate);
+            this.Controls.Add(this.comboBoxMonthDate);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Reports";
@@ -79,6 +204,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -87,5 +213,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label exit;
         private System.Windows.Forms.Panel panel1;
+        private ComboBox comboBoxMonthDate;
+        private ComboBox comboBoxYearDate;
+        private Button button3;
+        private ComboBox comboBox3;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private ComboBox comboBoxPatient;
     }
 }

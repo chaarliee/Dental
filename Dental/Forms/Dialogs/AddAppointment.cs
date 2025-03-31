@@ -13,19 +13,32 @@ using System.Net;
 
 namespace Dental.Forms.Dialogs
 {
-    public partial class AddAppointment: UserControl
+    public partial class AddAppointment : UserControl
     {
+
+        private DataTable serviceDataTable = new DataTable();
+
+        public string AppointmentStatus = "Scheduled";
         public AddAppointment()
         {
             InitializeComponent();
             LoadPatients();
-            LoadDentist(); 
+            LoadDentist();
             LoadServices();
+            InitializeDataTable();
         }
 
         public int service_counter = 1;
         public int select_patient;
         public event EventHandler AppointmentAdded;
+
+        private void InitializeDataTable()
+        {
+            serviceDataTable.Columns.Add("ServiceId", typeof(int));
+            serviceDataTable.Columns.Add("Quantity", typeof(int));
+            serviceDataTable.Columns.Add("Price", typeof(decimal));
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -40,16 +53,20 @@ namespace Dental.Forms.Dialogs
             }
         }
 
+        
+
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            CloseControl();
+            //CloseControl();
+
+            SaveServiceDataInDB(6);
         }
 
         private void LoadPatients()
         {
             string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
             string query = "SELECT * FROM Patients";
-
 
             DataTable dataTable = GetDataFromSql(connectionString, query);
 
@@ -59,29 +76,6 @@ namespace Dental.Forms.Dialogs
             //To display the whole row, you would have to customize the display member.
             //This can be done using the format event.
             comboBoxPatients.Format += comboBoxPatients_Format;
-
-            /* using (SqlConnection connection = new SqlConnection(connectionString))
-             {
-                 using (SqlCommand command = new SqlCommand(query, connection))
-                 {
-                     try
-                     {
-                         connection.Open();
-                         using (SqlDataReader reader = command.ExecuteReader())
-                         {
-                             DataTable dt = new DataTable();
-                             dt.Load(reader);
-                             comboBoxPatients.DataSource = dt;
-                             comboBoxPatients.DisplayMember = "first_name";
-                             comboBoxPatients.ValueMember = "Id";
-                         }
-                     }
-                     catch (Exception ex)
-                     {
-                         MessageBox.Show("An error occurred while loading the patients: " + ex.Message);
-                     }
-                 }
-             }*/
         }
 
         public class Person
@@ -97,6 +91,9 @@ namespace Dental.Forms.Dialogs
             public string email { get; set; }
             public string gender { get; set; }
             public string DOB { get; set; }
+
+
+           
 
             // Override ToString() to customize the display in the combobox
             public override string ToString()
@@ -138,6 +135,77 @@ namespace Dental.Forms.Dialogs
         private void btnSave_Click(object sender, EventArgs e)
         {
 
+          
+
+            //if (unpaid.Checked)
+            //{
+            //    paymentStatus = "Unpaid";
+            //}
+            //else if (paid.Checked)
+            //{
+            //    paymentStatus = "Paid";
+            //}
+            //else
+            //{
+            //    paymentStatus = "Unpaid";
+            //}
+
+            if (paid.Checked)
+            {
+                AppointmentStatus = "Confirmed";
+            }
+
+
+
+            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            //string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At);SELECT SCOPE_IDENTITY();";
+            string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At, has_discount, total) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At, @has_discount, @total);SELECT SCOPE_IDENTITY();";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@patient_id", select_patient);
+                    command.Parameters.AddWithValue("@dentist_id", comboBox2.SelectedValue);
+                    command.Parameters.AddWithValue("@date", date_datepicker.Value.Date);
+                    command.Parameters.AddWithValue("@time", time_datepicker.Value.TimeOfDay);
+                    command.Parameters.AddWithValue("@reason", reason.Text);
+                    //command.Parameters.AddWithValue("@phone", phone.Text);
+                    //command.Parameters.AddWithValue("@status", paymentStatus);
+                    command.Parameters.AddWithValue("@status", AppointmentStatus);
+                    command.Parameters.AddWithValue("@created_At", DateTime.Now);
+                    command.Parameters.AddWithValue("@discount", checkBox_discount.Checked ? 0.10M : 0.00M);
+                    command.Parameters.AddWithValue("@has_discount", checkBox_discount.Checked ? "Yes" : "No");
+                    command.Parameters.AddWithValue("@total", decimal.Parse(total_textbox.Text)); // Add total
+
+
+                    try
+                    {
+                        //connection.Open();
+                        //command.ExecuteNonQuery();
+                        //MessageBox.Show("Appointment information saved successfully.");
+                        //AppointmentAdded?.Invoke(this, EventArgs.Empty); // Raise the event
+                        //CloseControl();
+
+                        connection.Open();
+                        int appointmentId = Convert.ToInt32(command.ExecuteScalar()); // Get the appointmentId
+
+                        MessageBox.Show("Appointment information saved successfully. Appointment ID: " + appointmentId);
+
+                        SaveServiceDataInDB(appointmentId);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred while saving appointment the data: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void SaveServiceDataInDB(int appointmentId)
+        {
+            SaveServiceData();
+
             string paymentStatus;
 
             if (unpaid.Checked)
@@ -151,40 +219,62 @@ namespace Dental.Forms.Dialogs
             else
             {
                 paymentStatus = "Unpaid";
+
+
             }
 
-
-                string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
-            string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At)";
+            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string query = "INSERT INTO appointment_services (appointment_id, services_id, quantity, price,status,created_At) VALUES (@appointment_id, @services_id, @quantity, @price, @status,@created_At)"; // Modified query
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@patient_id", select_patient);
-                    command.Parameters.AddWithValue("@dentist_id", comboBox2.SelectedValue);
-                    command.Parameters.AddWithValue("@date", date_datepicker.Text);
-                    command.Parameters.AddWithValue("@time", time_datepicker.Text);
-                    command.Parameters.AddWithValue("@reason", reason.Text);
-                    //command.Parameters.AddWithValue("@phone", phone.Text);
-                    command.Parameters.AddWithValue("@status", paymentStatus);
-                    command.Parameters.AddWithValue("@created_At", DateTime.Now);
+                connection.Open();
 
-                    try
+                foreach (DataRow row in serviceDataTable.Rows)
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Appointment information saved successfully.");
-                        AppointmentAdded?.Invoke(this, EventArgs.Empty); // Raise the event
-                        CloseControl();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred while saving the data: " + ex.Message);
+
+                        try
+                        {
+
+                            command.Parameters.AddWithValue("@appointment_id", appointmentId); // Use appointmentId
+                            command.Parameters.AddWithValue("@services_id", row["ServiceId"]);
+                            command.Parameters.AddWithValue("@quantity", row["Quantity"]);
+                            command.Parameters.AddWithValue("@price", row["Price"]);
+                            command.Parameters.AddWithValue("@status", paymentStatus);
+                            command.Parameters.AddWithValue("@created_At", DateTime.Now);
+
+                            command.ExecuteNonQuery();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred while saving services the data: " + ex.Message);
+                            AppointmentAdded?.Invoke(this, EventArgs.Empty);
+                            CloseControl();
+                        }
+
+
+                      
+
+                        
+
                     }
                 }
             }
+
+
+            MessageBox.Show("Service data saved successfully.");
+            AppointmentAdded?.Invoke(this, EventArgs.Empty);
+            CloseControl();
+            // Clear the DataTable if needed
+            serviceDataTable.Clear();
+
+
         }
+
+
 
         private void LoadServices()
         {
@@ -202,9 +292,9 @@ namespace Dental.Forms.Dialogs
                         {
                             DataTable dt = new DataTable();
                             dt.Load(reader);
-                            comboBox1Services.DataSource = dt;
-                            comboBox1Services.DisplayMember = "services_name";
-                            comboBox1Services.ValueMember = "Id";
+                            servicecombobox_0.DataSource = dt;
+                            servicecombobox_0.DisplayMember = "services_name";
+                            servicecombobox_0.ValueMember = "Id";
                         }
                     }
                     catch (Exception ex)
@@ -255,7 +345,7 @@ namespace Dental.Forms.Dialogs
                     //DataSource = comboBox1Services.DataSource,
                     DisplayMember = "services_name",
                     ValueMember = "Id",
-                    Name = "servicecombobox_" + panelServices.Controls.Count
+                    Name = "servicecombobox_" + service_counter
                 };
 
                 //comboBoxService.Name = "servicecombobox_" + panelServices.Controls.Count;
@@ -278,27 +368,78 @@ namespace Dental.Forms.Dialogs
                 NumericUpDown numericUpDownQty = new NumericUpDown
                 {
                     Location = new Point(132, yOffset),
-                    Size = new Size(66, 20)
+                    Size = new Size(66, 20),
+                    Name = "servicequantity_" + service_counter
                 };
 
                 TextBox textBoxPrice = new TextBox
                 {
                     Location = new Point(203, yOffset),
-                    Size = new Size(100, 20)
+                    Size = new Size(100, 20),
+                    Name = "serviceprice_" + service_counter
                 };
+
+              
+
+
 
                 panelServices.Controls.Add(comboBoxService);
                 panelServices.Controls.Add(numericUpDownQty);
                 panelServices.Controls.Add(textBoxPrice);
 
+                comboBoxService.SelectedIndexChanged += comboBoxService_SelectedIndexChanged;
+
+
                 service_counter++;
             }// else
-            
+
         }
 
-      
 
-       
+        private void comboBoxService_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            TextBox textBoxPrice = (TextBox)panelServices.Controls["serviceprice_" + comboBox.Name.Split('_')[1]];
+
+            if (comboBox.SelectedValue != null)
+            {
+                int selectedServiceId = (int)comboBox.SelectedValue;
+                string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+                string query = "SELECT fees FROM Services WHERE Id = @Id";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", selectedServiceId);
+                        try
+                        {
+                            connection.Open();
+                            object result = command.ExecuteScalar();
+                            if (result != null)
+                            {
+                                textBoxPrice.Text = result.ToString();
+                            }
+                            else
+                            {
+                                textBoxPrice.Text = "0"; // Or any default value you want
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error fetching fees: " + ex.Message);
+                            textBoxPrice.Text = "0"; // Or any default value you want
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
 
 
         private void buttonAddService_Click_1(object sender, EventArgs e)
@@ -375,7 +516,158 @@ namespace Dental.Forms.Dialogs
                 //return $"{first_name} (ID: {Id},First_name: {first_name},Last_name: {last_name}, Address: {address}, Phone: {phone}, Email: {email}, Gender: {gender})";
             }
         }
+
+        private void SaveServiceData()
+        {
+            serviceDataTable.Clear();
+
+            foreach (Control control in panelServices.Controls)
+            {
+                if (control is ComboBox)
+                {
+                    ComboBox comboBoxService = (ComboBox)control;
+                    NumericUpDown numericUpDownQty = (NumericUpDown)panelServices.Controls["servicequantity_" + comboBoxService.Name.Split('_')[1]];
+                    TextBox textBoxPrice = (TextBox)panelServices.Controls["serviceprice_" + comboBoxService.Name.Split('_')[1]];
+
+                    if (comboBoxService.SelectedValue != null && numericUpDownQty != null && textBoxPrice != null && !string.IsNullOrEmpty(textBoxPrice.Text))
+                    {
+                        int serviceId = (int)comboBoxService.SelectedValue;
+                        int quantity = (int)numericUpDownQty.Value;
+                        decimal price = decimal.Parse(textBoxPrice.Text);
+
+                        // Add a row to the DataTable
+                        serviceDataTable.Rows.Add(serviceId, quantity, price);
+                    }
+                }
+            }
+
+            // Now the serviceDataTable contains the data
+            // You can use it as needed
+        }
+
+       
+
+        public void calculateTotal()
+        {
+            decimal total_price = 0;
+            decimal quantity = 0;
+            decimal price = 0;
+            decimal discount = 0;
+
+            if (checkBox_discount.Checked)
+            {
+                // The CheckBox is checked.
+                // Perform actions for the checked state.
+                //MessageBox.Show("CheckBox is checked!");
+                discount = 0.10M;
+            }
+            else
+            {
+                // The CheckBox is unchecked.
+                // Perform actions for the unchecked state.
+                //MessageBox.Show("CheckBox is unchecked!");
+                discount = 0;
+            }
+
+            
+            foreach (Control control in panelServices.Controls)
+            {
+
+               
+                if (control is NumericUpDown)
+                {
+                    NumericUpDown numericUpDownQty = (NumericUpDown)control;
+                    if (!string.IsNullOrEmpty(numericUpDownQty.Text))
+                    {
+                        quantity = decimal.Parse(numericUpDownQty.Text);
+                    }
+                    else
+                    {
+                        quantity = 0;
+                    }
+                }
+
+                if (control is TextBox)
+                {
+                    TextBox textBoxPrice = (TextBox)control;
+                    if (!string.IsNullOrEmpty(textBoxPrice.Text))
+                    {
+                        price = decimal.Parse(textBoxPrice.Text);
+                    }
+                    else
+                    {
+                        price = 0;
+                    }
+
+
+                    decimal itemTotal = price * quantity;
+                    decimal itemDiscount = itemTotal * discount;
+                    decimal discountedItemTotal = itemTotal - itemDiscount;
+
+                    total_price += discountedItemTotal;
+                    //total_price += price * quantity;
+
+
+                    Console.WriteLine("count: " + price + " * " + quantity + " = " + total_price);
+                    System.Console.WriteLine("count: " + price + " * " + quantity + " = " + total_price);
+
+
+                }
+
+
+
+              
+
+
+
+
+            }
+            total_textbox.Text = total_price.ToString();
+        }
+
+        private void button_total_Click(object sender, EventArgs e)
+        {
+            calculateTotal();
+        }
+
+        private void servicecombobox_0_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            if (comboBox.SelectedValue != null)
+            {
+                int selectedServiceId = (int)comboBox.SelectedValue;
+                string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+                string query = "SELECT fees FROM Services WHERE Id = @Id";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", selectedServiceId);
+                        try
+                        {
+                            connection.Open();
+                            object result = command.ExecuteScalar();
+                            if (result != null)
+                            {
+                                serviceprice_0.Text = result.ToString();
+                            }
+                            else
+                            {
+                                serviceprice_0.Text = "0"; // Or any default value you want
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error fetching fees: " + ex.Message);
+                            serviceprice_0.Text = "0"; // Or any default value you want
+                        }
+                    }
+                }
+            }
+        }
     }
 
      
-    }
+ }

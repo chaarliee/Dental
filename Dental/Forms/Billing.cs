@@ -21,5 +21,13 @@ namespace Dental.Forms
         {
             Application.Exit();
         }
+
+        private void Billing_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'dentalDataSet10.View_appointment' table. You can move, or remove it, as needed.
+            this.view_appointmentTableAdapter1.Fill(this.dentalDataSet10.View_appointment);
+            // TODO: This line of code loads data into the 'dentalDataSet6.View_appointment' table. You can move, or remove it, as needed.
+
+        }
     }
 }

@@ -41,6 +41,12 @@
     <Reference Include="Azure.Identity, Version=1.13.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.13.2\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v24.2, Version=24.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v24.2, Version=24.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Drawing.v24.2, Version=24.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v24.2, Version=24.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v24.2, Version=24.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v24.2, Version=24.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.3\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -62,8 +68,14 @@
     <Reference Include="Microsoft.Extensions.Caching.Memory, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.9.0.3\lib\net462\Microsoft.Extensions.Caching.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.3\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.6.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.3\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -101,6 +113,24 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=6.1.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.1.1\lib\netstandard2.0\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=6.1.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.1.1\lib\netstandard2.0\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Quality, Version=6.1.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.1.1\lib\netstandard2.0\PdfSharp.Quality.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Snippets, Version=6.1.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.1.1\lib\netstandard2.0\PdfSharp.Snippets.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.System, Version=6.1.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.1.1\lib\netstandard2.0\PdfSharp.System.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.WPFonts, Version=6.1.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.6.1.1\lib\netstandard2.0\PdfSharp.WPFonts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
@@ -110,6 +140,11 @@
     </Reference>
     <Reference Include="System.CodeDom, Version=9.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.CodeDom.9.0.3\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Specialized.4.3.0\lib\net46\System.Collections.Specialized.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -143,6 +178,7 @@
     <Reference Include="System.Memory.Data, Version=9.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.Data.9.0.3\lib\net462\System.Memory.Data.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
@@ -202,6 +238,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.2\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -210,6 +247,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Twilio, Version=7.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.7.9.1\lib\net462\Twilio.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSet1.Designer.cs">
@@ -227,6 +267,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DentalDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DentalDataSet10.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet10.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DentalDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -241,6 +286,31 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DentalDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet5.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet6.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet6.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet7.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet8.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet8.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet9.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet9.xsd</DependentUpon>
     </Compile>
     <Compile Include="Dentists.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -301,6 +371,18 @@
     <Compile Include="Forms\Dialogs\AddServices.Designer.cs">
       <DependentUpon>AddServices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dialogs\EditPatient.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\EditPatient.Designer.cs">
+      <DependentUpon>EditPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dialogs\UpdateAppointment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\UpdateAppointment.Designer.cs">
+      <DependentUpon>UpdateAppointment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,6 +420,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdatedView_appointment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdatedView_appointment.xsd</DependentUpon>
+    </Compile>
     <Compile Include="view_appointment.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -369,6 +456,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\AddServices.resx">
       <DependentUpon>AddServices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\EditPatient.resx">
+      <DependentUpon>EditPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\UpdateAppointment.resx">
+      <DependentUpon>UpdateAppointment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -428,6 +521,17 @@
     <None Include="DentalDataSet1.xss">
       <DependentUpon>DentalDataSet1.xsd</DependentUpon>
     </None>
+    <None Include="DentalDataSet10.xsc">
+      <DependentUpon>DentalDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet10.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet10.xss">
+      <DependentUpon>DentalDataSet10.xsd</DependentUpon>
+    </None>
     <None Include="DentalDataSet2.xsc">
       <DependentUpon>DentalDataSet2.xsd</DependentUpon>
     </None>
@@ -461,6 +565,61 @@
     <None Include="DentalDataSet4.xss">
       <DependentUpon>DentalDataSet4.xsd</DependentUpon>
     </None>
+    <None Include="DentalDataSet5.xsc">
+      <DependentUpon>DentalDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet5.xss">
+      <DependentUpon>DentalDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet6.xsc">
+      <DependentUpon>DentalDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet6.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet6.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet6.xss">
+      <DependentUpon>DentalDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet7.xsc">
+      <DependentUpon>DentalDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet7.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet7.xss">
+      <DependentUpon>DentalDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet8.xsc">
+      <DependentUpon>DentalDataSet8.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet8.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet8.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet8.xss">
+      <DependentUpon>DentalDataSet8.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet9.xsc">
+      <DependentUpon>DentalDataSet9.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet9.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet9.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet9.xss">
+      <DependentUpon>DentalDataSet9.xsd</DependentUpon>
+    </None>
     <None Include="Dentists.xsc">
       <DependentUpon>Dentists.xsd</DependentUpon>
     </None>
@@ -493,6 +652,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="UpdatedView_appointment.xsc">
+      <DependentUpon>UpdatedView_appointment.xsd</DependentUpon>
+    </None>
+    <None Include="UpdatedView_appointment.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>UpdatedView_appointment.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UpdatedView_appointment.xss">
+      <DependentUpon>UpdatedView_appointment.xsd</DependentUpon>
+    </None>
     <None Include="view_appointment.xsc">
       <DependentUpon>view_appointment.xsd</DependentUpon>
     </None>

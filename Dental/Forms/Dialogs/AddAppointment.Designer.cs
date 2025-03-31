@@ -59,14 +59,14 @@
             this.reason = new System.Windows.Forms.RichTextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.buttonAddService = new System.Windows.Forms.Button();
-            this.comboBox1Services = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.servicecombobox_0 = new System.Windows.Forms.ComboBox();
+            this.serviceprice_0 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panelServices = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.total = new System.Windows.Forms.Label();
+            this.servicequantity_0 = new System.Windows.Forms.NumericUpDown();
+            this.total_textbox = new System.Windows.Forms.Label();
             this.unpaid = new System.Windows.Forms.RadioButton();
             this.paid = new System.Windows.Forms.RadioButton();
             this.label_dob = new System.Windows.Forms.Label();
@@ -75,12 +75,14 @@
             this.label_email = new System.Windows.Forms.Label();
             this.label_address = new System.Windows.Forms.Label();
             this.label_gender = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.button_total = new System.Windows.Forms.Button();
+            this.checkBox_discount = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dentistsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentists)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.panelServices.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.servicequantity_0)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -162,13 +164,13 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(1, 11);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(66, 20);
+            this.lblTitle.Size = new System.Drawing.Size(148, 20);
             this.lblTitle.TabIndex = 41;
-            this.lblTitle.Text = "Patient";
+            this.lblTitle.Text = "Add Appointment";
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(394, 428);
+            this.btnCancel.Location = new System.Drawing.Point(394, 444);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 47;
@@ -178,7 +180,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(475, 428);
+            this.btnSave.Location = new System.Drawing.Point(475, 444);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 48;
@@ -339,25 +341,26 @@
             this.buttonAddService.UseVisualStyleBackColor = true;
             this.buttonAddService.Click += new System.EventHandler(this.buttonAddService_Click_1);
             // 
-            // comboBox1Services
+            // servicecombobox_0
             // 
-            this.comboBox1Services.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox1Services.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1Services.DataSource = this.dentistsBindingSource;
-            this.comboBox1Services.DisplayMember = "FullName";
-            this.comboBox1Services.FormattingEnabled = true;
-            this.comboBox1Services.Location = new System.Drawing.Point(237, 205);
-            this.comboBox1Services.Name = "comboBox1Services";
-            this.comboBox1Services.Size = new System.Drawing.Size(125, 21);
-            this.comboBox1Services.TabIndex = 79;
-            this.comboBox1Services.ValueMember = "Id";
+            this.servicecombobox_0.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.servicecombobox_0.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.servicecombobox_0.DataSource = this.dentistsBindingSource;
+            this.servicecombobox_0.DisplayMember = "FullName";
+            this.servicecombobox_0.FormattingEnabled = true;
+            this.servicecombobox_0.Location = new System.Drawing.Point(0, 2);
+            this.servicecombobox_0.Name = "servicecombobox_0";
+            this.servicecombobox_0.Size = new System.Drawing.Size(125, 21);
+            this.servicecombobox_0.TabIndex = 79;
+            this.servicecombobox_0.ValueMember = "Id";
+            this.servicecombobox_0.SelectedIndexChanged += new System.EventHandler(this.servicecombobox_0_SelectedIndexChanged);
             // 
-            // textBox2
+            // serviceprice_0
             // 
-            this.textBox2.Location = new System.Drawing.Point(441, 206);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 81;
+            this.serviceprice_0.Location = new System.Drawing.Point(204, 3);
+            this.serviceprice_0.Name = "serviceprice_0";
+            this.serviceprice_0.Size = new System.Drawing.Size(100, 20);
+            this.serviceprice_0.TabIndex = 81;
             // 
             // label15
             // 
@@ -388,28 +391,29 @@
             // 
             // panelServices
             // 
-            this.panelServices.Location = new System.Drawing.Point(237, 232);
+            this.panelServices.Controls.Add(this.servicequantity_0);
+            this.panelServices.Controls.Add(this.servicecombobox_0);
+            this.panelServices.Controls.Add(this.serviceprice_0);
+            this.panelServices.Location = new System.Drawing.Point(237, 205);
             this.panelServices.Name = "panelServices";
-            this.panelServices.Size = new System.Drawing.Size(313, 145);
+            this.panelServices.Size = new System.Drawing.Size(313, 172);
             this.panelServices.TabIndex = 85;
             // 
-            // label18
+            // servicequantity_0
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(449, 384);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(31, 13);
-            this.label18.TabIndex = 86;
-            this.label18.Text = "Total";
+            this.servicequantity_0.Location = new System.Drawing.Point(132, 2);
+            this.servicequantity_0.Name = "servicequantity_0";
+            this.servicequantity_0.Size = new System.Drawing.Size(66, 20);
+            this.servicequantity_0.TabIndex = 96;
             // 
-            // total
+            // total_textbox
             // 
-            this.total.AutoSize = true;
-            this.total.Location = new System.Drawing.Point(486, 384);
-            this.total.Name = "total";
-            this.total.Size = new System.Drawing.Size(10, 13);
-            this.total.TabIndex = 87;
-            this.total.Text = "-";
+            this.total_textbox.AutoSize = true;
+            this.total_textbox.Location = new System.Drawing.Point(438, 406);
+            this.total_textbox.Name = "total_textbox";
+            this.total_textbox.Size = new System.Drawing.Size(10, 13);
+            this.total_textbox.TabIndex = 87;
+            this.total_textbox.Text = "-";
             // 
             // unpaid
             // 
@@ -487,18 +491,34 @@
             this.label_gender.TabIndex = 90;
             this.label_gender.Text = "-";
             // 
-            // numericUpDown1
+            // button_total
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(369, 205);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(66, 20);
-            this.numericUpDown1.TabIndex = 96;
+            this.button_total.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button_total.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_total.Location = new System.Drawing.Point(393, 402);
+            this.button_total.Name = "button_total";
+            this.button_total.Size = new System.Drawing.Size(42, 23);
+            this.button_total.TabIndex = 96;
+            this.button_total.Text = "Total";
+            this.button_total.UseVisualStyleBackColor = false;
+            this.button_total.Click += new System.EventHandler(this.button_total_Click);
+            // 
+            // checkBox_discount
+            // 
+            this.checkBox_discount.AutoSize = true;
+            this.checkBox_discount.Location = new System.Drawing.Point(394, 379);
+            this.checkBox_discount.Name = "checkBox_discount";
+            this.checkBox_discount.Size = new System.Drawing.Size(68, 17);
+            this.checkBox_discount.TabIndex = 97;
+            this.checkBox_discount.Text = "Discount";
+            this.checkBox_discount.UseVisualStyleBackColor = true;
             // 
             // AddAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.checkBox_discount);
+            this.Controls.Add(this.button_total);
             this.Controls.Add(this.label_dob);
             this.Controls.Add(this.label_age);
             this.Controls.Add(this.label_phone);
@@ -507,14 +527,11 @@
             this.Controls.Add(this.label_gender);
             this.Controls.Add(this.paid);
             this.Controls.Add(this.unpaid);
-            this.Controls.Add(this.total);
-            this.Controls.Add(this.label18);
+            this.Controls.Add(this.total_textbox);
             this.Controls.Add(this.panelServices);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.comboBox1Services);
             this.Controls.Add(this.buttonAddService);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.reason);
@@ -540,12 +557,14 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "AddAppointment";
-            this.Size = new System.Drawing.Size(562, 454);
+            this.Size = new System.Drawing.Size(562, 480);
             ((System.ComponentModel.ISupportInitialize)(this.dentistsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentists)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patients)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.panelServices.ResumeLayout(false);
+            this.panelServices.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.servicequantity_0)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,14 +602,13 @@
         private System.Windows.Forms.RichTextBox reason;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button buttonAddService;
-        private System.Windows.Forms.ComboBox comboBox1Services;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox servicecombobox_0;
+        private System.Windows.Forms.TextBox serviceprice_0;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panelServices;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label total;
+        private System.Windows.Forms.Label total_textbox;
         private System.Windows.Forms.RadioButton unpaid;
         private System.Windows.Forms.RadioButton paid;
         private System.Windows.Forms.Label label_dob;
@@ -599,6 +617,8 @@
         private System.Windows.Forms.Label label_email;
         private System.Windows.Forms.Label label_address;
         private System.Windows.Forms.Label label_gender;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown servicequantity_0;
+        private System.Windows.Forms.Button button_total;
+        private System.Windows.Forms.CheckBox checkBox_discount;
     }
 }

@@ -74,7 +74,7 @@ namespace Dental.Forms
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.application_name = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -87,7 +87,6 @@ namespace Dental.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -283,14 +282,14 @@ namespace Dental.Forms
             this.label3.TabIndex = 16;
             this.label3.Text = "Name";
             // 
-            // textBox1
+            // application_name
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.textBox1.Location = new System.Drawing.Point(81, 244);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 25);
-            this.textBox1.TabIndex = 17;
-            this.textBox1.Text = "Serrato Dental";
+            this.application_name.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.application_name.Location = new System.Drawing.Point(81, 244);
+            this.application_name.Name = "application_name";
+            this.application_name.Size = new System.Drawing.Size(250, 25);
+            this.application_name.TabIndex = 17;
+            this.application_name.Text = "Serrato Dental";
             // 
             // label4
             // 
@@ -409,32 +408,18 @@ namespace Dental.Forms
             this.button2.TabIndex = 27;
             this.button2.Text = "Save";
             this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Gray;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(611, 524);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(80, 30);
-            this.button3.TabIndex = 28;
-            this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Settings
             // 
             this.ClientSize = new System.Drawing.Size(801, 604);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.application_name);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
@@ -445,6 +430,7 @@ namespace Dental.Forms
             this.Controls.Add(this.textBox5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Settings";
+            this.Load += new System.EventHandler(this.Settings_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
@@ -465,7 +451,7 @@ namespace Dental.Forms
         private PictureBox pictureBox1;
         private Button button1;
         private Label label3;
-        private TextBox textBox1;
+        private TextBox application_name;
         private Label label4;
         private TextBox textBox2;
         private Label label5;
@@ -478,6 +464,5 @@ namespace Dental.Forms
         private Label label8;
         private Label label9;
         private Button button2;
-        private Button button3;
     }
 }

@@ -34,7 +34,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.appointmentNumberPanel = new System.Windows.Forms.Panel();
+            this.label_number_appointment = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.appointmentNumberPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -101,11 +107,66 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Overview";
             // 
+            // appointmentNumberPanel
+            // 
+            this.appointmentNumberPanel.BackColor = System.Drawing.Color.White;
+            this.appointmentNumberPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.appointmentNumberPanel.Controls.Add(this.label_number_appointment);
+            this.appointmentNumberPanel.Controls.Add(this.label5);
+            this.appointmentNumberPanel.Controls.Add(this.label6);
+            this.appointmentNumberPanel.Location = new System.Drawing.Point(374, 65);
+            this.appointmentNumberPanel.Name = "appointmentNumberPanel";
+            this.appointmentNumberPanel.Size = new System.Drawing.Size(232, 100);
+            this.appointmentNumberPanel.TabIndex = 22;
+            // 
+            // label_number_appointment
+            // 
+            this.label_number_appointment.AutoSize = true;
+            this.label_number_appointment.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_number_appointment.Location = new System.Drawing.Point(18, 33);
+            this.label_number_appointment.Name = "label_number_appointment";
+            this.label_number_appointment.Size = new System.Drawing.Size(20, 25);
+            this.label_number_appointment.TabIndex = 2;
+            this.label_number_appointment.Text = "-";
+            this.label_number_appointment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(113, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 25);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Today";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(84, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(143, 25);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Appointment";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(16, 415);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "Send Notification";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.appointmentNumberPanel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -115,6 +176,8 @@
             this.Text = "Dashboard";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.appointmentNumberPanel.ResumeLayout(false);
+            this.appointmentNumberPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,5 +191,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel appointmentNumberPanel;
+        private System.Windows.Forms.Label label_number_appointment;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button1;
     }
 }
