@@ -112,23 +112,22 @@ namespace Dental.Forms
 
         private void SendSMS(string recipientPhoneNumber, string messageBody)
         {
-            // Find your Account SID and Auth Token at twilio.com/console
-            // Set your Account SID and Auth Token in environment variables.
+            
           
-            string accountSid = null;  
-            string authToken = null;   
+            //string accountSid = null;  
+            //string authToken = null;   
 
             try
             {
-                TwilioClient.Init(accountSid, authToken);
+                //TwilioClient.Init(accountSid, authToken);
 
-                var message = MessageResource.Create(
-                    body: messageBody,
-                    from: new Twilio.Types.PhoneNumber("whatsapp:+14155238886"), // Your Twilio phone number
-                    to: new Twilio.Types.PhoneNumber(recipientPhoneNumber)
-                );
+                //var message = MessageResource.Create(
+                //    body: messageBody,
+                //    from: new Twilio.Types.PhoneNumber("whatsapp:+14155238886"), // Your Twilio phone number
+                //    to: new Twilio.Types.PhoneNumber(recipientPhoneNumber)
+                //);
 
-                Console.WriteLine(message.Sid); // Optionally, log the message SID
+                //Console.WriteLine(message.Sid); // Optionally, log the message SID
                 //MessageBox.Show("SMS sent successfully! Message SID: " + message.Sid); // Consider more informative message
             }
             catch (Twilio.Exceptions.TwilioException ex)
@@ -142,33 +141,10 @@ namespace Dental.Forms
 
         /*private void SendSMS()
         {
-            // Find your Account SID and Auth Token at twilio.com/console
-            // Set your Account SID and Auth Token in environment variables.
-            // See http://twil.io/secure
-               // Your Auth Token from Twilio
+           
+       
 
-            // Get the recipient phone number (e.g., from a TextBox)
-            string recipientWhatsAppNumber = "whatsapp:+639190976944"; // WhatsApp format
-            string messageBody = "Hello from your C# application!"; // The message you want to send
-
-            try
-            {
-                TwilioClient.Init(accountSid, authToken);
-
-                var message = MessageResource.Create(
-                    body: messageBody,
-                    from: new Twilio.Types.PhoneNumber("whatsapp:+14155238886"), // Your Twilio WhatsApp number
-                    to: new Twilio.Types.PhoneNumber(recipientWhatsAppNumber)
-                );
-
-                Console.WriteLine(message.Sid); // Optionally, log the message SID
-                MessageBox.Show("WhatsApp message sent successfully! Message SID: " + message.Sid);
-            }
-            catch (Twilio.Exceptions.TwilioException ex)
-            {
-                Console.WriteLine(ex.Message);
-                MessageBox.Show("Error sending message: " + ex.Message); // Changed "SMS" to "message" for generality
-            }
+           
         }
 */
 
