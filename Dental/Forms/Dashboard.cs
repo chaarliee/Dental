@@ -114,9 +114,9 @@ namespace Dental.Forms
         {
             // Find your Account SID and Auth Token at twilio.com/console
             // Set your Account SID and Auth Token in environment variables.
-            // See http://twil.io/secure
-            string accountSid = "";  // Your Account SID from Twilio
-            string authToken = "";   // Your Auth Token from Twilio
+          
+            string accountSid = null;  
+            string authToken = null;   
 
             try
             {
@@ -145,8 +145,7 @@ namespace Dental.Forms
             // Find your Account SID and Auth Token at twilio.com/console
             // Set your Account SID and Auth Token in environment variables.
             // See http://twil.io/secure
-            string accountSid = "ACcc3da50af0542bd1b6ce871c3693b4ec";  // Your Account SID from Twilio
-            string authToken = "4a4550ef525b3c6d651e6a15389d58bd";    // Your Auth Token from Twilio
+               // Your Auth Token from Twilio
 
             // Get the recipient phone number (e.g., from a TextBox)
             string recipientWhatsAppNumber = "whatsapp:+639190976944"; // WhatsApp format
