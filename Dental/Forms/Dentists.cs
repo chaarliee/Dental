@@ -1,4 +1,5 @@
 ﻿using Dental.Forms.Dialogs;
+using Dental.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace Dental.Forms
 
         private void loadData()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Dentists";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

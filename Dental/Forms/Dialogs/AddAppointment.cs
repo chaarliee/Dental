@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Net;
+using Dental.Model;
 
 namespace Dental.Forms.Dialogs
 {
@@ -58,14 +59,13 @@ namespace Dental.Forms.Dialogs
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //CloseControl();
+            CloseControl();
 
-            SaveServiceDataInDB(6);
         }
 
         private void LoadPatients()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Patients";
 
             DataTable dataTable = GetDataFromSql(connectionString, query);
@@ -105,7 +105,7 @@ namespace Dental.Forms.Dialogs
 
         private void LoadDentist()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString =Config.ConnectionString;
             string query = "SELECT * FROM Dentists";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -157,9 +157,9 @@ namespace Dental.Forms.Dialogs
 
 
 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             //string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At);SELECT SCOPE_IDENTITY();";
-            string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At, has_discount, total) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At, @has_discount, @total);SELECT SCOPE_IDENTITY();";
+            string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At, discount, has_discount, total) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At, @discount, @has_discount, @total);SELECT SCOPE_IDENTITY();";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -169,13 +169,12 @@ namespace Dental.Forms.Dialogs
                     command.Parameters.AddWithValue("@date", date_datepicker.Value.Date);
                     command.Parameters.AddWithValue("@time", time_datepicker.Value.TimeOfDay);
                     command.Parameters.AddWithValue("@reason", reason.Text);
-                    //command.Parameters.AddWithValue("@phone", phone.Text);
-                    //command.Parameters.AddWithValue("@status", paymentStatus);
                     command.Parameters.AddWithValue("@status", AppointmentStatus);
                     command.Parameters.AddWithValue("@created_At", DateTime.Now);
                     command.Parameters.AddWithValue("@discount", checkBox_discount.Checked ? 0.10M : 0.00M);
                     command.Parameters.AddWithValue("@has_discount", checkBox_discount.Checked ? "Yes" : "No");
-                    command.Parameters.AddWithValue("@total", decimal.Parse(total_textbox.Text)); // Add total
+                    command.Parameters.AddWithValue("@total", decimal.Parse(total_textbox.Text)); 
+
 
 
                     try
@@ -192,6 +191,14 @@ namespace Dental.Forms.Dialogs
                         MessageBox.Show("Appointment information saved successfully. Appointment ID: " + appointmentId);
 
                         SaveServiceDataInDB(appointmentId);
+
+
+                        MessageBox.Show("Service data saved successfully.");
+                        AppointmentAdded?.Invoke(this, EventArgs.Empty);
+                        CloseControl();
+                        // Clear the DataTable if needed
+                        serviceDataTable.Clear();
+
 
                     }
                     catch (Exception ex)
@@ -223,7 +230,7 @@ namespace Dental.Forms.Dialogs
 
             }
 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "INSERT INTO appointment_services (appointment_id, services_id, quantity, price,status,created_At) VALUES (@appointment_id, @services_id, @quantity, @price, @status,@created_At)"; // Modified query
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -232,6 +239,9 @@ namespace Dental.Forms.Dialogs
 
                 foreach (DataRow row in serviceDataTable.Rows)
                 {
+                    MessageBox.Show("row: " + row);
+
+
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
 
@@ -265,11 +275,7 @@ namespace Dental.Forms.Dialogs
             }
 
 
-            MessageBox.Show("Service data saved successfully.");
-            AppointmentAdded?.Invoke(this, EventArgs.Empty);
-            CloseControl();
-            // Clear the DataTable if needed
-            serviceDataTable.Clear();
+           
 
 
         }
@@ -278,7 +284,7 @@ namespace Dental.Forms.Dialogs
 
         private void LoadServices()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Services";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -308,7 +314,7 @@ namespace Dental.Forms.Dialogs
         private DataTable GetDynamicDataSource()
         {
             DataTable dt = new DataTable();
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your actual connection string
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
             string query = "SELECT Id, services_name FROM services";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -404,7 +410,7 @@ namespace Dental.Forms.Dialogs
             if (comboBox.SelectedValue != null)
             {
                 int selectedServiceId = (int)comboBox.SelectedValue;
-                string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+                string connectionString = Config.ConnectionString;
                 string query = "SELECT fees FROM Services WHERE Id = @Id";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -637,7 +643,7 @@ namespace Dental.Forms.Dialogs
             if (comboBox.SelectedValue != null)
             {
                 int selectedServiceId = (int)comboBox.SelectedValue;
-                string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+                string connectionString = Config.ConnectionString;
                 string query = "SELECT fees FROM Services WHERE Id = @Id";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))

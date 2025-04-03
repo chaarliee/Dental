@@ -41,30 +41,29 @@ namespace Dental.Forms
             this.dentalDataSet = new Dental.DentalDataSet();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.patientsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.dentalDataSet7 = new Dental.DentalDataSet7();
             this.patientsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dentalDataSet2 = new Dental.DentalDataSet2();
-            this.patientsTableAdapter = new Dental.DentalDataSet2TableAdapters.PatientsTableAdapter();
             this.add_patient_btn = new System.Windows.Forms.Button();
-            this.patientsTableAdapter1 = new Dental.DentalDataSet7TableAdapters.PatientsTableAdapter();
-            this.firstnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dOBDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.genderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.age = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dentalDataSet2 = new Dental.DentalDataSet2();
+            this.patientsBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.patientsTableAdapter = new Dental.DentalDataSet2TableAdapters.PatientsTableAdapter();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -122,46 +121,23 @@ namespace Dental.Forms
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.firstnameDataGridViewTextBoxColumn,
-            this.lastnameDataGridViewTextBoxColumn,
-            this.addressDataGridViewTextBoxColumn,
-            this.phoneDataGridViewTextBoxColumn,
-            this.emailDataGridViewTextBoxColumn,
-            this.dOBDataGridViewTextBoxColumn,
-            this.genderDataGridViewTextBoxColumn,
-            this.age,
-            this.createdAtDataGridViewTextBoxColumn,
-            this.Id});
-            this.dataGridView1.DataSource = this.patientsBindingSource1;
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.ageDataGridViewTextBoxColumn,
+            this.idDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.patientsBindingSource2;
             this.dataGridView1.Location = new System.Drawing.Point(0, 86);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(798, 437);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-            // 
-            // patientsBindingSource1
-            // 
-            this.patientsBindingSource1.DataMember = "Patients";
-            this.patientsBindingSource1.DataSource = this.dentalDataSet7;
-            // 
-            // dentalDataSet7
-            // 
-            this.dentalDataSet7.DataSetName = "DentalDataSet7";
-            this.dentalDataSet7.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // patientsBindingSource
-            // 
-            this.patientsBindingSource.DataMember = "Patients";
-            this.patientsBindingSource.DataSource = this.dentalDataSet2;
-            // 
-            // dentalDataSet2
-            // 
-            this.dentalDataSet2.DataSetName = "DentalDataSet2";
-            this.dentalDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // patientsTableAdapter
-            // 
-            this.patientsTableAdapter.ClearBeforeFill = true;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // add_patient_btn
             // 
@@ -183,71 +159,80 @@ namespace Dental.Forms
             this.add_patient_btn.Click += new System.EventHandler(this.add_patient_btn_Click);
             this.add_patient_btn.Paint += new System.Windows.Forms.PaintEventHandler(this.patient_btn_Paint);
             // 
-            // patientsTableAdapter1
+            // dentalDataSet2
             // 
-            this.patientsTableAdapter1.ClearBeforeFill = true;
+            this.dentalDataSet2.DataSetName = "DentalDataSet2";
+            this.dentalDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // firstnameDataGridViewTextBoxColumn
+            // patientsBindingSource2
             // 
-            this.firstnameDataGridViewTextBoxColumn.DataPropertyName = "first_name";
-            this.firstnameDataGridViewTextBoxColumn.HeaderText = "Full Name";
-            this.firstnameDataGridViewTextBoxColumn.Name = "firstnameDataGridViewTextBoxColumn";
+            this.patientsBindingSource2.DataMember = "Patients";
+            this.patientsBindingSource2.DataSource = this.dentalDataSet2;
             // 
-            // lastnameDataGridViewTextBoxColumn
+            // patientsTableAdapter
             // 
-            this.lastnameDataGridViewTextBoxColumn.DataPropertyName = "last_name";
-            this.lastnameDataGridViewTextBoxColumn.HeaderText = "Last Name";
-            this.lastnameDataGridViewTextBoxColumn.Name = "lastnameDataGridViewTextBoxColumn";
+            this.patientsTableAdapter.ClearBeforeFill = true;
             // 
-            // addressDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn1
             // 
-            this.addressDataGridViewTextBoxColumn.DataPropertyName = "address";
-            this.addressDataGridViewTextBoxColumn.HeaderText = "Address";
-            this.addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "first_name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "first_name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
-            // phoneDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn2
             // 
-            this.phoneDataGridViewTextBoxColumn.DataPropertyName = "phone";
-            this.phoneDataGridViewTextBoxColumn.HeaderText = "Phone";
-            this.phoneDataGridViewTextBoxColumn.Name = "phoneDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "last_name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "last_name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // emailDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn3
             // 
-            this.emailDataGridViewTextBoxColumn.DataPropertyName = "email";
-            this.emailDataGridViewTextBoxColumn.HeaderText = "Email";
-            this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "address";
+            this.dataGridViewTextBoxColumn3.HeaderText = "address";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
-            // dOBDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn4
             // 
-            this.dOBDataGridViewTextBoxColumn.DataPropertyName = "DOB";
-            this.dOBDataGridViewTextBoxColumn.HeaderText = "DOB";
-            this.dOBDataGridViewTextBoxColumn.Name = "dOBDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "phone";
+            this.dataGridViewTextBoxColumn4.HeaderText = "phone";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
-            // genderDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn5
             // 
-            this.genderDataGridViewTextBoxColumn.DataPropertyName = "gender";
-            this.genderDataGridViewTextBoxColumn.HeaderText = "Gender";
-            this.genderDataGridViewTextBoxColumn.Name = "genderDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "email";
+            this.dataGridViewTextBoxColumn5.HeaderText = "email";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
-            // age
+            // dataGridViewTextBoxColumn6
             // 
-            this.age.DataPropertyName = "age";
-            this.age.HeaderText = "Age";
-            this.age.Name = "age";
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "DOB";
+            this.dataGridViewTextBoxColumn6.HeaderText = "DOB";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
-            // createdAtDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn7
             // 
-            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "created_At";
-            this.createdAtDataGridViewTextBoxColumn.HeaderText = "created_At";
-            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "gender";
+            this.dataGridViewTextBoxColumn7.HeaderText = "gender";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
-            // Id
+            // dataGridViewTextBoxColumn8
             // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 5;
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "created_At";
+            this.dataGridViewTextBoxColumn8.HeaderText = "created_At";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // ageDataGridViewTextBoxColumn
+            // 
+            this.ageDataGridViewTextBoxColumn.DataPropertyName = "age";
+            this.ageDataGridViewTextBoxColumn.HeaderText = "age";
+            this.ageDataGridViewTextBoxColumn.Name = "ageDataGridViewTextBoxColumn";
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Patients
             // 
@@ -268,9 +253,9 @@ namespace Dental.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,13 +308,9 @@ namespace Dental.Forms
         private System.Windows.Forms.BindingSource dentalDataSetBindingSource;
         private DentalDataSet dentalDataSet;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private DentalDataSet2 dentalDataSet2;
         private System.Windows.Forms.BindingSource patientsBindingSource;
-        private DentalDataSet2TableAdapters.PatientsTableAdapter patientsTableAdapter;
         private System.Windows.Forms.Button add_patient_btn;
-        private DentalDataSet7 dentalDataSet7;
         private BindingSource patientsBindingSource1;
-        private DentalDataSet7TableAdapters.PatientsTableAdapter patientsTableAdapter1;
         private DataGridViewTextBoxColumn firstnameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn lastnameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
@@ -337,8 +318,19 @@ namespace Dental.Forms
         private DataGridViewTextBoxColumn emailDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dOBDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn genderDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn age;
         private DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Id;
+        private DentalDataSet2 dentalDataSet2;
+        private BindingSource patientsBindingSource2;
+        private DentalDataSet2TableAdapters.PatientsTableAdapter patientsTableAdapter;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn ageDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
     }
 }

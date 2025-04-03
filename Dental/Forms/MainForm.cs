@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dental.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,15 +22,29 @@ namespace Dental.Forms
 
         public void loadMainForm(object Form)
         {
-            if (this.mainpanel.Controls.Count > 0)
-                this.mainpanel.Controls.RemoveAt(0);
 
-            Form f = Form as Form;
-            f.TopLevel = false;
-            f.Dock = DockStyle.Fill;
-            this.mainpanel.Controls.Add(f);
-            this.mainpanel.Tag = f;
-            f.Show();
+            string loggedUsername = Form1.GlobalVariables.LoggedInUsername;
+         if (loggedUsername == "user" || loggedUsername == "admin")
+            {
+                if (this.mainpanel.Controls.Count > 0)
+                    this.mainpanel.Controls.RemoveAt(0);
+
+                Form f = Form as Form;
+                f.TopLevel = false;
+                f.Dock = DockStyle.Fill;
+                this.mainpanel.Controls.Add(f);
+                this.mainpanel.Tag = f;
+                f.Show();
+            }
+            else
+            {
+                Application.Exit();
+            }
+
+
+
+
+          
 
         }
 

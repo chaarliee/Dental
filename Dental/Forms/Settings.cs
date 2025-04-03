@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dental.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,7 +36,7 @@ namespace Dental.Forms
 
         private void Settings_Load(object sender, EventArgs e)
         { 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your actual connection string
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
             string query = "SELECT application_name, phone, email, address, password FROM dbo.settings"; // Assuming you only want to select these columns
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -77,7 +78,7 @@ namespace Dental.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             //update settings here
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your actual connection string
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
             string query = "UPDATE dbo.settings SET application_name = @application_name, phone = @phone, email = @email, address = @address, password = @password, updated_At = GETDATE()";
 
             using (SqlConnection connection = new SqlConnection(connectionString))

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Net;
 using System.Data.SqlClient;
+using Dental.Model;
 
 namespace Dental.Forms.Dialogs
 {
@@ -47,7 +48,7 @@ namespace Dental.Forms.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "INSERT INTO services (services_name, fees) VALUES (@services_name, @fees)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))

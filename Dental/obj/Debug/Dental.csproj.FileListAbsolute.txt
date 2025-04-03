@@ -166,3 +166,10 @@ D:\Application_project\C#\Dental\Dental\bin\Debug\de\PdfSharp.resources.dll
 D:\Application_project\C#\Dental\Dental\bin\Debug\de\PdfSharp.Charting.resources.dll
 D:\Application_project\C#\Dental\Dental\bin\Debug\Twilio.dll
 D:\Application_project\C#\Dental\Dental\bin\Debug\Twilio.xml
+D:\Application_project\C#\Dental\Dental\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Application_project\C#\Dental\Dental\bin\Debug\Microsoft.Extensions.Configuration.dll
+D:\Application_project\C#\Dental\Dental\bin\Debug\Microsoft.Extensions.Configuration.xml
+D:\Application_project\C#\Dental\Dental\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+D:\Application_project\C#\Dental\Dental\obj\Debug\Dental.Forms.Dialogs.EditBilling.resources
+D:\Application_project\C#\Dental\Dental\bin\Debug\RestSharp.dll
+D:\Application_project\C#\Dental\Dental\bin\Debug\RestSharp.xml

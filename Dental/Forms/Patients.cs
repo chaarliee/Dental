@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using DevExpress.XtraBars.Customization;
 using System.Net;
+using Dental.Model;
 
 namespace Dental.Forms
 {
@@ -30,10 +31,9 @@ namespace Dental.Forms
 
         private void Patients_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dentalDataSet7.Patients' table. You can move, or remove it, as needed.
-            this.patientsTableAdapter1.Fill(this.dentalDataSet7.Patients);
             // TODO: This line of code loads data into the 'dentalDataSet2.Patients' table. You can move, or remove it, as needed.
             this.patientsTableAdapter.Fill(this.dentalDataSet2.Patients);
+
 
         }
 
@@ -52,7 +52,7 @@ namespace Dental.Forms
 
         private void loadData()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Patients";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -83,6 +83,42 @@ namespace Dental.Forms
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //if (e.RowIndex >= 0)
+            //{
+            //    // Get the selected row's data from the data source
+            //    int index = e.RowIndex;
+            //    DataGridViewRow selectedRow = dataGridView1.Rows[index];
+            //    string fname = selectedRow.Cells[0].Value.ToString(); // Assuming the first column is the ID
+            //    string lname = selectedRow.Cells[1].Value.ToString();
+            //    string address = selectedRow.Cells[2].Value.ToString();
+            //    string phone = selectedRow.Cells[3].Value.ToString();
+            //    string email = selectedRow.Cells[4].Value.ToString();
+            //    string dob = selectedRow.Cells[5].Value.ToString();
+            //    string gender = selectedRow.Cells[6].Value.ToString();
+            //    string age = selectedRow.Cells[8].Value.ToString();
+            //    int patient_id = int.Parse(selectedRow.Cells[9].Value.ToString());
+
+            //    EditPatient editPatientControl = new EditPatient();
+            //    editPatientControl.Id = patient_id;
+            //    editPatientControl.Fullname = fname;
+            //    editPatientControl.LastName = lname;
+            //    editPatientControl.Address = address;
+            //    editPatientControl.Phone = phone;
+            //    editPatientControl.Email = email;
+            //    editPatientControl.DateOfBirth = dob;
+            //    editPatientControl.Gender = gender;
+            //    editPatientControl.Age = age;
+
+            //    editPatientControl.DisplayData();
+            //    this.Controls.Add(editPatientControl);
+            //    editPatientControl.PatientEdited += AddPatientControl_PatientAdded;
+            //    editPatientControl.BringToFront();
+
+            //}
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
             if (e.RowIndex >= 0)
             {
                 // Get the selected row's data from the data source
@@ -95,7 +131,7 @@ namespace Dental.Forms
                 string email = selectedRow.Cells[4].Value.ToString();
                 string dob = selectedRow.Cells[5].Value.ToString();
                 string gender = selectedRow.Cells[6].Value.ToString();
-                string age = selectedRow.Cells[7].Value.ToString();
+                string age = selectedRow.Cells[8].Value.ToString();
                 int patient_id = int.Parse(selectedRow.Cells[9].Value.ToString());
 
                 EditPatient editPatientControl = new EditPatient();
@@ -115,13 +151,7 @@ namespace Dental.Forms
                 editPatientControl.BringToFront();
 
             }
+
         }
-
-
-
-
-
-
-
     }
 }

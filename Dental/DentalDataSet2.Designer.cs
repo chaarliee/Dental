@@ -297,6 +297,8 @@ namespace Dental {
             
             private global::System.Data.DataColumn columncreated_At;
             
+            private global::System.Data.DataColumn columnage;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public PatientsDataTable() {
@@ -404,6 +406,14 @@ namespace Dental {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ageColumn {
+                get {
+                    return this.columnage;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,10 +449,10 @@ namespace Dental {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PatientsRow AddPatientsRow(int Id, string first_name, string last_name, string address, string phone, string email, string DOB, string gender, string created_At) {
+            public PatientsRow AddPatientsRow(string first_name, string last_name, string address, string phone, string email, string DOB, string gender, string created_At, int age) {
                 PatientsRow rowPatientsRow = ((PatientsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Id,
+                        null,
                         first_name,
                         last_name,
                         address,
@@ -450,7 +460,8 @@ namespace Dental {
                         email,
                         DOB,
                         gender,
-                        created_At};
+                        created_At,
+                        age};
                 rowPatientsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPatientsRow);
                 return rowPatientsRow;
@@ -489,6 +500,7 @@ namespace Dental {
                 this.columnDOB = base.Columns["DOB"];
                 this.columngender = base.Columns["gender"];
                 this.columncreated_At = base.Columns["created_At"];
+                this.columnage = base.Columns["age"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -512,15 +524,21 @@ namespace Dental {
                 base.Columns.Add(this.columngender);
                 this.columncreated_At = new global::System.Data.DataColumn("created_At", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncreated_At);
+                this.columnage = new global::System.Data.DataColumn("age", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnage);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
                 this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnfirst_name.MaxLength = 100;
                 this.columnlast_name.MaxLength = 100;
                 this.columnaddress.MaxLength = 10;
                 this.columnphone.MaxLength = 255;
-                this.columnemail.MaxLength = 15;
+                this.columnemail.MaxLength = 255;
                 this.columnDOB.MaxLength = 100;
                 this.columngender.MaxLength = 100;
                 this.columncreated_At.MaxLength = 100;
@@ -805,6 +823,22 @@ namespace Dental {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int age {
+                get {
+                    try {
+                        return ((int)(this[this.tablePatients.ageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'age\' in table \'Patients\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePatients.ageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Isfirst_nameNull() {
                 return this.IsNull(this.tablePatients.first_nameColumn);
             }
@@ -897,6 +931,18 @@ namespace Dental {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setcreated_AtNull() {
                 this[this.tablePatients.created_AtColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsageNull() {
+                return this.IsNull(this.tablePatients.ageColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetageNull() {
+                this[this.tablePatients.ageColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1068,10 +1114,11 @@ namespace Dental.DentalDataSet2TableAdapters {
             tableMapping.ColumnMappings.Add("DOB", "DOB");
             tableMapping.ColumnMappings.Add("gender", "gender");
             tableMapping.ColumnMappings.Add("created_At", "created_At");
+            tableMapping.ColumnMappings.Add("age", "age");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Patients] WHERE (([Id] = @Original_Id) AND ((@IsNull_first_name = 1 AND [first_name] IS NULL) OR ([first_name] = @Original_first_name)) AND ((@IsNull_last_name = 1 AND [last_name] IS NULL) OR ([last_name] = @Original_last_name)) AND ((@IsNull_address = 1 AND [address] IS NULL) OR ([address] = @Original_address)) AND ((@IsNull_phone = 1 AND [phone] IS NULL) OR ([phone] = @Original_phone)) AND ((@IsNull_email = 1 AND [email] IS NULL) OR ([email] = @Original_email)) AND ((@IsNull_DOB = 1 AND [DOB] IS NULL) OR ([DOB] = @Original_DOB)) AND ((@IsNull_gender = 1 AND [gender] IS NULL) OR ([gender] = @Original_gender)) AND ((@IsNull_created_At = 1 AND [created_At] IS NULL) OR ([created_At] = @Original_created_At)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Patients] WHERE (([Id] = @Original_Id) AND ((@IsNull_first_name = 1 AND [first_name] IS NULL) OR ([first_name] = @Original_first_name)) AND ((@IsNull_last_name = 1 AND [last_name] IS NULL) OR ([last_name] = @Original_last_name)) AND ((@IsNull_address = 1 AND [address] IS NULL) OR ([address] = @Original_address)) AND ((@IsNull_phone = 1 AND [phone] IS NULL) OR ([phone] = @Original_phone)) AND ((@IsNull_email = 1 AND [email] IS NULL) OR ([email] = @Original_email)) AND ((@IsNull_DOB = 1 AND [DOB] IS NULL) OR ([DOB] = @Original_DOB)) AND ((@IsNull_gender = 1 AND [gender] IS NULL) OR ([gender] = @Original_gender)) AND ((@IsNull_created_At = 1 AND [created_At] IS NULL) OR ([created_At] = @Original_created_At)) AND ((@IsNull_age = 1 AND [age] IS NULL) OR ([age] = @Original_age)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::Microsoft.Data.SqlClient.SqlParameter param = new global::Microsoft.Data.SqlClient.SqlParameter();
             param.ParameterName = "@Original_Id";
@@ -1210,18 +1257,28 @@ namespace Dental.DentalDataSet2TableAdapters {
             param.SourceColumn = "created_At";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
-            this._adapter.InsertCommand = new global::Microsoft.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Patients] ([Id], [first_name], [last_name], [address], [phone], [email], [DOB], [gender], [created_At]) VALUES (@Id, @first_name, @last_name, @address, @phone, @email, @DOB, @gender, @created_At);
-SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At FROM Patients WHERE (Id = @Id)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Microsoft.Data.SqlClient.SqlParameter();
-            param.ParameterName = "@Id";
+            param.ParameterName = "@IsNull_age";
             param.DbType = global::System.Data.DbType.Int32;
             param.SqlDbType = global::System.Data.SqlDbType.Int;
             param.IsNullable = true;
-            param.SourceColumn = "Id";
-            this._adapter.InsertCommand.Parameters.Add(param);
+            param.SourceColumn = "age";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@Original_age";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.IsNullable = true;
+            param.SourceColumn = "age";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            this._adapter.InsertCommand = new global::Microsoft.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Patients] ([first_name], [last_name], [address], [phone], [email], [DOB], [gender], [created_At], [age]) VALUES (@first_name, @last_name, @address, @phone, @email, @DOB, @gender, @created_At, @age);
+SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At, age FROM Patients WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Microsoft.Data.SqlClient.SqlParameter();
             param.ParameterName = "@first_name";
             param.SqlDbType = global::System.Data.SqlDbType.NVarChar;
@@ -1270,19 +1327,19 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
             param.SqlDbType = global::System.Data.SqlDbType.NVarChar;
             param.IsNullable = true;
             param.SourceColumn = "created_At";
+            this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@age";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.IsNullable = true;
+            param.SourceColumn = "age";
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Patients] SET [Id] = @Id, [first_name] = @first_name, [last_name] = @last_name, [address] = @address, [phone] = @phone, [email] = @email, [DOB] = @DOB, [gender] = @gender, [created_At] = @created_At WHERE (([Id] = @Original_Id) AND ((@IsNull_first_name = 1 AND [first_name] IS NULL) OR ([first_name] = @Original_first_name)) AND ((@IsNull_last_name = 1 AND [last_name] IS NULL) OR ([last_name] = @Original_last_name)) AND ((@IsNull_address = 1 AND [address] IS NULL) OR ([address] = @Original_address)) AND ((@IsNull_phone = 1 AND [phone] IS NULL) OR ([phone] = @Original_phone)) AND ((@IsNull_email = 1 AND [email] IS NULL) OR ([email] = @Original_email)) AND ((@IsNull_DOB = 1 AND [DOB] IS NULL) OR ([DOB] = @Original_DOB)) AND ((@IsNull_gender = 1 AND [gender] IS NULL) OR ([gender] = @Original_gender)) AND ((@IsNull_created_At = 1 AND [created_At] IS NULL) OR ([created_At] = @Original_created_At)));
-SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At FROM Patients WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Patients] SET [first_name] = @first_name, [last_name] = @last_name, [address] = @address, [phone] = @phone, [email] = @email, [DOB] = @DOB, [gender] = @gender, [created_At] = @created_At, [age] = @age WHERE (([Id] = @Original_Id) AND ((@IsNull_first_name = 1 AND [first_name] IS NULL) OR ([first_name] = @Original_first_name)) AND ((@IsNull_last_name = 1 AND [last_name] IS NULL) OR ([last_name] = @Original_last_name)) AND ((@IsNull_address = 1 AND [address] IS NULL) OR ([address] = @Original_address)) AND ((@IsNull_phone = 1 AND [phone] IS NULL) OR ([phone] = @Original_phone)) AND ((@IsNull_email = 1 AND [email] IS NULL) OR ([email] = @Original_email)) AND ((@IsNull_DOB = 1 AND [DOB] IS NULL) OR ([DOB] = @Original_DOB)) AND ((@IsNull_gender = 1 AND [gender] IS NULL) OR ([gender] = @Original_gender)) AND ((@IsNull_created_At = 1 AND [created_At] IS NULL) OR ([created_At] = @Original_created_At)) AND ((@IsNull_age = 1 AND [age] IS NULL) OR ([age] = @Original_age)));
+SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At, age FROM Patients WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            param = new global::Microsoft.Data.SqlClient.SqlParameter();
-            param.ParameterName = "@Id";
-            param.DbType = global::System.Data.DbType.Int32;
-            param.SqlDbType = global::System.Data.SqlDbType.Int;
-            param.IsNullable = true;
-            param.SourceColumn = "Id";
-            this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::Microsoft.Data.SqlClient.SqlParameter();
             param.ParameterName = "@first_name";
             param.SqlDbType = global::System.Data.SqlDbType.NVarChar;
@@ -1331,6 +1388,13 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
             param.SqlDbType = global::System.Data.SqlDbType.NVarChar;
             param.IsNullable = true;
             param.SourceColumn = "created_At";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@age";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.IsNullable = true;
+            param.SourceColumn = "age";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::Microsoft.Data.SqlClient.SqlParameter();
             param.ParameterName = "@Original_Id";
@@ -1469,6 +1533,31 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
             param.SourceColumn = "created_At";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@IsNull_age";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.IsNullable = true;
+            param.SourceColumn = "age";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@Original_age";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.IsNullable = true;
+            param.SourceColumn = "age";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Microsoft.Data.SqlClient.SqlParameter();
+            param.ParameterName = "@Id";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.SqlDbType = global::System.Data.SqlDbType.Int;
+            param.Size = 4;
+            param.IsNullable = true;
+            param.SourceColumn = "Id";
+            this._adapter.UpdateCommand.Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1484,8 +1573,8 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
             this._commandCollection = new global::Microsoft.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::Microsoft.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At " +
-                "FROM dbo.Patients";
+            this._commandCollection[0].CommandText = "SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At," +
+                " age FROM dbo.Patients";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1546,7 +1635,7 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_first_name, string Original_last_name, string Original_address, string Original_phone, string Original_email, string Original_DOB, string Original_gender, string Original_created_At) {
+        public virtual int Delete(int Original_Id, string Original_first_name, string Original_last_name, string Original_address, string Original_phone, string Original_email, string Original_DOB, string Original_gender, string Original_created_At, global::System.Nullable<int> Original_age) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_first_name == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -1612,6 +1701,14 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
                 this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[16].Value = ((string)(Original_created_At));
             }
+            if ((Original_age.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[18].Value = ((int)(Original_age.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1632,55 +1729,60 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, string first_name, string last_name, string address, string phone, string email, string DOB, string gender, string created_At) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
+        public virtual int Insert(string first_name, string last_name, string address, string phone, string email, string DOB, string gender, string created_At, global::System.Nullable<int> age) {
             if ((first_name == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(first_name));
+            }
+            if ((last_name == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(first_name));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(last_name));
             }
-            if ((last_name == null)) {
+            if ((address == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(last_name));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(address));
             }
-            if ((address == null)) {
+            if ((phone == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(address));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(phone));
             }
-            if ((phone == null)) {
+            if ((email == null)) {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(phone));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(email));
             }
-            if ((email == null)) {
+            if ((DOB == null)) {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(email));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(DOB));
             }
-            if ((DOB == null)) {
+            if ((gender == null)) {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(DOB));
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(gender));
             }
-            if ((gender == null)) {
+            if ((created_At == null)) {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(gender));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(created_At));
             }
-            if ((created_At == null)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            if ((age.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(age.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(created_At));
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1703,7 +1805,6 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
-                    int Id, 
                     string first_name, 
                     string last_name, 
                     string address, 
@@ -1712,6 +1813,7 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
                     string DOB, 
                     string gender, 
                     string created_At, 
+                    global::System.Nullable<int> age, 
                     int Original_Id, 
                     string Original_first_name, 
                     string Original_last_name, 
@@ -1720,55 +1822,62 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
                     string Original_email, 
                     string Original_DOB, 
                     string Original_gender, 
-                    string Original_created_At) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
+                    string Original_created_At, 
+                    global::System.Nullable<int> Original_age, 
+                    int Id) {
             if ((first_name == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(first_name));
+            }
+            if ((last_name == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(first_name));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(last_name));
             }
-            if ((last_name == null)) {
+            if ((address == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(last_name));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(address));
             }
-            if ((address == null)) {
+            if ((phone == null)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(address));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(phone));
             }
-            if ((phone == null)) {
+            if ((email == null)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(phone));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(email));
             }
-            if ((email == null)) {
+            if ((DOB == null)) {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(email));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(DOB));
             }
-            if ((DOB == null)) {
+            if ((gender == null)) {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(DOB));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(gender));
             }
-            if ((gender == null)) {
+            if ((created_At == null)) {
                 this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(gender));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(created_At));
             }
-            if ((created_At == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            if ((age.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(age.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(created_At));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Id));
             if ((Original_first_name == null)) {
@@ -1835,6 +1944,15 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
                 this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
                 this.Adapter.UpdateCommand.Parameters[25].Value = ((string)(Original_created_At));
             }
+            if ((Original_age.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((int)(Original_age.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[28].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1864,6 +1982,7 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
                     string DOB, 
                     string gender, 
                     string created_At, 
+                    global::System.Nullable<int> age, 
                     int Original_Id, 
                     string Original_first_name, 
                     string Original_last_name, 
@@ -1872,8 +1991,9 @@ SELECT Id, first_name, last_name, address, phone, email, DOB, gender, created_At
                     string Original_email, 
                     string Original_DOB, 
                     string Original_gender, 
-                    string Original_created_At) {
-            return this.Update(Original_Id, first_name, last_name, address, phone, email, DOB, gender, created_At, Original_Id, Original_first_name, Original_last_name, Original_address, Original_phone, Original_email, Original_DOB, Original_gender, Original_created_At);
+                    string Original_created_At, 
+                    global::System.Nullable<int> Original_age) {
+            return this.Update(first_name, last_name, address, phone, email, DOB, gender, created_At, age, Original_Id, Original_first_name, Original_last_name, Original_address, Original_phone, Original_email, Original_DOB, Original_gender, Original_created_At, Original_age, Original_Id);
         }
     }
     

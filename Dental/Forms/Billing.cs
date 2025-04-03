@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dental.Forms.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,5 +30,40 @@ namespace Dental.Forms
             // TODO: This line of code loads data into the 'dentalDataSet6.View_appointment' table. You can move, or remove it, as needed.
 
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // Get the selected row's data from the data source
+
+                int index = e.RowIndex;
+                DataGridViewRow selectedRow = dataGridView1.Rows[index];
+
+                int appointment_id = int.Parse(selectedRow.Cells[6].Value.ToString());
+
+                //MessageBox.Show("appointment_id: " + appointment_id);
+                EditBilling editBillingControl = new EditBilling();
+                editBillingControl.fetched_appointment_id = appointment_id;
+
+
+                //editBillingControl.DisplayData();
+                this.Controls.Add(editBillingControl);
+                editBillingControl.BillingEdited += editBillingControl_BillingEdited;
+                editBillingControl.BringToFront();
+
+            }
+        }
+
+        private void editBillingControl_BillingEdited(object sender, EventArgs e)
+        {
+            loadData(); // Call the loadData method
+        }
+
+        public void loadData()
+        {
+
+        }
+
     }
 }

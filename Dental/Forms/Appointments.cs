@@ -1,4 +1,5 @@
 ﻿using Dental.Forms.Dialogs;
+using Dental.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,7 @@ namespace Dental.Forms
         public void getTotalAppointmentToday()
         {
 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT COUNT(*) FROM Appointments WHERE CAST(date AS DATE) = CAST(GETDATE() AS DATE)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))

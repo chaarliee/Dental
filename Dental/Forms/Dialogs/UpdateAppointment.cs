@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Dental.Model;
 
 namespace Dental.Forms.Dialogs
 {
@@ -47,7 +48,7 @@ namespace Dental.Forms.Dialogs
 
         public void LoadEditAppointmentData()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Appointments WHERE Id = @id";
            
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -133,7 +134,7 @@ namespace Dental.Forms.Dialogs
 
         public void LoadPatients()
         {
-           string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+           string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Patients";
 
             DataTable dataTable = GetDataFromSql(connectionString, query);
@@ -150,7 +151,7 @@ namespace Dental.Forms.Dialogs
 
         public void LoadDentist()
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM Dentists";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -181,7 +182,7 @@ namespace Dental.Forms.Dialogs
         {
             panelServicesEdit.Controls.Clear();
 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
+            string connectionString = Config.ConnectionString;
             string query = "SELECT * FROM appointment_services WHERE appointment_id = @appointment_id";
 
             // 1. Fill Panel with Controls and Empty Combo Data
@@ -195,7 +196,7 @@ namespace Dental.Forms.Dialogs
         private DataTable GetDynamicDataSource()
         {
             DataTable dt = new DataTable();
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your actual connection string
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
             string query = "SELECT Id, services_name FROM services";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -362,7 +363,7 @@ namespace Dental.Forms.Dialogs
           
 
 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your connection string
+            string connectionString = Config.ConnectionString; // Replace with your connection string
             string query = "UPDATE Appointments SET status = @status WHERE Id = @id";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -418,7 +419,7 @@ namespace Dental.Forms.Dialogs
 
 
 
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your connection string
+            string connectionString = Config.ConnectionString; // Replace with your connection string
             string query = "UPDATE Appointments SET status = @status, discount = @has_discount, total = @total WHERE Id = @id";
 
 
@@ -564,7 +565,7 @@ namespace Dental.Forms.Dialogs
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string connectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;"; // Replace with your actual connection string
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
 
             refreshServices(connectionString, appointment_id);
 
