@@ -14,9 +14,21 @@ namespace Dental.Forms
 {
     public partial class Settings: Form
     {
+
+        string loggedUsername = Form1.GlobalVariables.LoggedInUsername;
         public Settings()
         {
             InitializeComponent();
+
+            if (loggedUsername == "admin")
+            {
+                // Show the button if the user is admin
+                button2.Visible = true;
+            }
+            else
+            {
+                button2.Visible = false;
+            }
         }
 
         private void exit_Click(object sender, EventArgs e)

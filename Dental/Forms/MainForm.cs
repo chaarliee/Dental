@@ -98,5 +98,47 @@ namespace Dental.Forms
         {
             loadMainForm(new Billing());
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Check if the user clicked "Yes"
+            if (result == DialogResult.Yes)
+            {
+
+                Form1.GlobalVariables.LoggedInUsername = string.Empty; // Or null, depending on your preference
+
+                // Find and close the MainForm (assuming it's the active MDI child or an owned form)
+                foreach (Form openForm in Application.OpenForms)
+                {
+                    if (openForm.GetType().Name == "MainForm") // Replace "MainForm" with the actual class name of your main form
+                    {
+                        openForm.Close();
+                        break; // Assuming you only have one instance of MainForm open
+                    }
+                }
+
+                // Show Form1 (your login form)
+                Form1 loginForm = new Form1();
+                loginForm.Show();
+
+                // Optionally, close the current form if it's not Form1
+                if (this.GetType().Name != "Form1")
+                {
+                    this.Close();
+                }
+
+
+
+            }
+
+
+        }
+
+
+
+
     }
 }

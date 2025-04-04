@@ -538,6 +538,7 @@
             this.Controls.Add(this.btnSave);
             this.Name = "UpdateAppointment";
             this.Size = new System.Drawing.Size(565, 484);
+            this.Load += new System.EventHandler(this.UpdateAppointment_Load);
             this.panelServicesEdit.ResumeLayout(false);
             this.panelServicesEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.servicequantity_0)).EndInit();

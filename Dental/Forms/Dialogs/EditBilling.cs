@@ -17,7 +17,7 @@ namespace Dental.Forms.Dialogs
 
         public event EventHandler BillingEdited;
 
-
+        public string connectionString = Config.ConnectionString;
         public int fetched_appointment_id { get; set; }
 
         public int totalServices;
@@ -36,6 +36,10 @@ namespace Dental.Forms.Dialogs
             LoadServices(fetched_appointment_id);
 
             calculateTotal();
+
+            refreshServices(connectionString, fetched_appointment_id);
+
+
         }
 
 
@@ -43,7 +47,7 @@ namespace Dental.Forms.Dialogs
         {
             panelServicesEdit.Controls.Clear();
 
-            string connectionString = Config.ConnectionString;
+           
 
             // 1. Fill Panel with Controls and Empty Combo Data
             //FillPanelWithControls(connectionString);
@@ -132,7 +136,6 @@ namespace Dental.Forms.Dialogs
         private DataTable GetDynamicDataSource()
         {
             DataTable dt = new DataTable();
-            string connectionString = Config.ConnectionString; // Replace with your actual connection string
             string query = "SELECT Id, services_name FROM services";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -310,5 +313,75 @@ namespace Dental.Forms.Dialogs
         {
             calculateTotal();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
+
+            refreshServices(connectionString, fetched_appointment_id);
+
+            calculateTotal();
+        }
+
+        private void refreshServices(string connectionString, int appointment_id)
+        {
+            string query = "SELECT * FROM appointment_services WHERE appointment_id = @appointment_id";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@appointment_id", appointment_id);
+                    try
+                    {
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            int yOffset = 0; // Initialize yOffset to 0
+                            int rowIndex = 0;
+                            while (reader.Read()) // Adjust count if needed
+                            {
+                                //MessageBox.Show("appointment_id: " + appointment_id);
+                                int serviceId = Convert.ToInt32(reader["services_id"]);
+                                //MessageBox.Show("services_id: " + Convert.ToInt32(reader["services_id"]));
+
+
+                                ComboBox comboBox = (ComboBox)panelServicesEdit.Controls["servicecombobox_" + rowIndex];
+                                if (comboBox != null)
+                                {
+                                    comboBox.SelectedValue = serviceId;
+                                }
+
+                                NumericUpDown numericUPdown = (NumericUpDown)panelServicesEdit.Controls["servicequantity_" + rowIndex];
+                                if (numericUPdown != null)
+                                {
+                                    numericUPdown.Value = Convert.ToDecimal(reader["quantity"]);
+                                }
+                                //numericUpDownQty.Value = Convert.ToDecimal(reader["quantity"]);
+
+                                TextBox textBox = (TextBox)panelServicesEdit.Controls["serviceprice_" + rowIndex];
+                                if (numericUPdown != null)
+                                {
+                                    textBox.Text = reader["price"].ToString();
+                                }
+                                //textBoxPrice.Text = reader["price"].ToString();
+
+
+                                yOffset += 30;
+                                rowIndex++;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred while loading the patients: " + ex.Message);
+                    }
+                }
+            }
+
+
+        }
+
+
     }
 }

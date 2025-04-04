@@ -18,6 +18,9 @@ namespace Dental
         public Form1()
         {
             InitializeComponent();
+
+            linkLabel1.Visible = false;
+            linkLabel2.Visible = false;
         }
 
         public static class GlobalVariables

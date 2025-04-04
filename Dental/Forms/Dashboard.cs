@@ -373,21 +373,77 @@ namespace Dental.Forms
         private async void button2_Click(object sender, EventArgs e)
         {
 
-            string phoneNumber = "09976921606"; // Get from TextBox
-            string message = "Notification from Dental"; // Get from TextBox
-            string senderName = "SEMAPHORE"; // Or get from another source
+            string apiKey = "1576|IdbSlwTWJ0JlvrpklWxhbwaeJ0Byzq7brF0Gk46d"; // Replace with your actual PhilSMS API key
+            string recipientNumber = "639190976944"; // Replace with the recipient's phone number (including country code)
+            string senderId = "PhilSMS"; // Replace with your sender ID (e.g., your business name)
+            string smsMessage = "This is a test message"; // Replace with your message
 
-
-            bool success = await SendSmsAsync(phoneNumber, message, senderName);
-
-            if (success)
+            try
             {
-                MessageBox.Show("SMS sent successfully!", "Success");
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+                    var payload = new
+                    {
+                        recipient = recipientNumber,
+                        sender_id = senderId,
+                        type = "plain",
+                        message = smsMessage
+                    };
+
+                    var jsonPayload = JsonConvert.SerializeObject(payload);
+                    var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync("https://app.philsms.com/api/v3/sms/send", content);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string errorResponse = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Error sending SMS. Status Code: {response.StatusCode}, Response: {errorResponse}");
+                        Console.WriteLine($"Error sending SMS. Status Code: {response.StatusCode}, Response: {errorResponse}");
+                        return;
+                    }
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("SMS sent successfully!\n" + responseBody);
+                    Console.WriteLine(responseBody);
+                }
             }
-            else
+            catch (HttpRequestException ex)
             {
-                MessageBox.Show("Failed to send SMS.", "Error");
+                MessageBox.Show("Error sending SMS (HTTP): " + ex.Message);
+                Console.WriteLine($"HttpRequestException: {ex.Message}");
             }
+            catch (JsonException ex)
+            {
+                MessageBox.Show("Error sending SMS (JSON): " + ex.Message);
+                Console.WriteLine($"JsonException: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error sending SMS (General): " + ex.Message);
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+
+
+
+            //string phoneNumber = "09976921606"; // Get from TextBox
+            //string message = "Notification from Dental"; // Get from TextBox
+            //string senderName = "SEMAPHORE"; // Or get from another source
+
+
+            //bool success = await SendSmsAsync(phoneNumber, message, senderName);
+
+            //if (success)
+            //{
+            //    MessageBox.Show("SMS sent successfully!", "Success");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Failed to send SMS.", "Error");
+            //}
 
         }
 

@@ -191,7 +191,7 @@
             // 
             this.txtDOB.Location = new System.Drawing.Point(220, 91);
             this.txtDOB.Name = "txtDOB";
-            this.txtDOB.Size = new System.Drawing.Size(200, 20);
+            this.txtDOB.Size = new System.Drawing.Size(180, 20);
             this.txtDOB.TabIndex = 18;
             // 
             // AddDentists

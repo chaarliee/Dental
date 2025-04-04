@@ -38,6 +38,18 @@ namespace Dental.Forms
             this.panel1 = new System.Windows.Forms.Panel();
             this.add_appointment_btn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.first_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.services_names = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.service_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.viewappointmentBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.dentalDataSet9 = new Dental.DentalDataSet9();
             this.viewappointmentBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.dentalDataSet5 = new Dental.DentalDataSet5();
             this.viewappointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -58,30 +70,23 @@ namespace Dental.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.view_appointmentTableAdapter = new Dental.view_appointmentTableAdapters.View_appointmentTableAdapter();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.updatedView_appointment = new Dental.UpdatedView_appointment();
             this.viewappointmentBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.view_appointmentTableAdapter1 = new Dental.UpdatedView_appointmentTableAdapters.View_appointmentTableAdapter();
             this.view_appointmentTableAdapter2 = new Dental.DentalDataSet5TableAdapters.View_appointmentTableAdapter();
-            this.first_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.services_names = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.service_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dentalDataSet9 = new Dental.DentalDataSet9();
-            this.viewappointmentBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.view_appointmentTableAdapter3 = new Dental.DentalDataSet9TableAdapters.View_appointmentTableAdapter();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource)).BeginInit();
@@ -94,8 +99,6 @@ namespace Dental.Forms
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updatedView_appointment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource3)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -172,6 +175,78 @@ namespace Dental.Forms
             this.dataGridView1.Size = new System.Drawing.Size(798, 356);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            // 
+            // first_name
+            // 
+            this.first_name.DataPropertyName = "first_name";
+            this.first_name.HeaderText = "Patient";
+            this.first_name.Name = "first_name";
+            // 
+            // FullName
+            // 
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.HeaderText = "Dentist";
+            this.FullName.Name = "FullName";
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.MaxInputLength = 3276743;
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            // 
+            // timeDataGridViewTextBoxColumn
+            // 
+            this.timeDataGridViewTextBoxColumn.DataPropertyName = "time";
+            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
+            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
+            // 
+            // services_names
+            // 
+            this.services_names.DataPropertyName = "services_names";
+            this.services_names.HeaderText = "Services";
+            this.services_names.Name = "services_names";
+            // 
+            // phone
+            // 
+            this.phone.DataPropertyName = "phone";
+            this.phone.HeaderText = "Phone";
+            this.phone.Name = "phone";
+            // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            // 
+            // service_status
+            // 
+            this.service_status.DataPropertyName = "service_status";
+            this.service_status.HeaderText = "Payment Status";
+            this.service_status.Name = "service_status";
+            // 
+            // createdAtDataGridViewTextBoxColumn
+            // 
+            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "created_At";
+            this.createdAtDataGridViewTextBoxColumn.HeaderText = "created_At";
+            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.Width = 5;
+            // 
+            // viewappointmentBindingSource3
+            // 
+            this.viewappointmentBindingSource3.DataMember = "View_appointment";
+            this.viewappointmentBindingSource3.DataSource = this.dentalDataSet9;
+            // 
+            // dentalDataSet9
+            // 
+            this.dentalDataSet9.DataSetName = "DentalDataSet9";
+            this.dentalDataSet9.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // viewappointmentBindingSource2
             // 
@@ -262,6 +337,7 @@ namespace Dental.Forms
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(231, 20);
             this.dateTimePicker1.TabIndex = 20;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // appointmentsTableAdapter
             // 
@@ -322,93 +398,21 @@ namespace Dental.Forms
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Location = new System.Drawing.Point(533, 95);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Location = new System.Drawing.Point(533, 119);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(232, 100);
+            this.panel2.Size = new System.Drawing.Size(232, 76);
             this.panel2.TabIndex = 22;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(137, 62);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(59, 25);
-            this.button4.TabIndex = 26;
-            this.button4.Text = "11 am";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(137, 33);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(59, 25);
-            this.button5.TabIndex = 25;
-            this.button5.Text = "10 am";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(51, 62);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(59, 25);
-            this.button3.TabIndex = 24;
-            this.button3.Text = "9 am";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(8)))), ((int)(((byte)(138)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(51, 33);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(59, 25);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "8 am";
-            this.button2.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(61, 9);
+            this.label6.Location = new System.Drawing.Point(581, 95);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 18);
             this.label6.TabIndex = 0;
@@ -432,90 +436,91 @@ namespace Dental.Forms
             // 
             this.view_appointmentTableAdapter2.ClearBeforeFill = true;
             // 
-            // first_name
-            // 
-            this.first_name.DataPropertyName = "first_name";
-            this.first_name.HeaderText = "Patient";
-            this.first_name.Name = "first_name";
-            // 
-            // FullName
-            // 
-            this.FullName.DataPropertyName = "FullName";
-            this.FullName.HeaderText = "Dentist";
-            this.FullName.Name = "FullName";
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.MaxInputLength = 3276743;
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            // 
-            // timeDataGridViewTextBoxColumn
-            // 
-            this.timeDataGridViewTextBoxColumn.DataPropertyName = "time";
-            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
-            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
-            // 
-            // services_names
-            // 
-            this.services_names.DataPropertyName = "services_names";
-            this.services_names.HeaderText = "Services";
-            this.services_names.Name = "services_names";
-            // 
-            // phone
-            // 
-            this.phone.DataPropertyName = "phone";
-            this.phone.HeaderText = "Phone";
-            this.phone.Name = "phone";
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            // 
-            // service_status
-            // 
-            this.service_status.DataPropertyName = "service_status";
-            this.service_status.HeaderText = "Payment Status";
-            this.service_status.Name = "service_status";
-            // 
-            // createdAtDataGridViewTextBoxColumn
-            // 
-            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "created_At";
-            this.createdAtDataGridViewTextBoxColumn.HeaderText = "created_At";
-            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.Width = 5;
-            // 
-            // dentalDataSet9
-            // 
-            this.dentalDataSet9.DataSetName = "DentalDataSet9";
-            this.dentalDataSet9.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // viewappointmentBindingSource3
-            // 
-            this.viewappointmentBindingSource3.DataMember = "View_appointment";
-            this.viewappointmentBindingSource3.DataSource = this.dentalDataSet9;
-            // 
             // view_appointmentTableAdapter3
             // 
             this.view_appointmentTableAdapter3.ClearBeforeFill = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(655, 52);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 20);
+            this.button6.TabIndex = 24;
+            this.button6.Text = "Refresh";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(324, 52);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 20);
+            this.button7.TabIndex = 23;
+            this.button7.Text = "Search";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(15, 3);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(12, 15);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "-";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(15, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(12, 15);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "-";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 33);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(12, 15);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "-";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(15, 48);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(12, 15);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "-";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(122, 3);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(12, 15);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "-";
             // 
             // Appointments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 569);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.appointmentNumberPanel);
             this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.active_button);
             this.Controls.Add(this.add_appointment_btn);
@@ -529,6 +534,8 @@ namespace Dental.Forms
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource)).EndInit();
@@ -543,8 +550,6 @@ namespace Dental.Forms
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updatedView_appointment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,10 +604,6 @@ namespace Dental.Forms
         private view_appointmentTableAdapters.View_appointmentTableAdapter view_appointmentTableAdapter;
         private Panel panel2;
         private Label label6;
-        private Button button4;
-        private Button button5;
-        private Button button3;
-        private Button button2;
         private UpdatedView_appointment updatedView_appointment;
         private BindingSource viewappointmentBindingSource1;
         private UpdatedView_appointmentTableAdapters.View_appointmentTableAdapter view_appointmentTableAdapter1;
@@ -622,5 +623,12 @@ namespace Dental.Forms
         private DentalDataSet9 dentalDataSet9;
         private BindingSource viewappointmentBindingSource3;
         private DentalDataSet9TableAdapters.View_appointmentTableAdapter view_appointmentTableAdapter3;
+        private Button button6;
+        private Button button7;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label label5;
+        private Label label4;
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Dental.Forms.Dialogs;
+using Dental.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,7 +42,7 @@ namespace Dental.Forms
                 int index = e.RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[index];
 
-                int appointment_id = int.Parse(selectedRow.Cells[6].Value.ToString());
+                int appointment_id = int.Parse(selectedRow.Cells[0].Value.ToString());
 
                 //MessageBox.Show("appointment_id: " + appointment_id);
                 EditBilling editBillingControl = new EditBilling();
@@ -62,8 +64,85 @@ namespace Dental.Forms
 
         public void loadData()
         {
-
+            textBox1.Clear();
+            string connectionString = Config.ConnectionString;
+            string query = "SELECT  Id, date, time, reason, status, FullName, first_name, last_name, phone, created_At, service_status, services_names, email FROM View_appointment";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+                            dataGridView1.DataSource = dt;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            loadData();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string connectionString = Config.ConnectionString;
+            string searchTerm = textBox1.Text.Trim(); // Get the search term and remove leading/trailing whitespace
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                MessageBox.Show("Please enter a search term.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string query = @"SELECT Id, date, time, reason, status, FullName, first_name, last_name, phone, created_At, service_status, services_names, email
+                       FROM View_appointment
+                       WHERE first_name LIKE @searchTerm OR
+                             FullName LIKE @searchTerm OR
+                             CONVERT(VARCHAR, date, 101) LIKE @searchTerm OR -- Searching date (MM/DD/YYYY format)
+                             CONVERT(VARCHAR, time, 108) LIKE @searchTerm OR -- Searching time (HH:MM:SS format)
+                             phone LIKE @searchTerm OR
+                             service_status LIKE @searchTerm";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Use parameterized query to prevent SQL injection
+                        command.Parameters.AddWithValue("@searchTerm", "%" + searchTerm + "%");
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            DataTable searchResults = new DataTable();
+                            adapter.Fill(searchResults);
+
+                            // Bind the DataTable to your DataGridView
+                            dataGridView1.DataSource = searchResults;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error searching patients: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+
 
     }
 }

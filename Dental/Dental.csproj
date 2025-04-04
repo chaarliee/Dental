@@ -307,6 +307,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DentalDataSet6.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DentalDataSet7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet7.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DentalDataSet8.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -382,11 +387,23 @@
     <Compile Include="Forms\Dialogs\EditBilling.Designer.cs">
       <DependentUpon>EditBilling.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dialogs\EditDentists.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\EditDentists.Designer.cs">
+      <DependentUpon>EditDentists.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Dialogs\EditPatient.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Dialogs\EditPatient.Designer.cs">
       <DependentUpon>EditPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dialogs\EditServices.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\EditServices.Designer.cs">
+      <DependentUpon>EditServices.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Dialogs\UpdateAppointment.cs">
       <SubType>UserControl</SubType>
@@ -473,8 +490,14 @@
     <EmbeddedResource Include="Forms\Dialogs\EditBilling.resx">
       <DependentUpon>EditBilling.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\EditDentists.resx">
+      <DependentUpon>EditDentists.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\EditPatient.resx">
       <DependentUpon>EditPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\EditServices.resx">
+      <DependentUpon>EditServices.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\UpdateAppointment.resx">
       <DependentUpon>UpdateAppointment.cs</DependentUpon>
@@ -604,6 +627,17 @@
     </None>
     <None Include="DentalDataSet6.xss">
       <DependentUpon>DentalDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet7.xsc">
+      <DependentUpon>DentalDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet7.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet7.xss">
+      <DependentUpon>DentalDataSet7.xsd</DependentUpon>
     </None>
     <None Include="DentalDataSet8.xsc">
       <DependentUpon>DentalDataSet8.xsd</DependentUpon>

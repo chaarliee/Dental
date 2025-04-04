@@ -17,6 +17,9 @@ namespace Dental.Forms
 {
     public partial class Patients: Form
     {
+
+
+        private string connectionString = Config.ConnectionString;
         public Patients()
         {
             InitializeComponent();
@@ -124,15 +127,17 @@ namespace Dental.Forms
                 // Get the selected row's data from the data source
                 int index = e.RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[index];
-                string fname = selectedRow.Cells[0].Value.ToString(); // Assuming the first column is the ID
-                string lname = selectedRow.Cells[1].Value.ToString();
-                string address = selectedRow.Cells[2].Value.ToString();
-                string phone = selectedRow.Cells[3].Value.ToString();
-                string email = selectedRow.Cells[4].Value.ToString();
-                string dob = selectedRow.Cells[5].Value.ToString();
-                string gender = selectedRow.Cells[6].Value.ToString();
-                string age = selectedRow.Cells[8].Value.ToString();
-                int patient_id = int.Parse(selectedRow.Cells[9].Value.ToString());
+                int patient_id = int.Parse(selectedRow.Cells[0].Value.ToString());
+
+                string fname = selectedRow.Cells[1].Value.ToString(); // Assuming the first column is the ID
+                string lname = selectedRow.Cells[2].Value.ToString();
+                string address = selectedRow.Cells[3].Value.ToString();
+                string phone = selectedRow.Cells[4].Value.ToString();
+                string email = selectedRow.Cells[5].Value.ToString();
+                string dob = selectedRow.Cells[6].Value.ToString();
+                string gender = selectedRow.Cells[7].Value.ToString();
+                string age = selectedRow.Cells[9].Value.ToString();
+             
 
                 EditPatient editPatientControl = new EditPatient();
                 editPatientControl.Id = patient_id;
@@ -152,6 +157,57 @@ namespace Dental.Forms
 
             }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string searchTerm = textBox1.Text.Trim(); // Get the search term and remove leading/trailing whitespace
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                MessageBox.Show("Please enter a search term.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            string query = @"SELECT Id,first_name, last_name, address, phone, email, DOB, gender, created_At, age
+                           FROM Patients
+                           WHERE first_name LIKE @searchTerm OR
+                                 last_name LIKE @searchTerm OR
+                                 address LIKE @searchTerm OR
+                                 email LIKE @searchTerm OR
+                                 phone LIKE @searchTerm"; // Searching across multiple relevant fields
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Use parameterized query to prevent SQL injection
+                        command.Parameters.AddWithValue("@searchTerm", "%" + searchTerm + "%");
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            DataTable searchResults = new DataTable();
+                            adapter.Fill(searchResults);
+
+                            // Bind the DataTable to your DataGridView
+                            dataGridView1.DataSource = searchResults;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error searching patients: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            loadData(); // Reload the data to show all patients
+            textBox1.Clear(); // Clear the search box
         }
     }
 }

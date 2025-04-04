@@ -239,8 +239,6 @@ namespace Dental.Forms.Dialogs
 
                 foreach (DataRow row in serviceDataTable.Rows)
                 {
-                    MessageBox.Show("row: " + row);
-
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {

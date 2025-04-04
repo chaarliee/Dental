@@ -653,10 +653,13 @@ namespace Dental.Forms.Dialogs
             total_textbox.Text = total_price.ToString();
         }
 
+        private void UpdateAppointment_Load(object sender, EventArgs e)
+        {
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
 
+            refreshServices(connectionString, appointment_id);
 
-
-
-
+            calculateTotal();
+        }
     }
 }
