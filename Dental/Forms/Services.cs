@@ -118,6 +118,8 @@ namespace Dental.Forms
 
         private void Services_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dentalDataSet13.services' table. You can move, or remove it, as needed.
+            this.servicesTableAdapter1.Fill(this.dentalDataSet13.services);
             // TODO: This line of code loads data into the 'dentalDataSet7.services' table. You can move, or remove it, as needed.
             this.servicesTableAdapter.Fill(this.dentalDataSet7.services);
 

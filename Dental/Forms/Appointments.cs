@@ -30,9 +30,13 @@ namespace Dental.Forms
 
         public void getTotalAppointmentToday()
         {
-
             string connectionString = Config.ConnectionString;
-            string query = "SELECT COUNT(*) FROM Appointments WHERE CAST(date AS DATE) = CAST(GETDATE() AS DATE)";
+            string query = @"
+                SELECT COUNT(*) 
+                FROM Appointments 
+                WHERE 
+            CAST(date AS DATE) = CAST(GETDATE() AS DATE)
+            AND time >= CAST(GETDATE() AS TIME)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -47,7 +51,7 @@ namespace Dental.Forms
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error getting total appointments: " + ex.Message);
-                        label_number_appointment.Text = "0"; // Or some default value
+                        label_number_appointment.Text = "0";
                     }
                 }
             }
@@ -194,7 +198,25 @@ namespace Dental.Forms
 
         public void DisplayAvailableTimesInLabels(DateTime selectedDate)
         {
-            DataTable availableTimes = GetTop5AvailableTimes(selectedDate);
+            TimeSpan currentTime;
+
+            if (selectedDate.Date == DateTime.Today)
+            {
+                // If today, start from current time
+                currentTime = DateTime.Now.TimeOfDay;
+            }
+            else if (selectedDate.Date > DateTime.Today)
+            {
+                // Future date: start from 00:00
+                currentTime = TimeSpan.Zero;
+            }
+            else
+            {
+                MessageBox.Show("Selected date is in the past. Please select today or a future date.");
+                return;
+            }
+
+            DataTable availableTimes = GetTop5AvailableTimes(selectedDate, currentTime);
 
             // Clear existing label text
             label4.Text = "";
@@ -209,60 +231,47 @@ namespace Dental.Forms
                 string time = availableTimes.Rows[i]["time"].ToString();
                 switch (i)
                 {
-                    case 0:
-                        label4.Text = time;
-                        break;
-                    case 1:
-                        label5.Text = time;
-                        break;
-                    case 2:
-                        label7.Text = time;
-                        break;
-                    case 3:
-                        label8.Text = time;
-                        break;
-                    case 4:
-                        label9.Text = time;
-                        break;
+                    case 0: label4.Text = time; break;
+                    case 1: label5.Text = time; break;
+                    case 2: label7.Text = time; break;
+                    case 3: label8.Text = time; break;
+                    case 4: label9.Text = time; break;
                 }
             }
         }
 
-        public DataTable GetTop5AvailableTimes(DateTime selectedDate)
+        public DataTable GetTop5AvailableTimes(DateTime selectedDate, TimeSpan currentTime)
         {
             string connectionString = Config.ConnectionString;
             DataTable availableTimes = new DataTable();
 
-            // Construct the SQL query
             string query = @"
-                WITH PotentialTimes AS (
-                    -- Generate a series of potential appointment times in 30-minute intervals
-                    SELECT CONVERT(TIME, '09:00:00') AS PotentialTime
-                    UNION ALL
-                    SELECT DATEADD(MINUTE, 30, PotentialTime)
-                    FROM PotentialTimes
-                    WHERE DATEADD(MINUTE, 30, PotentialTime) <= CONVERT(TIME, '17:00:00') -- Adjust end time as needed
-                ),
-                BookedTimes AS (
-                    -- Get the existing appointment times for the selected date
-                    SELECT CONVERT(TIME, time) AS BookedTime
-                    FROM view_appointment
-                    WHERE CONVERT(DATE, date) = @selectedDate AND status <> 'Finished' -- Adjust 'Finished' as needed
-                ),
-                AvailableTimes AS (
-                    -- Find potential times that are not within 30 minutes of booked times
-                    SELECT PotentialTime
-                    FROM PotentialTimes
-                    WHERE NOT EXISTS (
-                        SELECT 1
-                        FROM BookedTimes
-                        WHERE PotentialTime >= DATEADD(MINUTE, -30, BookedTime) AND PotentialTime <= DATEADD(MINUTE, 30, BookedTime)
-                    )
+        WITH PotentialTimes AS (
+            SELECT CONVERT(TIME, '09:00:00') AS PotentialTime
+            UNION ALL
+            SELECT DATEADD(MINUTE, 30, PotentialTime)
+            FROM PotentialTimes
+            WHERE DATEADD(MINUTE, 30, PotentialTime) <= CONVERT(TIME, '17:00:00')
+        ),
+        BookedTimes AS (
+            SELECT CONVERT(TIME, time) AS BookedTime
+            FROM view_appointment
+            WHERE CONVERT(DATE, date) = @selectedDate AND status <> 'Finished'
+        ),
+        AvailableTimes AS (
+            SELECT PotentialTime
+            FROM PotentialTimes
+            WHERE 
+                PotentialTime >= @currentTime AND
+                NOT EXISTS (
+                    SELECT 1
+                    FROM BookedTimes
+                    WHERE PotentialTime >= DATEADD(MINUTE, -30, BookedTime) AND PotentialTime <= DATEADD(MINUTE, 30, BookedTime)
                 )
-                -- Select the top 5 available times
-                SELECT TOP 5 CONVERT(VARCHAR, PotentialTime, 108) AS time  -- Convert time to HH:MM:SS format
-                FROM AvailableTimes
-                ORDER BY PotentialTime ASC";
+        )
+        SELECT TOP 5 CONVERT(VARCHAR, PotentialTime, 108) AS time
+        FROM AvailableTimes
+        ORDER BY PotentialTime ASC";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -271,8 +280,8 @@ namespace Dental.Forms
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        // Add the parameter for the selected date
                         command.Parameters.AddWithValue("@selectedDate", selectedDate.Date);
+                        command.Parameters.AddWithValue("@currentTime", currentTime);
 
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
@@ -289,7 +298,9 @@ namespace Dental.Forms
             return availableTimes;
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
-
+        }
     }
 }

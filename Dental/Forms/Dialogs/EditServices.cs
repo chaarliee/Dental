@@ -57,26 +57,30 @@ namespace Dental.Forms.Dialogs
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // 1. Validate Input (Important!)
+            // 1. Validate Input
             if (string.IsNullOrEmpty(services.Text) || string.IsNullOrEmpty(fees.Text))
             {
                 MessageBox.Show("Please fill in all fields.");
-                return; // Exit the method if validation fails
+                return;
             }
 
             decimal serviceFeeValue;
             if (!decimal.TryParse(fees.Text, out serviceFeeValue))
             {
                 MessageBox.Show("Invalid fee format. Please enter a valid number.");
-                return; // Exit the method if parsing fails
+                return;
             }
 
-            // 2. Database Connection and Command
-            string connectionString = Config.ConnectionString; // Replace with your actual connection string
+            // Get checkbox value for 'fixed'
+            int fixedValue = checkBox1.Checked ? 1 : 0;
+
+            // 2. SQL Query including fixed column
+            string connectionString = Config.ConnectionString;
             string query = "UPDATE services " +
                            "SET services_name = @services_name, " +
-                           "    fees = @fees " +
-                           "WHERE Id = @services_id"; // Assuming 'id' is the primary key
+                           "    fees = @fees, " +
+                           "    fixed = @fixed " +
+                           "WHERE Id = @services_id";
 
             try
             {
@@ -86,25 +90,22 @@ namespace Dental.Forms.Dialogs
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        // 3. Add Parameters (Prevent SQL Injection)
                         command.Parameters.AddWithValue("@services_name", services.Text);
                         command.Parameters.AddWithValue("@fees", serviceFeeValue);
-                        command.Parameters.AddWithValue("@services_id", services_id); // Add the ID parameter
+                        command.Parameters.AddWithValue("@fixed", fixedValue);
+                        command.Parameters.AddWithValue("@services_id", services_id);
 
-                        // 4. Execute the Query
                         int rowsAffected = command.ExecuteNonQuery();
 
-                        // 5. Handle the Result
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Service information updated successfully.");
-                            // Raise the ServicesEdited event (if needed)
                             ServicesEdited?.Invoke(this, EventArgs.Empty);
 
-                            // Clear the form or perform other actions as needed
                             services.Text = "";
                             fees.Text = "";
-                            CloseControl(); // Assuming you want to close the control after saving
+                            checkBox1.Checked = false;
+                            CloseControl();
                         }
                         else
                         {
@@ -115,11 +116,46 @@ namespace Dental.Forms.Dialogs
             }
             catch (Exception ex)
             {
-                // 6. Handle Exceptions (Important!)
                 MessageBox.Show("Error updating service information: " + ex.Message);
-                // Log the exception for debugging purposes.
-                // You might want to provide more user-friendly error messages.
             }
+        }
+
+        private void EditServices_Load(object sender, EventArgs e)
+        {
+
+            string connectionString = Config.ConnectionString;
+            string query = "SELECT services_name, fees, fixed FROM services WHERE Id = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Id", services_id);
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Assign to your form fields
+                            services.Text = reader["services_name"].ToString();
+                            fees.Text = reader["fees"].ToString();
+                            checkBox1.Checked = Convert.ToBoolean(reader["fixed"]);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Service not found.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading service: " + ex.Message);
+                }
+            }
+
+
         }
     }
 }

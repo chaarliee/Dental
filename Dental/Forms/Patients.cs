@@ -34,6 +34,8 @@ namespace Dental.Forms
 
         private void Patients_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dentalDataSet12.Patients' table. You can move, or remove it, as needed.
+            this.patientsTableAdapter1.Fill(this.dentalDataSet12.Patients);
             // TODO: This line of code loads data into the 'dentalDataSet2.Patients' table. You can move, or remove it, as needed.
             this.patientsTableAdapter.Fill(this.dentalDataSet2.Patients);
 
@@ -137,7 +139,8 @@ namespace Dental.Forms
                 string dob = selectedRow.Cells[6].Value.ToString();
                 string gender = selectedRow.Cells[7].Value.ToString();
                 string age = selectedRow.Cells[9].Value.ToString();
-             
+                int insurance = int.Parse(selectedRow.Cells[10].Value.ToString());
+
 
                 EditPatient editPatientControl = new EditPatient();
                 editPatientControl.Id = patient_id;
@@ -149,6 +152,7 @@ namespace Dental.Forms
                 editPatientControl.DateOfBirth = dob;
                 editPatientControl.Gender = gender;
                 editPatientControl.Age = age;
+                editPatientControl.Insurance = insurance;
 
                 editPatientControl.DisplayData();
                 this.Controls.Add(editPatientControl);

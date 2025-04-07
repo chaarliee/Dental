@@ -34,19 +34,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.add_patient_btn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.servicesnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.feesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.servicesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dentalDataSet7 = new Dental.DentalDataSet7();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.servicesTableAdapter = new Dental.DentalDataSet7TableAdapters.servicesTableAdapter();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.dentalDataSet13 = new Dental.DentalDataSet13();
+            this.servicesBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.servicesTableAdapter1 = new Dental.DentalDataSet13TableAdapters.servicesTableAdapter();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.servicesnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.feesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.servicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.servicesBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // exit
@@ -109,32 +114,12 @@
             this.idDataGridViewTextBoxColumn,
             this.servicesnameDataGridViewTextBoxColumn,
             this.feesDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.servicesBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(-7, 85);
+            this.dataGridView1.DataSource = this.servicesBindingSource1;
+            this.dataGridView1.Location = new System.Drawing.Point(7, 87);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(798, 437);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Width = 5;
-            // 
-            // servicesnameDataGridViewTextBoxColumn
-            // 
-            this.servicesnameDataGridViewTextBoxColumn.DataPropertyName = "services_name";
-            this.servicesnameDataGridViewTextBoxColumn.HeaderText = "Service Name";
-            this.servicesnameDataGridViewTextBoxColumn.Name = "servicesnameDataGridViewTextBoxColumn";
-            // 
-            // feesDataGridViewTextBoxColumn
-            // 
-            this.feesDataGridViewTextBoxColumn.DataPropertyName = "fees";
-            this.feesDataGridViewTextBoxColumn.HeaderText = "Fee";
-            this.feesDataGridViewTextBoxColumn.Name = "feesDataGridViewTextBoxColumn";
             // 
             // servicesBindingSource
             // 
@@ -177,6 +162,40 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // dentalDataSet13
+            // 
+            this.dentalDataSet13.DataSetName = "DentalDataSet13";
+            this.dentalDataSet13.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // servicesBindingSource1
+            // 
+            this.servicesBindingSource1.DataMember = "services";
+            this.servicesBindingSource1.DataSource = this.dentalDataSet13;
+            // 
+            // servicesTableAdapter1
+            // 
+            this.servicesTableAdapter1.ClearBeforeFill = true;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Width = 5;
+            // 
+            // servicesnameDataGridViewTextBoxColumn
+            // 
+            this.servicesnameDataGridViewTextBoxColumn.DataPropertyName = "services_name";
+            this.servicesnameDataGridViewTextBoxColumn.HeaderText = "Service Name";
+            this.servicesnameDataGridViewTextBoxColumn.Name = "servicesnameDataGridViewTextBoxColumn";
+            // 
+            // feesDataGridViewTextBoxColumn
+            // 
+            this.feesDataGridViewTextBoxColumn.DataPropertyName = "fees";
+            this.feesDataGridViewTextBoxColumn.HeaderText = "Fee";
+            this.feesDataGridViewTextBoxColumn.Name = "feesDataGridViewTextBoxColumn";
+            // 
             // Services
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,6 +216,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.servicesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.servicesBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,10 +234,13 @@
         private DentalDataSet7 dentalDataSet7;
         private System.Windows.Forms.BindingSource servicesBindingSource;
         private DentalDataSet7TableAdapters.servicesTableAdapter servicesTableAdapter;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private DentalDataSet13 dentalDataSet13;
+        private System.Windows.Forms.BindingSource servicesBindingSource1;
+        private DentalDataSet13TableAdapters.servicesTableAdapter servicesTableAdapter1;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn servicesnameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn feesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
     }
 }

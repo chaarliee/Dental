@@ -85,18 +85,18 @@ namespace Dental.Forms.Dialogs
                                     // Assuming 'discount' is VARCHAR(3) and contains 'Yes' or 'No'
                                     if (discountValue.ToString().Equals("Yes", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        checkBox_discount.Checked = true;
+                                        //checkBox_discount.Checked = true;
                                     }
                                     else
                                     {
-                                        checkBox_discount.Checked = false;
+                                        //checkBox_discount.Checked = false;
                                     }
                                    
                                 }
                                 else
                                 {
                                     // Handle the case where discount is NULL in the database
-                                    checkBox_discount.Checked = false; // Or set to a default value as needed
+                                    //checkBox_discount.Checked = false; // Or set to a default value as needed
                                 }
 
 
@@ -105,23 +105,20 @@ namespace Dental.Forms.Dialogs
 
 
 
-                                if (status == "Scheduled")
-                                {
-                                    rbtn_unpaid.Checked = true;
-                                }
-                                else if (status == "Finished" || status == "Confirmed")
-                                {
-                                    rbtn_paid.Checked = true;
-                                }
-                                else
-                                {
-                                    rbtn_unpaid.Checked = true;
-                                }
+                                //if (status == "Scheduled")
+                                //{
+                                //    rbtn_unpaid.Checked = true;
+                                //}
+                                //else if (status == "Finished" || status == "Confirmed")
+                                //{
+                                //    rbtn_paid.Checked = true;
+                                //}
+                                //else
+                                //{
+                                //    rbtn_unpaid.Checked = true;
+                                //}
                             }
-                            else
-                            {
-                                MessageBox.Show($"aaaaaaaaaaaaaaaaaaaa:");
-                            }
+                           
                         }
                     }
                     catch (Exception ex)
@@ -240,37 +237,37 @@ namespace Dental.Forms.Dialogs
                                 ComboBox comboBoxService = new ComboBox
                                 {
                                     Location = new Point(0, yOffset),
-                                    Size = new Size(125, 21),
+                                    Size = new Size(200, 21),
                                     DataSource = GetDynamicDataSource(),
                                     DisplayMember = "services_name",
                                     ValueMember = "Id",
-                                    Name = "servicecombobox_" + rowIndex,
+                                    Name = "Dservicecombobox_" + rowIndex,
                                     SelectedValue = serviceId
                                 };
 
 
-                                NumericUpDown numericUpDownQty = new NumericUpDown
-                                {
-                                    Location = new Point(132, yOffset),
-                                    Size = new Size(66, 20),
-                                    Name = "servicequantity_" + rowIndex
-                                };
-                                numericUpDownQty.Value = Convert.ToDecimal(reader["quantity"]);
+                                //NumericUpDown numericUpDownQty = new NumericUpDown
+                                //{
+                                //    Location = new Point(132, yOffset),
+                                //    Size = new Size(66, 20),
+                                //    Name = "servicequantity_" + rowIndex
+                                //};
+                                //numericUpDownQty.Value = Convert.ToDecimal(reader["quantity"]);
 
-                                TextBox textBoxPrice = new TextBox
-                                {
-                                    Location = new Point(203, yOffset),
-                                    Size = new Size(100, 20),
-                                    Name = "serviceprice_" + rowIndex
-                                };
+                                //TextBox textBoxPrice = new TextBox
+                                //{
+                                //    Location = new Point(203, yOffset),
+                                //    Size = new Size(100, 20),
+                                //    Name = "serviceprice_" + rowIndex
+                                //};
 
-                                textBoxPrice.Text = reader["price"].ToString();
+                               // textBoxPrice.Text = reader["price"].ToString();
 
 
 
                                 panelServicesEdit.Controls.Add(comboBoxService);
-                                panelServicesEdit.Controls.Add(numericUpDownQty);
-                                panelServicesEdit.Controls.Add(textBoxPrice);
+                               // panelServicesEdit.Controls.Add(numericUpDownQty);
+                               // panelServicesEdit.Controls.Add(textBoxPrice);
 
                                 //ComboBox comboBox = (ComboBox)panelServicesEdit.Controls["servicecombobox_" + rowIndex];
                                 //MessageBox.Show("comboBox " + comboBox);
@@ -399,21 +396,21 @@ namespace Dental.Forms.Dialogs
             //cancel appointment
             int appointment_id = Id;
             //save edit here
-            string status; 
+            string status = "Scheduled";
 
 
-            if (rbtn_unpaid.Checked)
-            {
-                status = "Scheduled";
-            }
-            else if (rbtn_paid.Checked)
-            {
-                status = "Finished";
-            }
-            else
-            {
-                status = "Scheduled";
-            }
+            //if (rbtn_unpaid.Checked)
+            //{
+            //    status = "Scheduled";
+            //}
+            //else if (rbtn_paid.Checked)
+            //{
+            //    status = "Finished";
+            //}
+            //else
+            //{
+            //    status = "Scheduled";
+            //}
 
 
 
@@ -428,8 +425,8 @@ namespace Dental.Forms.Dialogs
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     // Add parameters
-                    command.Parameters.AddWithValue("@has_discount", checkBox_discount.Checked ? "Yes" : "No");
-                    command.Parameters.AddWithValue("@total", decimal.Parse(total_textbox.Text)); // Add total
+                    //command.Parameters.AddWithValue("@has_discount", checkBox_discount.Checked ? "Yes" : "No");
+                    //command.Parameters.AddWithValue("@total", decimal.Parse(total_textbox.Text)); // Add total
 
                     command.Parameters.AddWithValue("@status", status);
                     command.Parameters.AddWithValue("@id", appointment_id); //patientID should be the id of the patient you are updating
@@ -451,48 +448,48 @@ namespace Dental.Forms.Dialogs
 
             }
 
-            string aps_status;
+            //string aps_status;
 
 
-            if (rbtn_unpaid.Checked)
-            {
-                aps_status = "Unpaid";
-            }
-            else if (rbtn_paid.Checked)
-            {
-                aps_status = "Paid";
-            }
-            else
-            {
-                aps_status = "Unpaid";
-            }
+            //if (rbtn_unpaid.Checked)
+            //{
+            //    aps_status = "Unpaid";
+            //}
+            //else if (rbtn_paid.Checked)
+            //{
+            //    aps_status = "Paid";
+            //}
+            //else
+            //{
+            //    aps_status = "Unpaid";
+            //}
 
 
-            string query_services = "UPDATE appointment_services SET status = @status WHERE appointment_id = @appointment_id";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command_aps = new SqlCommand(query_services, connection))
-                {
-                    // Add parameters
-                    command_aps.Parameters.AddWithValue("@status", aps_status);
-                    command_aps.Parameters.AddWithValue("@appointment_id", appointment_id); //patientID should be the id of the patient you are updating
+            //string query_services = "UPDATE appointment_services SET status = @status WHERE appointment_id = @appointment_id";
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    using (SqlCommand command_aps = new SqlCommand(query_services, connection))
+            //    {
+            //        // Add parameters
+            //        command_aps.Parameters.AddWithValue("@status", aps_status);
+            //        command_aps.Parameters.AddWithValue("@appointment_id", appointment_id); //patientID should be the id of the patient you are updating
 
-                    try
-                    {
-                        connection.Open();
-                        command_aps.ExecuteNonQuery();
-                        MessageBox.Show("Appointment updated successfully.");
-                        AppointEdited?.Invoke(this, EventArgs.Empty);
-                        CloseControl();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error updating Appointment information: " + ex.Message);
-                    }
-                }
+            //        try
+            //        {
+            //            connection.Open();
+            //            command_aps.ExecuteNonQuery();
+            //            MessageBox.Show("Appointment updated successfully.");
+            //            AppointEdited?.Invoke(this, EventArgs.Empty);
+            //            CloseControl();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show("Error updating Appointment information: " + ex.Message);
+            //        }
+            //    }
 
 
-            }
+            //}
 
 
 
@@ -501,7 +498,82 @@ namespace Dental.Forms.Dialogs
 
         private void buttonAddService_Click(object sender, EventArgs e)
         {
-            
+            AddServiceRow();
+        }
+
+        private void AddServiceRow()
+        {
+
+            System.Console.WriteLine("added "+ panelServicesEdit.Controls.Count / 3);
+
+            int service_counter = panelServicesEdit.Controls.Count / 3;
+            if (service_counter >= 6)
+            {
+                MessageBox.Show("You have reached the required number of services.");
+            }
+            else
+            {
+                int yOffset = panelServicesEdit.Controls.Count / 3 * 30;
+
+                ComboBox comboBoxService = new ComboBox
+                {
+                    Location = new Point(0, yOffset + 30),
+                    Size = new Size(200, 21),
+                    DataSource = GetDynamicDataSource(),
+                    //DataSource = comboBox1Services.DataSource,
+                    DisplayMember = "services_name",
+                    ValueMember = "Id",
+                    Name = "servicecombobox_" + service_counter
+                };
+
+                //comboBoxService.Name = "servicecombobox_" + panelServices.Controls.Count;
+
+                //System.Console.WriteLine("Added ComboBox with name: " + comboBoxService.Name);
+
+                //System.Console.WriteLine("count: " + service_counter);
+
+
+                //if (panelServices.Controls.Count > 0)
+                //{
+                //    Control lastControl = panelServices.Controls[panelServices.Controls.Count - 1];
+                //    if (lastControl is ComboBox)
+                //    {
+                //        System.Console.WriteLine("Last Combobox Name: " + lastControl.Name);
+                //    }
+                //}
+
+
+                //NumericUpDown numericUpDownQty = new NumericUpDown
+                //{
+                //    Location = new Point(132, yOffset),
+                //    Size = new Size(66, 20),
+                //    Name = "servicequantity_" + service_counter
+                //};
+
+                TextBox textBoxPrice = new TextBox
+                {
+                    Location = new Point(203, yOffset),
+                    Size = new Size(100, 20),
+                    Name = "serviceprice_" + service_counter,
+                    Visible = false
+                };
+
+
+
+
+
+                panelServicesEdit.Controls.Add(comboBoxService);
+                //panelServices.Controls.Add(numericUpDownQty);
+                panelServicesEdit.Controls.Add(textBoxPrice);
+
+                //comboBoxService.SelectedIndexChanged += comboBoxService_SelectedIndexChanged;
+
+
+                //service_counter++;
+            }// else
+
+
+
         }
 
         private void refreshServices(string connectionString, int appointment_id)
@@ -533,18 +605,17 @@ namespace Dental.Forms.Dialogs
                                     comboBox.SelectedValue = serviceId;
                                 }
                                
-                                NumericUpDown numericUPdown = (NumericUpDown)panelServicesEdit.Controls["servicequantity_" + rowIndex];
-                                if (numericUPdown != null)
-                                {
-                                    numericUPdown.Value = Convert.ToDecimal(reader["quantity"]);
-                                }
-                                //numericUpDownQty.Value = Convert.ToDecimal(reader["quantity"]);
+                                //NumericUpDown numericUPdown = (NumericUpDown)panelServicesEdit.Controls["servicequantity_" + rowIndex];
+                                //if (numericUPdown != null)
+                                //{
+                                //    numericUPdown.Value = Convert.ToDecimal(reader["quantity"]);
+                                //}
                                 
-                                TextBox textBox = (TextBox)panelServicesEdit.Controls["serviceprice_" + rowIndex];
-                                if (numericUPdown != null)
-                                {
-                                    textBox.Text = reader["price"].ToString();
-                                }
+                                //TextBox textBox = (TextBox)panelServicesEdit.Controls["serviceprice_" + rowIndex];
+                                //if (numericUPdown != null)
+                                //{
+                                //    textBox.Text = reader["price"].ToString();
+                                //}
                                 //textBoxPrice.Text = reader["price"].ToString();
                                 
 
@@ -585,24 +656,20 @@ namespace Dental.Forms.Dialogs
             decimal price = 0;
             decimal discount = 0;
 
-            if (checkBox_discount.Checked)
-            {
-                // The CheckBox is checked.
-                // Perform actions for the checked state.
-               // MessageBox.Show("CheckBox is checked!");
-                discount = 0.10M;
-            }
-            else
-            {
-                // The CheckBox is unchecked.
-                // Perform actions for the unchecked state.
-                //MessageBox.Show("CheckBox is unchecked!");
-                discount = 0;
+            //if (checkBox_discount.Checked)
+            //{
+               
+            //    discount = 0.10M;
+            //}
+            //else
+            //{
+               
+            //    discount = 0;
 
 
-            }
+            //}
 
-
+/*
             foreach (Control control in panelServicesEdit.Controls)
             {
 
@@ -638,7 +705,6 @@ namespace Dental.Forms.Dialogs
                     decimal discountedItemTotal = itemTotal - itemDiscount;
 
                     total_price += discountedItemTotal;
-                    //total_price += price * quantity;
 
 
                     Console.WriteLine("count: " + price + " * " + quantity + " = " + total_price);
@@ -650,7 +716,7 @@ namespace Dental.Forms.Dialogs
 
 
             }
-            total_textbox.Text = total_price.ToString();
+            total_textbox.Text = total_price.ToString();*/
         }
 
         private void UpdateAppointment_Load(object sender, EventArgs e)
@@ -661,5 +727,6 @@ namespace Dental.Forms.Dialogs
 
             calculateTotal();
         }
+
     }
 }

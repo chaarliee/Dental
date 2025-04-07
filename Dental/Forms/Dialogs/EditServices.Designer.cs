@@ -36,6 +36,7 @@
             this.services = new System.Windows.Forms.TextBox();
             this.fees = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -110,10 +111,21 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(35, 128);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(51, 17);
+            this.checkBox1.TabIndex = 44;
+            this.checkBox1.Text = "Fixed";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // EditServices
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
@@ -124,6 +136,7 @@
             this.Controls.Add(this.btnCancel);
             this.Name = "EditServices";
             this.Size = new System.Drawing.Size(293, 168);
+            this.Load += new System.EventHandler(this.EditServices_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,5 +151,6 @@
         private System.Windows.Forms.TextBox services;
         private System.Windows.Forms.TextBox fees;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

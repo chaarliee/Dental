@@ -374,20 +374,55 @@ namespace Dental.Forms
         {
 
             string apiKey = "1576|IdbSlwTWJ0JlvrpklWxhbwaeJ0Byzq7brF0Gk46d"; // Replace with your actual PhilSMS API key
-            string recipientNumber = "639190976944"; // Replace with the recipient's phone number (including country code)
+           // string recipientNumber = "+639273662765"; // Replace with the recipient's phone number (including country code)
             string senderId = "PhilSMS"; // Replace with your sender ID (e.g., your business name)
-            string smsMessage = "This is a test message"; // Replace with your message
+            string smsMessage = "Reminder: You have an appointment today with DentalCare!";
 
-            try
+            string connectionString = Config.ConnectionString;
+            string query = @"SELECT DISTINCT p.phone 
+                     FROM Appointments a
+                     JOIN Patients p ON a.patient_id = p.Id
+                     WHERE 
+                         CAST(a.date AS DATE) = CAST(GETDATE() AS DATE)
+                         AND a.status = 'Scheduled'
+                         AND p.phone IS NOT NULL
+                         AND LTRIM(RTRIM(p.phone)) <> ''";
+
+            List<string> phoneNumbers = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            phoneNumbers.Add(reader["phone"].ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching phone numbers: " + ex.Message);
+                    return;
+                }
+            }
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+                foreach (var rawNumber in phoneNumbers)
+                {
+                    string formattedNumber = rawNumber.StartsWith("+") ? rawNumber : $"+63{rawNumber.TrimStart('0')}";
 
                     var payload = new
                     {
-                        recipient = recipientNumber,
+                        recipient = formattedNumber,
                         sender_id = senderId,
                         type = "plain",
                         message = smsMessage
@@ -396,107 +431,129 @@ namespace Dental.Forms
                     var jsonPayload = JsonConvert.SerializeObject(payload);
                     var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync("https://app.philsms.com/api/v3/sms/send", content);
-
-                    if (!response.IsSuccessStatusCode)
+                    try
                     {
-                        string errorResponse = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Error sending SMS. Status Code: {response.StatusCode}, Response: {errorResponse}");
-                        Console.WriteLine($"Error sending SMS. Status Code: {response.StatusCode}, Response: {errorResponse}");
-                        return;
+                        HttpResponseMessage response = await client.PostAsync("https://app.philsms.com/api/v3/sms/send", content);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine($"✅ SMS sent to {formattedNumber}");
+                        }
+                        else
+                        {
+                            string error = await response.Content.ReadAsStringAsync();
+                            Console.WriteLine($"❌ Failed to send to {formattedNumber}: {error}");
+                        }
                     }
-
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show("SMS sent successfully!\n" + responseBody);
-                    Console.WriteLine(responseBody);
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"❗ Error sending to {rawNumber}: {ex.Message}");
+                    }
                 }
+
+                MessageBox.Show("SMS reminders sent to today's appointments.");
             }
-            catch (HttpRequestException ex)
-            {
-                MessageBox.Show("Error sending SMS (HTTP): " + ex.Message);
-                Console.WriteLine($"HttpRequestException: {ex.Message}");
-            }
-            catch (JsonException ex)
-            {
-                MessageBox.Show("Error sending SMS (JSON): " + ex.Message);
-                Console.WriteLine($"JsonException: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error sending SMS (General): " + ex.Message);
-                Console.WriteLine($"Exception: {ex.Message}");
-            }
-
-
-
-            //string phoneNumber = "09976921606"; // Get from TextBox
-            //string message = "Notification from Dental"; // Get from TextBox
-            //string senderName = "SEMAPHORE"; // Or get from another source
-
-
-            //bool success = await SendSmsAsync(phoneNumber, message, senderName);
-
-            //if (success)
+            //try
             //{
-            //    MessageBox.Show("SMS sent successfully!", "Success");
+            //    using (HttpClient client = new HttpClient())
+            //    {
+            //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            //        var payload = new
+            //        {
+            //            recipient = recipientNumber,
+            //            sender_id = senderId,
+            //            type = "plain",
+            //            message = smsMessage
+            //        };
+
+            //        var jsonPayload = JsonConvert.SerializeObject(payload);
+            //        var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            //        HttpResponseMessage response = await client.PostAsync("https://app.philsms.com/api/v3/sms/send", content);
+
+            //        if (!response.IsSuccessStatusCode)
+            //        {
+            //            string errorResponse = await response.Content.ReadAsStringAsync();
+            //            MessageBox.Show($"Error sending SMS. Status Code: {response.StatusCode}, Response: {errorResponse}");
+            //            Console.WriteLine($"Error sending SMS. Status Code: {response.StatusCode}, Response: {errorResponse}");
+            //            return;
+            //        }
+
+            //        string responseBody = await response.Content.ReadAsStringAsync();
+            //        MessageBox.Show("SMS sent successfully!\n" + responseBody);
+            //        Console.WriteLine(responseBody);
+            //    }
             //}
-            //else
+            //catch (HttpRequestException ex)
             //{
-            //    MessageBox.Show("Failed to send SMS.", "Error");
+            //    MessageBox.Show("Error sending SMS (HTTP): " + ex.Message);
+            //    Console.WriteLine($"HttpRequestException: {ex.Message}");
             //}
+            //catch (JsonException ex)
+            //{
+            //    MessageBox.Show("Error sending SMS (JSON): " + ex.Message);
+            //    Console.WriteLine($"JsonException: {ex.Message}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error sending SMS (General): " + ex.Message);
+            //    Console.WriteLine($"Exception: {ex.Message}");
+            //}
+
 
         }
 
-        public static async Task<bool> SendSmsAsync(string phoneNumber, string message, string senderName = "SEMAPHORE")
-        {
-           // string apiUrl = "https://semaphore.co/api/v4/messages";
-            string apiUrl = "https://api.semaphore.co/api/v4/priority";
+        //public static async Task<bool> SendSmsAsync(string phoneNumber, string message, string senderName = "SEMAPHORE")
+        //{
+        //   // string apiUrl = "https://semaphore.co/api/v4/messages";
+        //    string apiUrl = "https://api.semaphore.co/api/v4/priority";
 
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var requestBody = new Dictionary<string, string>
-                {
-                    { "apikey", Config.Semaphore_ApiKey },
-                    { "number", phoneNumber },
-                    { "message", message },
-                    { "sendername", senderName } // Optional
-                };
+        //        var requestBody = new Dictionary<string, string>
+        //        {
+        //            { "apikey", Config.Semaphore_ApiKey },
+        //            { "number", phoneNumber },
+        //            { "message", message },
+        //            { "sendername", senderName } // Optional
+        //        };
 
-                var content = new FormUrlEncodedContent(requestBody);
+        //        var content = new FormUrlEncodedContent(requestBody);
 
-                try
-                {
-                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+        //        try
+        //        {
+        //            HttpResponseMessage response = await client.PostAsync(apiUrl, content);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string responseContent = await response.Content.ReadAsStringAsync();
-                        dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+        //            if (response.IsSuccessStatusCode)
+        //            {
+        //                string responseContent = await response.Content.ReadAsStringAsync();
+        //                dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
 
-                        Console.WriteLine("SMS sent successfully!");
-                        return true;
-                    }
-                    else
-                    {
-                        string errorContent = await response.Content.ReadAsStringAsync();
-                        Console.Error.WriteLine($"Error sending SMS: {response.StatusCode} - {errorContent}");
-                        return false;
-                    }
-                }
-                catch (HttpRequestException ex)
-                {
-                    Console.Error.WriteLine($"HTTP Request Exception: {ex.Message}");
-                    return false;
-                }
-                catch (JsonException ex)
-                {
-                    Console.Error.WriteLine($"JSON Exception: {ex.Message}");
-                    return false;
-                }
-            }
-        }
+        //                Console.WriteLine("SMS sent successfully!");
+        //                return true;
+        //            }
+        //            else
+        //            {
+        //                string errorContent = await response.Content.ReadAsStringAsync();
+        //                Console.Error.WriteLine($"Error sending SMS: {response.StatusCode} - {errorContent}");
+        //                return false;
+        //            }
+        //        }
+        //        catch (HttpRequestException ex)
+        //        {
+        //            Console.Error.WriteLine($"HTTP Request Exception: {ex.Message}");
+        //            return false;
+        //        }
+        //        catch (JsonException ex)
+        //        {
+        //            Console.Error.WriteLine($"JSON Exception: {ex.Message}");
+        //            return false;
+        //        }
+        //    }
+        //}
 
         private async void button3_Click(object sender, EventArgs e)
         {

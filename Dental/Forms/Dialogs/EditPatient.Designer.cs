@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textbox_dob = new System.Windows.Forms.TextBox();
@@ -67,10 +68,10 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.good_health1 = new System.Windows.Forms.RadioButton();
+            this.good_health0 = new System.Windows.Forms.RadioButton();
+            this.under_med_treat0 = new System.Windows.Forms.RadioButton();
+            this.under_med_treat1 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
@@ -86,7 +87,7 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.what_condition_treated = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -137,6 +138,13 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.patienthistoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dentalDataSet11 = new Dental.DentalDataSet11();
+            this.label41 = new System.Windows.Forms.Label();
+            this.patient_historyTableAdapter = new Dental.DentalDataSet11TableAdapters.patient_historyTableAdapter();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -148,6 +156,9 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.patienthistoryBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -191,7 +202,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(695, 3);
+            this.button1.Location = new System.Drawing.Point(773, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(27, 23);
             this.button1.TabIndex = 55;
@@ -300,7 +311,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(566, 441);
+            this.btnCancel.Location = new System.Drawing.Point(647, 549);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 47;
@@ -310,7 +321,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(647, 441);
+            this.btnSave.Location = new System.Drawing.Point(728, 549);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 48;
@@ -320,7 +331,7 @@
             // 
             // delete_btn
             // 
-            this.delete_btn.Location = new System.Drawing.Point(19, 444);
+            this.delete_btn.Location = new System.Drawing.Point(19, 549);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(75, 23);
             this.delete_btn.TabIndex = 61;
@@ -331,11 +342,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(251, 35);
+            this.label9.Location = new System.Drawing.Point(194, 36);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(156, 15);
+            this.label9.Size = new System.Drawing.Size(106, 15);
             this.label9.TabIndex = 62;
-            this.label9.Text = "Update Medical History";
+            this.label9.Text = "Medical History";
             // 
             // label10
             // 
@@ -521,49 +532,49 @@
             this.label26.TabIndex = 78;
             this.label26.Text = "7";
             // 
-            // radioButton1
+            // good_health1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(375, 17);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(43, 17);
-            this.radioButton1.TabIndex = 80;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Yes";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.good_health1.AutoSize = true;
+            this.good_health1.Location = new System.Drawing.Point(375, 17);
+            this.good_health1.Name = "good_health1";
+            this.good_health1.Size = new System.Drawing.Size(43, 17);
+            this.good_health1.TabIndex = 80;
+            this.good_health1.TabStop = true;
+            this.good_health1.Text = "Yes";
+            this.good_health1.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // good_health0
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(424, 18);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(39, 17);
-            this.radioButton2.TabIndex = 81;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "No";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.good_health0.AutoSize = true;
+            this.good_health0.Location = new System.Drawing.Point(424, 18);
+            this.good_health0.Name = "good_health0";
+            this.good_health0.Size = new System.Drawing.Size(39, 17);
+            this.good_health0.TabIndex = 81;
+            this.good_health0.TabStop = true;
+            this.good_health0.Text = "No";
+            this.good_health0.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // under_med_treat0
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(421, 16);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(39, 17);
-            this.radioButton3.TabIndex = 83;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "No";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.under_med_treat0.AutoSize = true;
+            this.under_med_treat0.Location = new System.Drawing.Point(421, 16);
+            this.under_med_treat0.Name = "under_med_treat0";
+            this.under_med_treat0.Size = new System.Drawing.Size(39, 17);
+            this.under_med_treat0.TabIndex = 83;
+            this.under_med_treat0.TabStop = true;
+            this.under_med_treat0.Text = "No";
+            this.under_med_treat0.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // under_med_treat1
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(372, 15);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(43, 17);
-            this.radioButton4.TabIndex = 82;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Yes";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.under_med_treat1.AutoSize = true;
+            this.under_med_treat1.Location = new System.Drawing.Point(372, 15);
+            this.under_med_treat1.Name = "under_med_treat1";
+            this.under_med_treat1.Size = new System.Drawing.Size(43, 17);
+            this.under_med_treat1.TabIndex = 82;
+            this.under_med_treat1.TabStop = true;
+            this.under_med_treat1.Text = "Yes";
+            this.under_med_treat1.UseVisualStyleBackColor = true;
             // 
             // radioButton5
             // 
@@ -725,12 +736,12 @@
             this.label28.TabIndex = 97;
             this.label28.Text = "8";
             // 
-            // textBox1
+            // what_condition_treated
             // 
-            this.textBox1.Location = new System.Drawing.Point(360, 41);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 99;
+            this.what_condition_treated.Location = new System.Drawing.Point(360, 41);
+            this.what_condition_treated.Name = "what_condition_treated";
+            this.what_condition_treated.Size = new System.Drawing.Size(100, 20);
+            this.what_condition_treated.TabIndex = 99;
             // 
             // textBox2
             // 
@@ -1114,9 +1125,9 @@
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(189, 67);
+            this.panel1.Location = new System.Drawing.Point(189, 254);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(533, 358);
+            this.panel1.Size = new System.Drawing.Size(598, 276);
             this.panel1.TabIndex = 139;
             // 
             // groupBox7
@@ -1267,9 +1278,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.radioButton3);
-            this.groupBox2.Controls.Add(this.radioButton4);
+            this.groupBox2.Controls.Add(this.what_condition_treated);
+            this.groupBox2.Controls.Add(this.under_med_treat0);
+            this.groupBox2.Controls.Add(this.under_med_treat1);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Location = new System.Drawing.Point(3, 43);
@@ -1281,19 +1292,72 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.good_health0);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(0, 3);
+            this.groupBox1.Controls.Add(this.good_health1);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(533, 43);
+            this.groupBox1.Size = new System.Drawing.Size(528, 54);
             this.groupBox1.TabIndex = 138;
             this.groupBox1.TabStop = false;
+            // 
+            // patienthistoryBindingSource
+            // 
+            this.patienthistoryBindingSource.DataMember = "patient_history";
+            this.patienthistoryBindingSource.DataSource = this.dentalDataSet11;
+            // 
+            // dentalDataSet11
+            // 
+            this.dentalDataSet11.DataSetName = "DentalDataSet11";
+            this.dentalDataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(200, 228);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(155, 15);
+            this.label41.TabIndex = 141;
+            this.label41.Text = "Medical History Details";
+            // 
+            // patient_historyTableAdapter
+            // 
+            this.patient_historyTableAdapter.ClearBeforeFill = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(3, 401);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(180, 21);
+            this.comboBox1.TabIndex = 142;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(3, 385);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(54, 13);
+            this.label42.TabIndex = 143;
+            this.label42.Text = "Insurance";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(198, 67);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(589, 150);
+            this.dataGridView1.TabIndex = 144;
             // 
             // EditPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.label42);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label41);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.delete_btn);
@@ -1318,7 +1382,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "EditPatient";
-            this.Size = new System.Drawing.Size(735, 478);
+            this.Size = new System.Drawing.Size(811, 582);
             this.Load += new System.EventHandler(this.EditPatient_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
@@ -1341,6 +1405,9 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.patienthistoryBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1387,10 +1454,10 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton good_health1;
+        private System.Windows.Forms.RadioButton good_health0;
+        private System.Windows.Forms.RadioButton under_med_treat0;
+        private System.Windows.Forms.RadioButton under_med_treat1;
         private System.Windows.Forms.RadioButton radioButton5;
         private System.Windows.Forms.RadioButton radioButton6;
         private System.Windows.Forms.RadioButton radioButton7;
@@ -1406,7 +1473,7 @@
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox what_condition_treated;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
@@ -1457,5 +1524,32 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patientidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn goodhealthDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn undermedtreatDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn whatconditiontreatedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn surgicaloprtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn whatillnessDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn takinganypresDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn whatprescriptDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn tobaccoDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn drugsDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn allergicDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bleedingtimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn pregnantDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn breastfeedingDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn pillsDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bloodtypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bloodpressureDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn havetheseillnessDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn specifiedillnessDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource patienthistoryBindingSource;
+        private DentalDataSet11 dentalDataSet11;
+        private System.Windows.Forms.Label label41;
+        private DentalDataSet11TableAdapters.patient_historyTableAdapter patient_historyTableAdapter;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

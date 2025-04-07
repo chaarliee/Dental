@@ -1,86 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Application_project\\C#\\Dental\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\patients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\patients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|d:\\application_project\\c#\\dental\\dental\\forms\\patients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{92622897-B76C-4EC4-B020-24ED2EB2E68E}|Dental\\Dental.csproj|solutionrelative:dental\\forms\\patients.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Appointments.cs",
-              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Appointments.cs",
-              "RelativeDocumentMoniker": "Dental\\Forms\\Appointments.cs",
-              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Appointments.cs",
-              "RelativeToolTip": "Dental\\Forms\\Appointments.cs",
-              "ViewState": "AgIAAPoAAAAAAAAAAAAiwA8BAABSAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T06:33:00.735Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Appointments.cs [Design]",
-              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Appointments.cs",
-              "RelativeDocumentMoniker": "Dental\\Forms\\Appointments.cs",
-              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Appointments.cs [Design]",
-              "RelativeToolTip": "Dental\\Forms\\Appointments.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T06:32:58.785Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Patients.cs",
-              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Patients.cs",
-              "RelativeDocumentMoniker": "Dental\\Forms\\Patients.cs",
-              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Patients.cs",
-              "RelativeToolTip": "Dental\\Forms\\Patients.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAowE4AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T06:04:50.429Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Patients.cs [Design]",
-              "DocumentMoniker": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Patients.cs",
-              "RelativeDocumentMoniker": "Dental\\Forms\\Patients.cs",
-              "ToolTip": "D:\\Application_project\\C#\\Dental\\Dental\\Forms\\Patients.cs [Design]",
-              "RelativeToolTip": "Dental\\Forms\\Patients.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T06:04:25.848Z",
-              "EditorCaption": " [Design]"
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

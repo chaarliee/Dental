@@ -48,6 +48,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dob = new System.Windows.Forms.TextBox();
             this.age = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -104,7 +106,6 @@
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 29;
             this.label2.Text = "Last Name";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -220,10 +221,29 @@
             this.age.TabIndex = 38;
             this.age.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.age_KeyPress);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(6, 237);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(180, 21);
+            this.comboBox1.TabIndex = 41;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 221);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 13);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "Insurance";
+            // 
             // AddPatients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.dob);
@@ -246,6 +266,7 @@
             this.Controls.Add(this.btnSave);
             this.Name = "AddPatients";
             this.Size = new System.Drawing.Size(416, 271);
+            this.Load += new System.EventHandler(this.AddPatients_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,5 +293,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox dob;
         private System.Windows.Forms.TextBox age;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label9;
     }
 }

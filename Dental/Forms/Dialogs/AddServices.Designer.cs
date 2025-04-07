@@ -36,6 +36,7 @@
             this.fees = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -93,7 +94,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(123, 129);
+            this.btnCancel.Location = new System.Drawing.Point(121, 129);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 26;
@@ -103,7 +104,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(204, 129);
+            this.btnSave.Location = new System.Drawing.Point(202, 129);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 27;
@@ -111,10 +112,21 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(29, 129);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(51, 17);
+            this.checkBox1.TabIndex = 37;
+            this.checkBox1.Text = "Fixed";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // AddServices
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -124,7 +136,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "AddServices";
-            this.Size = new System.Drawing.Size(287, 174);
+            this.Size = new System.Drawing.Size(292, 166);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,5 +152,6 @@
         private System.Windows.Forms.TextBox fees;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

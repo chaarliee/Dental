@@ -48,8 +48,11 @@ namespace Dental.Forms.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+
+            int fixedValue = checkBox1.Checked ? 1 : 0;
+
             string connectionString = Config.ConnectionString;
-            string query = "INSERT INTO services (services_name, fees) VALUES (@services_name, @fees)";
+            string query = "INSERT INTO services (services_name, fees, fixed) VALUES (@services_name, @fees, @fixed)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -57,6 +60,7 @@ namespace Dental.Forms.Dialogs
                 {
                     command.Parameters.AddWithValue("@services_name", services.Text);
                     command.Parameters.AddWithValue("@fees", fees.Text);
+                    command.Parameters.AddWithValue("@fixed", fixedValue);
 
                     try
                     {
@@ -72,6 +76,12 @@ namespace Dental.Forms.Dialogs
                     }
                 }
             }
+
+
+
         }
+
+
+
     }
 }

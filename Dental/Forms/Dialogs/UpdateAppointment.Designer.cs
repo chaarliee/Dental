@@ -28,22 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button_total = new System.Windows.Forms.Button();
             this.label_dob = new System.Windows.Forms.Label();
             this.label_age = new System.Windows.Forms.Label();
             this.label_phone = new System.Windows.Forms.Label();
             this.label_email = new System.Windows.Forms.Label();
             this.label_address = new System.Windows.Forms.Label();
             this.label_gender = new System.Windows.Forms.Label();
-            this.rbtn_paid = new System.Windows.Forms.RadioButton();
-            this.rbtn_unpaid = new System.Windows.Forms.RadioButton();
-            this.total_textbox = new System.Windows.Forms.Label();
             this.panelServicesEdit = new System.Windows.Forms.Panel();
-            this.servicequantity_0 = new System.Windows.Forms.NumericUpDown();
             this.servicecombobox_0 = new System.Windows.Forms.ComboBox();
-            this.serviceprice_0 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.buttonAddService = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -71,22 +63,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.checkBox_discount = new System.Windows.Forms.CheckBox();
             this.panelServicesEdit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.servicequantity_0)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button_total
-            // 
-            this.button_total.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button_total.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_total.Location = new System.Drawing.Point(395, 407);
-            this.button_total.Name = "button_total";
-            this.button_total.Size = new System.Drawing.Size(42, 23);
-            this.button_total.TabIndex = 134;
-            this.button_total.Text = "Total";
-            this.button_total.UseVisualStyleBackColor = false;
-            this.button_total.Click += new System.EventHandler(this.button_total_Click);
             // 
             // label_dob
             // 
@@ -142,53 +120,13 @@
             this.label_gender.TabIndex = 128;
             this.label_gender.Text = "-";
             // 
-            // rbtn_paid
-            // 
-            this.rbtn_paid.AutoSize = true;
-            this.rbtn_paid.Location = new System.Drawing.Point(329, 382);
-            this.rbtn_paid.Name = "rbtn_paid";
-            this.rbtn_paid.Size = new System.Drawing.Size(46, 17);
-            this.rbtn_paid.TabIndex = 127;
-            this.rbtn_paid.TabStop = true;
-            this.rbtn_paid.Text = "Paid";
-            this.rbtn_paid.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_unpaid
-            // 
-            this.rbtn_unpaid.AutoSize = true;
-            this.rbtn_unpaid.Location = new System.Drawing.Point(243, 382);
-            this.rbtn_unpaid.Name = "rbtn_unpaid";
-            this.rbtn_unpaid.Size = new System.Drawing.Size(59, 17);
-            this.rbtn_unpaid.TabIndex = 126;
-            this.rbtn_unpaid.TabStop = true;
-            this.rbtn_unpaid.Text = "Unpaid";
-            this.rbtn_unpaid.UseVisualStyleBackColor = true;
-            // 
-            // total_textbox
-            // 
-            this.total_textbox.AutoSize = true;
-            this.total_textbox.Location = new System.Drawing.Point(440, 411);
-            this.total_textbox.Name = "total_textbox";
-            this.total_textbox.Size = new System.Drawing.Size(10, 13);
-            this.total_textbox.TabIndex = 125;
-            this.total_textbox.Text = "-";
-            // 
             // panelServicesEdit
             // 
-            this.panelServicesEdit.Controls.Add(this.servicequantity_0);
             this.panelServicesEdit.Controls.Add(this.servicecombobox_0);
-            this.panelServicesEdit.Controls.Add(this.serviceprice_0);
-            this.panelServicesEdit.Location = new System.Drawing.Point(239, 204);
+            this.panelServicesEdit.Location = new System.Drawing.Point(232, 204);
             this.panelServicesEdit.Name = "panelServicesEdit";
-            this.panelServicesEdit.Size = new System.Drawing.Size(313, 172);
+            this.panelServicesEdit.Size = new System.Drawing.Size(266, 195);
             this.panelServicesEdit.TabIndex = 124;
-            // 
-            // servicequantity_0
-            // 
-            this.servicequantity_0.Location = new System.Drawing.Point(132, 2);
-            this.servicequantity_0.Name = "servicequantity_0";
-            this.servicequantity_0.Size = new System.Drawing.Size(66, 20);
-            this.servicequantity_0.TabIndex = 96;
             // 
             // servicecombobox_0
             // 
@@ -198,34 +136,9 @@
             this.servicecombobox_0.FormattingEnabled = true;
             this.servicecombobox_0.Location = new System.Drawing.Point(0, 2);
             this.servicecombobox_0.Name = "servicecombobox_0";
-            this.servicecombobox_0.Size = new System.Drawing.Size(125, 21);
+            this.servicecombobox_0.Size = new System.Drawing.Size(251, 21);
             this.servicecombobox_0.TabIndex = 79;
             this.servicecombobox_0.ValueMember = "Id";
-            // 
-            // serviceprice_0
-            // 
-            this.serviceprice_0.Location = new System.Drawing.Point(204, 3);
-            this.serviceprice_0.Name = "serviceprice_0";
-            this.serviceprice_0.Size = new System.Drawing.Size(100, 20);
-            this.serviceprice_0.TabIndex = 81;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(440, 189);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(31, 13);
-            this.label17.TabIndex = 123;
-            this.label17.Text = "Price";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(368, 188);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(46, 13);
-            this.label16.TabIndex = 122;
-            this.label16.Text = "Quantity";
             // 
             // label15
             // 
@@ -238,7 +151,7 @@
             // 
             // buttonAddService
             // 
-            this.buttonAddService.Location = new System.Drawing.Point(491, 163);
+            this.buttonAddService.Location = new System.Drawing.Point(429, 163);
             this.buttonAddService.Name = "buttonAddService";
             this.buttonAddService.Size = new System.Drawing.Size(61, 23);
             this.buttonAddService.TabIndex = 120;
@@ -287,9 +200,9 @@
             // time_datepicker
             // 
             this.time_datepicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.time_datepicker.Location = new System.Drawing.Point(348, 87);
+            this.time_datepicker.Location = new System.Drawing.Point(369, 87);
             this.time_datepicker.Name = "time_datepicker";
-            this.time_datepicker.Size = new System.Drawing.Size(75, 20);
+            this.time_datepicker.Size = new System.Drawing.Size(129, 20);
             this.time_datepicker.TabIndex = 115;
             // 
             // date_datepicker
@@ -297,7 +210,7 @@
             this.date_datepicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.date_datepicker.Location = new System.Drawing.Point(243, 87);
             this.date_datepicker.Name = "date_datepicker";
-            this.date_datepicker.Size = new System.Drawing.Size(99, 20);
+            this.date_datepicker.Size = new System.Drawing.Size(103, 20);
             this.date_datepicker.TabIndex = 114;
             // 
             // comboBoxPatients
@@ -343,7 +256,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(345, 70);
+            this.label9.Location = new System.Drawing.Point(379, 70);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(30, 13);
             this.label9.TabIndex = 109;
@@ -378,7 +291,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(532, 2);
+            this.button1.Location = new System.Drawing.Point(471, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(27, 23);
             this.button1.TabIndex = 105;
@@ -443,7 +356,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(396, 449);
+            this.btnCancel.Location = new System.Drawing.Point(342, 458);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 98;
@@ -453,7 +366,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(477, 449);
+            this.btnSave.Location = new System.Drawing.Point(423, 458);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 99;
@@ -463,7 +376,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(3, 427);
+            this.button2.Location = new System.Drawing.Point(3, 458);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(117, 23);
             this.button2.TabIndex = 135;
@@ -473,7 +386,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(424, 163);
+            this.button3.Location = new System.Drawing.Point(362, 163);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(61, 23);
             this.button3.TabIndex = 136;
@@ -481,36 +394,19 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // checkBox_discount
-            // 
-            this.checkBox_discount.AutoSize = true;
-            this.checkBox_discount.Location = new System.Drawing.Point(395, 383);
-            this.checkBox_discount.Name = "checkBox_discount";
-            this.checkBox_discount.Size = new System.Drawing.Size(68, 17);
-            this.checkBox_discount.TabIndex = 137;
-            this.checkBox_discount.Text = "Discount";
-            this.checkBox_discount.UseVisualStyleBackColor = true;
-            // 
             // UpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.checkBox_discount);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button_total);
             this.Controls.Add(this.label_dob);
             this.Controls.Add(this.label_age);
             this.Controls.Add(this.label_phone);
             this.Controls.Add(this.label_email);
             this.Controls.Add(this.label_address);
             this.Controls.Add(this.label_gender);
-            this.Controls.Add(this.rbtn_paid);
-            this.Controls.Add(this.rbtn_unpaid);
-            this.Controls.Add(this.total_textbox);
             this.Controls.Add(this.panelServicesEdit);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.buttonAddService);
             this.Controls.Add(this.label14);
@@ -537,34 +433,23 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "UpdateAppointment";
-            this.Size = new System.Drawing.Size(565, 484);
+            this.Size = new System.Drawing.Size(514, 484);
             this.Load += new System.EventHandler(this.UpdateAppointment_Load);
             this.panelServicesEdit.ResumeLayout(false);
-            this.panelServicesEdit.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.servicequantity_0)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button_total;
         private System.Windows.Forms.Label label_dob;
         private System.Windows.Forms.Label label_age;
         private System.Windows.Forms.Label label_phone;
         private System.Windows.Forms.Label label_email;
         private System.Windows.Forms.Label label_address;
         private System.Windows.Forms.Label label_gender;
-        private System.Windows.Forms.RadioButton rbtn_paid;
-        private System.Windows.Forms.RadioButton rbtn_unpaid;
-        private System.Windows.Forms.Label total_textbox;
         private System.Windows.Forms.Panel panelServicesEdit;
-        private System.Windows.Forms.NumericUpDown servicequantity_0;
         private System.Windows.Forms.ComboBox servicecombobox_0;
-        private System.Windows.Forms.TextBox serviceprice_0;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button buttonAddService;
         private System.Windows.Forms.Label label14;
@@ -592,6 +477,5 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckBox checkBox_discount;
     }
 }

@@ -17,12 +17,39 @@ namespace Dental.Forms.Dialogs
         public AddPatients()
         {
             InitializeComponent();
+
+          
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void LoadCompanies()
         {
+            string connectionString = Config.ConnectionString;
+            string query = "SELECT id, company FROM Insurance_company";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    comboBox1.DataSource = dt;
+                    comboBox1.DisplayMember = "company";
+                    comboBox1.ValueMember = "id";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading companies: " + ex.Message);
+                }
+            }
+
 
         }
+
+
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -45,34 +72,39 @@ namespace Dental.Forms.Dialogs
         private void btnSave_Click(object sender, EventArgs e)
         {
             string connectionString = Config.ConnectionString;
-            string query = "INSERT INTO Patients (first_name, last_name, address, gender, DOB, phone, email, created_At,age) VALUES (@first_name, @last_name, @address, @gender, @DOB, @phone, @email , @created_At,@age)";
+            string query = "INSERT INTO Patients (first_name, last_name, address, gender, DOB, phone, email, created_At, age, insurance) " +
+                    "VALUES (@first_name, @last_name, @address, @gender, @DOB, @phone, @email, @created_At, @age, @insurance)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@first_name", first_name.Text);
-                    command.Parameters.AddWithValue("@last_name", last_name.Text);
-                    command.Parameters.AddWithValue("@address", address.Text);
-                    command.Parameters.AddWithValue("@gender", gender.Text);
-                    command.Parameters.AddWithValue("@DOB", dob.Text);
-                    command.Parameters.AddWithValue("@age", int.Parse(age.Text));
-                    command.Parameters.AddWithValue("@phone", phone.Text);
-                    command.Parameters.AddWithValue("@email", email.Text);
-                    command.Parameters.AddWithValue("@created_At", DateTime.Now);
+                command.Parameters.AddWithValue("@first_name", first_name.Text);
+                command.Parameters.AddWithValue("@last_name", last_name.Text);
+                command.Parameters.AddWithValue("@address", address.Text);
+                command.Parameters.AddWithValue("@gender", gender.Text);
+                command.Parameters.AddWithValue("@DOB", dob.Text);
+                command.Parameters.AddWithValue("@age", int.Parse(age.Text));
+                command.Parameters.AddWithValue("@phone", phone.Text);
+                command.Parameters.AddWithValue("@email", email.Text);
+                command.Parameters.AddWithValue("@created_At", DateTime.Now);
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Patient information saved successfully.");
-                        PatientAdded?.Invoke(this, EventArgs.Empty); // Raise the event
-                        CloseControl();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred while saving the data: " + ex.Message);
-                    }
+                if (comboBox1.SelectedValue != null)
+                    command.Parameters.AddWithValue("@insurance", Convert.ToInt32(comboBox1.SelectedValue));
+                else
+                    command.Parameters.AddWithValue("@insurance", DBNull.Value);
+
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Patient information saved successfully.");
+                    PatientAdded?.Invoke(this, EventArgs.Empty); // Raise the event
+                    CloseControl();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while saving the data: " + ex.Message);
                 }
             }
         }
@@ -85,6 +117,11 @@ namespace Dental.Forms.Dialogs
             {
                 e.Handled = true; // Prevent the character from being entered
             }
+        }
+
+        private void AddPatients_Load(object sender, EventArgs e)
+        {
+            LoadCompanies();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Dental.Forms.Dialogs
         public string DateOfBirth { get; set; }
         public string Age { get; set; }
 
+        public int Insurance { get; set; }
+
 
 
 
@@ -61,6 +63,7 @@ namespace Dental.Forms.Dialogs
             textbox_email.Text = Email;
             textbox_dob.Text = DateOfBirth;
             textbox_age.Text = Age;
+            comboBox1.SelectedValue = Convert.ToInt32(Insurance);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -183,7 +186,7 @@ namespace Dental.Forms.Dialogs
                         command.Parameters.AddWithValue("@patient_id", patient_id);
                         command.Parameters.AddWithValue("@q1", GetRadioButtonValue(groupBox1));
                         command.Parameters.AddWithValue("@q2", GetRadioButtonValue(groupBox2));
-                        command.Parameters.AddWithValue("@q2_text", textBox1.Text); // Correct TextBox
+                        command.Parameters.AddWithValue("@q2_text", what_condition_treated.Text); // Correct TextBox
                         command.Parameters.AddWithValue("@q3", GetRadioButtonValue(groupBox3));
                         command.Parameters.AddWithValue("@q3_text", textBox2.Text); // Correct TextBox (assuming you have textBox2)
                         command.Parameters.AddWithValue("@q4", GetRadioButtonValue(groupBox4));
@@ -253,8 +256,98 @@ namespace Dental.Forms.Dialogs
         {
 
             LoadPatientHistory(patient_id);
-            
+            Load_insurance();
+            loadPatient_appointment();
         }
+
+        public void loadPatient_appointment()
+        {
+            string connectionString = Config.ConnectionString;
+            string query = @"SELECT 
+                        date, 
+                        time, 
+                        DentistName, 
+                        ServicesList, 
+                        status 
+                     FROM vw_AppointmentFullDetails";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dataGridView1.DataSource = dt;
+
+                    // Optional: Customize column headers
+                    if (dataGridView1.Columns["date"] != null)
+                        dataGridView1.Columns["date"].HeaderText = "Date";
+
+                    if (dataGridView1.Columns["time"] != null)
+                        dataGridView1.Columns["time"].HeaderText = "Time";
+
+                    if (dataGridView1.Columns["DentistName"] != null)
+                        dataGridView1.Columns["DentistName"].HeaderText = "Dentist";
+
+                    if (dataGridView1.Columns["ServicesList"] != null)
+                        dataGridView1.Columns["ServicesList"].HeaderText = "Services";
+
+                    if (dataGridView1.Columns["status"] != null)
+                        dataGridView1.Columns["status"].HeaderText = "Status";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to load appointments: " + ex.Message);
+                }
+            }
+        }
+
+
+        private void Load_insurance()
+        {
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string selectQuery = "SELECT * FROM Insurance_company";
+                    using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+                            comboBox1.DataSource = dt;
+                            comboBox1.DisplayMember = "company";
+                            comboBox1.ValueMember = "id";
+                        }
+                    }
+                }
+
+                // Set the selected value to the patient's insurance
+                if (comboBox1.Items.Count > 0)
+                {
+                    comboBox1.SelectedValue = Convert.ToInt32(Insurance);
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+                // Log the error
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+                // Log the error
+            }
+        }
+
+
+
+
 
         private void LoadPatientHistory(int patientId)
         {
@@ -286,7 +379,7 @@ namespace Dental.Forms.Dialogs
                                 // Load data into UI controls
                                 SetRadioButton(groupBox1, "good_health", reader["good_health"]);
                                 SetRadioButton(groupBox2, "under_med_treat", reader["under_med_treat"]);
-                                textBox1.Text = reader["what_condition_treated"].ToString();
+                                what_condition_treated.Text = reader["what_condition_treated"].ToString();
                                 textBox2.Text = reader["surgical_oprt"].ToString();
                                 textBox4.Text = reader["what_illness"].ToString();
                                 SetRadioButton(groupBox4, "taking_any_pres", reader["taking_any_pres"]);
@@ -366,19 +459,6 @@ namespace Dental.Forms.Dialogs
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       
     }
 }

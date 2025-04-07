@@ -282,6 +282,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DentalDataSet10.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DentalDataSet11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet11.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet12.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet12.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet13.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet13.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DentalDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -572,6 +587,39 @@
     </None>
     <None Include="DentalDataSet10.xss">
       <DependentUpon>DentalDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet11.xsc">
+      <DependentUpon>DentalDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet11.xss">
+      <DependentUpon>DentalDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet12.xsc">
+      <DependentUpon>DentalDataSet12.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet12.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet12.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet12.xss">
+      <DependentUpon>DentalDataSet12.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet13.xsc">
+      <DependentUpon>DentalDataSet13.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet13.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet13.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet13.xss">
+      <DependentUpon>DentalDataSet13.xsd</DependentUpon>
     </None>
     <None Include="DentalDataSet2.xsc">
       <DependentUpon>DentalDataSet2.xsd</DependentUpon>

@@ -48,6 +48,9 @@ namespace Dental.Forms
             this.patientsTableAdapter = new Dental.DentalDataSet2TableAdapters.PatientsTableAdapter();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.dentalDataSet12 = new Dental.DentalDataSet12();
+            this.patientsBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.patientsTableAdapter1 = new Dental.DentalDataSet12TableAdapters.PatientsTableAdapter();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +61,7 @@ namespace Dental.Forms
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.insurance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet)).BeginInit();
@@ -66,6 +70,8 @@ namespace Dental.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource3)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -132,8 +138,9 @@ namespace Dental.Forms
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
-            this.ageDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.patientsBindingSource2;
+            this.ageDataGridViewTextBoxColumn,
+            this.insurance});
+            this.dataGridView1.DataSource = this.patientsBindingSource3;
             this.dataGridView1.Location = new System.Drawing.Point(0, 86);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(798, 437);
@@ -194,6 +201,20 @@ namespace Dental.Forms
             this.button2.Text = "Refresh";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // dentalDataSet12
+            // 
+            this.dentalDataSet12.DataSetName = "DentalDataSet12";
+            this.dentalDataSet12.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // patientsBindingSource3
+            // 
+            this.patientsBindingSource3.DataMember = "Patients";
+            this.patientsBindingSource3.DataSource = this.dentalDataSet12;
+            // 
+            // patientsTableAdapter1
+            // 
+            this.patientsTableAdapter1.ClearBeforeFill = true;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -257,6 +278,13 @@ namespace Dental.Forms
             this.ageDataGridViewTextBoxColumn.HeaderText = "age";
             this.ageDataGridViewTextBoxColumn.Name = "ageDataGridViewTextBoxColumn";
             // 
+            // insurance
+            // 
+            this.insurance.DataPropertyName = "insurance";
+            this.insurance.HeaderText = "insurance";
+            this.insurance.Name = "insurance";
+            this.insurance.Width = 5;
+            // 
             // Patients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,6 +309,8 @@ namespace Dental.Forms
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patientsBindingSource3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,6 +379,9 @@ namespace Dental.Forms
         private DentalDataSet2TableAdapters.PatientsTableAdapter patientsTableAdapter;
         private Button button1;
         private Button button2;
+        private DentalDataSet12 dentalDataSet12;
+        private BindingSource patientsBindingSource3;
+        private DentalDataSet12TableAdapters.PatientsTableAdapter patientsTableAdapter1;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -359,5 +392,6 @@ namespace Dental.Forms
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private DataGridViewTextBoxColumn ageDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn insurance;
     }
 }
