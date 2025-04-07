@@ -317,79 +317,123 @@ namespace Dental.Forms.Dialogs
         }
 
         private void btnSave_Click(object sender, EventArgs e)
+{
+    if (!Paid.Checked && !Unpaid.Checked)
+    {
+        MessageBox.Show("Please select whether the payment is Paid or Unpaid before proceeding.");
+        return;
+    }
+
+    int appointmentId = fetched_appointment_id;
+
+    if (appointmentId > 0)
+    {
+        string connectionString = Config.ConnectionString;
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
         {
+            SqlTransaction transaction = null;
 
-            if (!Paid.Checked && !Unpaid.Checked)
+            try
             {
-                MessageBox.Show("Please select whether the payment is Paid or Unpaid before proceeding.");
-                return;
+                connection.Open();
+                transaction = connection.BeginTransaction();
 
+                // Prepare discount flags
+                string hasDiscount = checkBox_discount.Checked ? "Yes" : "No";
+                decimal total = 0;
 
-            }
-
-            int appointmentId = fetched_appointment_id; // Replace GetAppointmentId() with your actual method
-
-            if (appointmentId > 0)
-            {
-                string connectionString = Config.ConnectionString;
-
-                using (System.Data.SqlClient.SqlConnection connection = new System.Data.SqlClient.SqlConnection(connectionString))
+                if (!decimal.TryParse(total_textbox.Text, out total))
                 {
-                    System.Data.SqlClient.SqlTransaction transaction = null; // Declare transaction
+                    MessageBox.Show("Invalid total amount.");
+                    return;
+                }
 
-                    try
+                // Update Appointments
+                string updateAppointmentQuery = @"
+                    UPDATE Appointments 
+                    SET status = 'Finished', 
+                        total = @total, 
+                        has_discount = @has_discount 
+                    WHERE id = @AppointmentID";
+
+                using (SqlCommand appointmentCommand = new SqlCommand(updateAppointmentQuery, connection, transaction))
+                {
+                    appointmentCommand.Parameters.AddWithValue("@AppointmentID", appointmentId);
+                    appointmentCommand.Parameters.AddWithValue("@total", total);
+                    appointmentCommand.Parameters.AddWithValue("@has_discount", hasDiscount);
+
+                    int rowsAffected = appointmentCommand.ExecuteNonQuery();
+                    if (rowsAffected == 0)
                     {
-                        connection.Open();
-                        transaction = connection.BeginTransaction(); // Start transaction
-
-                        // Update Appointments table
-                        string updateAppointmentQuery = "UPDATE Appointments SET status = 'Finished' WHERE id = @AppointmentID";
-                        using (System.Data.SqlClient.SqlCommand appointmentCommand = new System.Data.SqlClient.SqlCommand(updateAppointmentQuery, connection, transaction)) // Pass transaction
-                        {
-                            appointmentCommand.Parameters.AddWithValue("@AppointmentID", appointmentId);
-                            int appointmentRowsAffected = appointmentCommand.ExecuteNonQuery();
-
-                            if (appointmentRowsAffected == 0)
-                            {
-                                MessageBox.Show("Appointment with ID " + appointmentId + " not found.");
-                                transaction.Rollback(); // Rollback if appointment not found
-                                return;
-                            }
-                        }
-
-                        // Update Appointment_Services table
-                        string updateServicesQuery = "UPDATE appointment_services SET status = 'Paid' WHERE appointment_id = @AppointmentID";
-                        using (System.Data.SqlClient.SqlCommand servicesCommand = new System.Data.SqlClient.SqlCommand(updateServicesQuery, connection, transaction)) // Pass transaction
-                        {
-                            servicesCommand.Parameters.AddWithValue("@AppointmentID", appointmentId);
-                            int servicesRowsAffected = servicesCommand.ExecuteNonQuery();
-                            //No need to check rows affected here, as we want to update all services associated with the appointment.
-                        }
-
-                        transaction.Commit(); // Commit transaction if both updates are successful
-                        MessageBox.Show("Appointment and services status updated successfully!");
-
-                        CloseControl();
-
-
-                        //refresh data if needed.
-                    }
-                    catch (Exception ex)
-                    {
-                        if (transaction != null)
-                        {
-                            transaction.Rollback(); // Rollback on error
-                        }
-                        MessageBox.Show("An error occurred: " + ex.Message);
+                        MessageBox.Show("Appointment not found.");
+                        transaction.Rollback();
+                        return;
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Invalid Appointment ID.");
-            }
 
+                // Delete old services
+                string deleteQuery = "DELETE FROM appointment_services WHERE appointment_id = @AppointmentID";
+                using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, connection, transaction))
+                {
+                    deleteCmd.Parameters.AddWithValue("@AppointmentID", appointmentId);
+                    deleteCmd.ExecuteNonQuery();
+                }
+
+                // Re-insert updated services
+                string insertQuery = @"INSERT INTO appointment_services 
+                    (appointment_id, services_id, quantity, price, status, created_At) 
+                    VALUES (@appointment_id, @services_id, @quantity, @price, @status, @created_At)";
+
+                foreach (Control control in panelServicesEdit.Controls)
+                {
+                    if (control is ComboBox comboBox)
+                    {
+                        string index = comboBox.Name.Split('_').Last();
+
+                        ComboBox serviceBox = comboBox;
+                        NumericUpDown qtyBox = panelServicesEdit.Controls["Dservicequantity_" + index] as NumericUpDown;
+                        TextBox priceBox = panelServicesEdit.Controls["Dserviceprice_" + index] as TextBox;
+
+                        if (serviceBox?.SelectedValue != null && qtyBox != null && priceBox != null)
+                        {
+                            int serviceId = (int)serviceBox.SelectedValue;
+                            int quantity = (int)qtyBox.Value;
+                            decimal price = 0;
+
+                            decimal.TryParse(priceBox.Text, out price);
+
+                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection, transaction))
+                            {
+                                insertCmd.Parameters.AddWithValue("@appointment_id", appointmentId);
+                                insertCmd.Parameters.AddWithValue("@services_id", serviceId);
+                                insertCmd.Parameters.AddWithValue("@quantity", quantity);
+                                insertCmd.Parameters.AddWithValue("@price", price);
+                                insertCmd.Parameters.AddWithValue("@status", Paid.Checked ? "Paid" : "Unpaid");
+                                insertCmd.Parameters.AddWithValue("@created_At", DateTime.Now);
+
+                                insertCmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+
+                transaction.Commit();
+                MessageBox.Show("Appointment and services successfully updated.");
+                CloseControl();
+            }
+            catch (Exception ex)
+            {
+                transaction?.Rollback();
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
         }
+    }
+    else
+    {
+        MessageBox.Show("Invalid Appointment ID.");
+    }
+}
 
         private void button_total_Click(object sender, EventArgs e)
         {
