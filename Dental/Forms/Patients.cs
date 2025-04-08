@@ -104,7 +104,14 @@ namespace Dental.Forms
                 string dob = selectedRow.Cells[6].Value.ToString();
                 string gender = selectedRow.Cells[7].Value.ToString();
                 string age = selectedRow.Cells[9].Value.ToString();
-                int insurance = int.Parse(selectedRow.Cells[10].Value.ToString());
+                //int insurance = int.Parse(selectedRow.Cells[10].Value.ToString());
+
+                int insurance = 0;
+
+                if (selectedRow.Cells[10]?.Value != null)
+                {
+                    int.TryParse(selectedRow.Cells[10].Value.ToString(), out insurance);
+                }
 
 
                 EditPatient editPatientControl = new EditPatient();

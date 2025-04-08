@@ -35,6 +35,12 @@ namespace Dental.Forms.Dialogs
             panel1.HorizontalScroll.Visible = false;
             panel1.HorizontalScroll.Maximum = 0;
             panel1.AutoScroll = true;
+
+            panelPatient.AutoScroll = false;
+            panelPatient.HorizontalScroll.Enabled = false;
+            panelPatient.HorizontalScroll.Visible = false;
+            panelPatient.HorizontalScroll.Maximum = 0;
+            panelPatient.AutoScroll = true;
         }
 
         public int service_counter = 1;
@@ -753,6 +759,90 @@ namespace Dental.Forms.Dialogs
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panelPatient.Controls.Clear();
+
+            int ycontrol = 0;
+            int xcontrol = 0;
+            Label label = new Label
+            {
+                Text = "Patient Name",
+                Location = new Point(xcontrol, ycontrol),
+                AutoSize = true
+            };
+            ycontrol += 15;
+            TextBox newTextBox = new TextBox
+            {
+                Name = "textbox_patient",
+                Location = new Point(xcontrol, ycontrol), // X=10, Y=10
+                Size = new Size(200, 30)      // Width=200, Height=30
+            };
+            ycontrol += 20;
+
+            Label label2 = new Label
+            {
+                Text = "Phone",
+                Location = new Point(xcontrol, ycontrol),
+                AutoSize = true
+            };
+            ycontrol += 15;
+
+            TextBox newTextBox2 = new TextBox
+            {
+                Name = "textbox_phone",
+                Location = new Point(xcontrol, ycontrol), // X=10, Y=10
+                Size = new Size(200, 30)      // Width=200, Height=30
+            };
+            ycontrol += 20;
+
+            Label label3 = new Label
+            {
+                Text = "Email",
+                Location = new Point(xcontrol, ycontrol),
+                AutoSize = true
+            };
+
+            ycontrol += 15;
+
+            TextBox newTextBox3 = new TextBox
+            {
+                Name = "textbox_email",
+                Location = new Point(xcontrol, ycontrol), // X=10, Y=10
+                Size = new Size(200, 30)      // Width=200, Height=30
+            };
+            ycontrol += 20;
+
+            Label label4 = new Label
+            {
+                Text = "Address",
+                Location = new Point(xcontrol, ycontrol),
+                AutoSize = true
+            };
+            ycontrol += 15;
+
+            TextBox newTextBox4 = new TextBox
+            {
+                Name = "textbox_address",
+                Location = new Point(xcontrol, ycontrol), // X=10, Y=10
+                Size = new Size(200, 30)      // Width=200, Height=30
+            };
+
+
+            panelPatient.Controls.Add(newTextBox);
+            panelPatient.Controls.Add(label);
+            panelPatient.Controls.Add(newTextBox2);
+            panelPatient.Controls.Add(label2);
+            panelPatient.Controls.Add(newTextBox3);
+            panelPatient.Controls.Add(label3);
+            panelPatient.Controls.Add(newTextBox4);
+            panelPatient.Controls.Add(label4);
+
+
+        }
+
+        
 
 
 

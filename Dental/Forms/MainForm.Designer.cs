@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.exit = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.mainpanel = new System.Windows.Forms.Panel();
-            this.button8 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -79,6 +79,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(305, 580);
             this.panel1.TabIndex = 18;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.LightSlateGray;
+            this.button8.Location = new System.Drawing.Point(5, 545);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(301, 32);
+            this.button8.TabIndex = 18;
+            this.button8.Text = "Logout";
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
@@ -267,17 +278,6 @@
             this.mainpanel.Size = new System.Drawing.Size(812, 576);
             this.mainpanel.TabIndex = 19;
             this.mainpanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainpanel_Paint);
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.LightSlateGray;
-            this.button8.Location = new System.Drawing.Point(5, 545);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(301, 32);
-            this.button8.TabIndex = 18;
-            this.button8.Text = "Logout";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // MainForm
             // 

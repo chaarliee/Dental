@@ -46,6 +46,17 @@ namespace Dental.Forms.Dialogs
             panel1.HorizontalScroll.Maximum = 0;
             panel1.AutoScroll = true;
 
+
+
+            panelReport.AutoScroll = false;
+            panelReport.HorizontalScroll.Enabled = false;
+            panelReport.HorizontalScroll.Visible = false;
+            panelReport.HorizontalScroll.Maximum = 0;
+            panelReport.AutoScroll = true;
+
+
+            tabControl1.TabPages[1].Text = "History";
+
         }
 
         public void DisplayData()
@@ -64,7 +75,227 @@ namespace Dental.Forms.Dialogs
             textbox_dob.Text = DateOfBirth;
             textbox_age.Text = Age;
             comboBox1.SelectedValue = Convert.ToInt32(Insurance);
+
+            displayPatientReport(patient_id);
+
         }
+
+        public void displayPatientReport(int patientId)
+        {
+
+            // Clear any existing controls in the panel
+            panelReport.Controls.Clear();
+
+            int patient_totalAppointments;
+
+            string patientFirstName;
+
+            GetPatientAppointmentInfo(patientId, out patient_totalAppointments, out patientFirstName);
+
+
+
+
+            // Clinic History Data (Retrieve from view_appointment_services)
+            List<ClinicHistoryItem> clinicHistory = GetPatientClinicHistoryFromView(patientId);
+
+            // Layout parameters (adjust as needed)
+            int xStart = 20;
+            int yStart = 0;
+            int lineHeight = 20;
+            int tableXStart = 20;
+            int tableYStart = yStart;
+            int columnWidth1 = 100;
+            int columnWidth2 = 150;
+            int columnWidth3 = 80;
+
+            try
+            {
+
+                //tableYStart += 90;
+                tableYStart += 5;
+
+                // Table Headers
+                Label dateHeaderLabel = CreateLabelPatient("Date", 9, true, tableXStart, tableYStart);
+                panelReport.Controls.Add(dateHeaderLabel);
+
+                Label dentistNameHeaderLabel = CreateLabelPatient("Dentist Name", 9, true, tableXStart + columnWidth1, tableYStart);
+                panelReport.Controls.Add(dentistNameHeaderLabel);
+
+                Label servicesHeaderLabel = CreateLabelPatient("Services", 9, true, tableXStart + columnWidth1 + columnWidth2, tableYStart);
+                panelReport.Controls.Add(servicesHeaderLabel);
+
+                Label feeHeaderLabel = CreateLabelPatient("Fee", 9, true, tableXStart + columnWidth1 + columnWidth2 + columnWidth3, tableYStart);
+                panelReport.Controls.Add(feeHeaderLabel);
+
+                tableYStart += lineHeight;
+
+                // Table Data
+                if (clinicHistory != null && clinicHistory.Count > 0)
+                {
+                    foreach (var historyItem in clinicHistory)
+                    {
+                        //Label dateLabel = CreateLabelPatient(historyItem.Date.ToShortDateString(), 9, false, tableXStart, tableYStart);
+                        //panelReport.Controls.Add(dateLabel);
+                        Label dateLabel = CreateLabelPatient(historyItem.Date.ToString("MMMM dd, yyyy"), 9, false, tableXStart, tableYStart);
+                        panelReport.Controls.Add(dateLabel);
+
+                        Label dentistNameLabel = CreateLabelPatient(historyItem.DentistName, 9, false, tableXStart + columnWidth1, tableYStart);
+                        panelReport.Controls.Add(dentistNameLabel);
+
+                        Label servicesLabel = CreateLabelPatient(historyItem.Services, 9, false, tableXStart + columnWidth1 + columnWidth2, tableYStart);
+                        panelReport.Controls.Add(servicesLabel);
+
+                        Label feeLabel = CreateLabelPatient(historyItem.Fee.ToString("N2"), 9, false, tableXStart + columnWidth1 + columnWidth2 + columnWidth3, tableYStart);
+                        panelReport.Controls.Add(feeLabel);
+
+                        tableYStart += lineHeight;
+                    }
+                }
+                else
+                {
+                    Label noHistoryLabel = CreateLabelPatient("No clinic history found for this patient.", 12, false, tableXStart, tableYStart);
+                    panelReport.Controls.Add(noHistoryLabel);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating report: " + ex.Message);
+            }
+
+
+
+        }
+
+        private List<ClinicHistoryItem> GetPatientClinicHistoryFromView(int patientId)
+        {
+            // Replace with your actual database connection and query
+            string connectionString = Config.ConnectionString;
+            List<ClinicHistoryItem> history = new List<ClinicHistoryItem>();
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                    SELECT 
+                        date,
+                        FullName AS DentistName,
+                        services_name AS Services,
+                        price AS Fee
+                    FROM view_appointment_services
+                    WHERE patient_id = @PatientId";// Using patient_id from the view
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PatientId", patientId);
+
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ClinicHistoryItem item = new ClinicHistoryItem();
+                                item.Date = (DateTime)reader["date"];
+                                item.DentistName = reader["DentistName"].ToString();
+                                item.Services = reader["Services"].ToString();
+                                item.Fee = Convert.ToDecimal(reader["Fee"]); // Ensure correct conversion
+                                history.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+
+            return history;
+
+
+        }
+
+        private class ClinicHistoryItem
+        {
+            public DateTime Date { get; set; }
+            public string DentistName { get; set; }
+            public string Services { get; set; }
+            public decimal Fee { get; set; }
+        }
+
+
+        private Label CreateLabelPatient(string text, int fontSize, bool bold, int x, int y)
+        {
+            Label label = new Label();
+            label.Text = text;
+            label.Font = new Font("Arial", fontSize, bold ? FontStyle.Bold : FontStyle.Regular);
+            label.AutoSize = true;
+            label.Location = new Point(x, y);
+            return label;
+
+        }
+
+        public void GetPatientAppointmentInfo(int patientId, out int totalAppointments, out string patientFirstName)
+        {
+            string connectionString = Config.ConnectionString; // Replace with your actual connection string
+            totalAppointments = 0;
+            patientFirstName = "";
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string selectQuery = @"
+                    SELECT 
+                        COUNT(*) AS TotalAppointments,
+                        first_name
+                    FROM view_appointment
+                   WHERE patient_id = @PatientId
+                    GROUP BY first_name"; // Group by first_name to avoid potential multiple rows
+
+                    using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@PatientId", patientId);
+
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read()) // If there's data
+                            {
+                                totalAppointments = Convert.ToInt32(reader["TotalAppointments"]);
+                                patientFirstName = reader["first_name"].ToString();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No appointments found for this patient.");
+                                // Handle the case where no data is returned
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+                // Log the error
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+                // Log the error
+            }
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -257,52 +488,52 @@ namespace Dental.Forms.Dialogs
 
             LoadPatientHistory(patient_id);
             Load_insurance();
-            loadPatient_appointment();
+            //loadPatient_appointment();
         }
 
-        public void loadPatient_appointment()
-        {
-            string connectionString = Config.ConnectionString;
-            string query = @"SELECT 
-                        date, 
-                        time, 
-                        DentistName, 
-                        ServicesList, 
-                        status 
-                     FROM vw_AppointmentFullDetails";
+        //public void loadPatient_appointment()
+        //{
+        //    string connectionString = Config.ConnectionString;
+        //    string query = @"SELECT 
+        //                date, 
+        //                time, 
+        //                DentistName, 
+        //                ServicesList, 
+        //                status 
+        //             FROM vw_AppointmentFullDetails";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-            {
-                try
-                {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    using (SqlCommand command = new SqlCommand(query, connection))
+        //    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+        //    {
+        //        try
+        //        {
+        //            DataTable dt = new DataTable();
+        //            adapter.Fill(dt);
+        //            dataGridView1.DataSource = dt;
 
-                    // Optional: Customize column headers
-                    if (dataGridView1.Columns["date"] != null)
-                        dataGridView1.Columns["date"].HeaderText = "Date";
+        //            // Optional: Customize column headers
+        //            if (dataGridView1.Columns["date"] != null)
+        //                dataGridView1.Columns["date"].HeaderText = "Date";
 
-                    if (dataGridView1.Columns["time"] != null)
-                        dataGridView1.Columns["time"].HeaderText = "Time";
+        //            if (dataGridView1.Columns["time"] != null)
+        //                dataGridView1.Columns["time"].HeaderText = "Time";
 
-                    if (dataGridView1.Columns["DentistName"] != null)
-                        dataGridView1.Columns["DentistName"].HeaderText = "Dentist";
+        //            if (dataGridView1.Columns["DentistName"] != null)
+        //                dataGridView1.Columns["DentistName"].HeaderText = "Dentist";
 
-                    if (dataGridView1.Columns["ServicesList"] != null)
-                        dataGridView1.Columns["ServicesList"].HeaderText = "Services";
+        //            if (dataGridView1.Columns["ServicesList"] != null)
+        //                dataGridView1.Columns["ServicesList"].HeaderText = "Services";
 
-                    if (dataGridView1.Columns["status"] != null)
-                        dataGridView1.Columns["status"].HeaderText = "Status";
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to load appointments: " + ex.Message);
-                }
-            }
-        }
+        //            if (dataGridView1.Columns["status"] != null)
+        //                dataGridView1.Columns["status"].HeaderText = "Status";
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Failed to load appointments: " + ex.Message);
+        //        }
+        //    }
+        //}
 
 
         private void Load_insurance()

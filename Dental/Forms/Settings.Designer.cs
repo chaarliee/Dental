@@ -70,7 +70,6 @@ namespace Dental.Forms
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -87,10 +86,15 @@ namespace Dental.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -240,19 +244,10 @@ namespace Dental.Forms
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 0;
             // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(81, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(211, 32);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Clinic Settings";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(81, 114);
+            this.pictureBox1.Location = new System.Drawing.Point(266, 75);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(150, 80);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -266,7 +261,7 @@ namespace Dental.Forms
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(241, 114);
+            this.button1.Location = new System.Drawing.Point(426, 75);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 30);
             this.button1.TabIndex = 15;
@@ -276,7 +271,7 @@ namespace Dental.Forms
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label3.Location = new System.Drawing.Point(81, 214);
+            this.label3.Location = new System.Drawing.Point(9, 167);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 23);
             this.label3.TabIndex = 16;
@@ -285,7 +280,7 @@ namespace Dental.Forms
             // application_name
             // 
             this.application_name.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.application_name.Location = new System.Drawing.Point(81, 244);
+            this.application_name.Location = new System.Drawing.Point(9, 197);
             this.application_name.Name = "application_name";
             this.application_name.Size = new System.Drawing.Size(250, 25);
             this.application_name.TabIndex = 17;
@@ -294,7 +289,7 @@ namespace Dental.Forms
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label4.Location = new System.Drawing.Point(81, 284);
+            this.label4.Location = new System.Drawing.Point(9, 237);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 18;
@@ -303,7 +298,7 @@ namespace Dental.Forms
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.textBox2.Location = new System.Drawing.Point(81, 314);
+            this.textBox2.Location = new System.Drawing.Point(9, 267);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(250, 25);
             this.textBox2.TabIndex = 19;
@@ -312,7 +307,7 @@ namespace Dental.Forms
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label5.Location = new System.Drawing.Point(81, 354);
+            this.label5.Location = new System.Drawing.Point(9, 307);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 20;
@@ -321,7 +316,7 @@ namespace Dental.Forms
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.textBox3.Location = new System.Drawing.Point(81, 384);
+            this.textBox3.Location = new System.Drawing.Point(9, 337);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(250, 25);
             this.textBox3.TabIndex = 21;
@@ -330,7 +325,7 @@ namespace Dental.Forms
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label6.Location = new System.Drawing.Point(81, 424);
+            this.label6.Location = new System.Drawing.Point(9, 377);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 22;
@@ -339,7 +334,7 @@ namespace Dental.Forms
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.textBox4.Location = new System.Drawing.Point(81, 454);
+            this.textBox4.Location = new System.Drawing.Point(9, 407);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(250, 25);
             this.textBox4.TabIndex = 23;
@@ -348,7 +343,7 @@ namespace Dental.Forms
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label7.Location = new System.Drawing.Point(81, 494);
+            this.label7.Location = new System.Drawing.Point(9, 447);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 23);
             this.label7.TabIndex = 24;
@@ -357,7 +352,7 @@ namespace Dental.Forms
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.textBox5.Location = new System.Drawing.Point(81, 524);
+            this.textBox5.Location = new System.Drawing.Point(9, 477);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(250, 25);
             this.textBox5.TabIndex = 25;
@@ -402,7 +397,7 @@ namespace Dental.Forms
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(697, 524);
+            this.button2.Location = new System.Drawing.Point(709, 521);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(80, 30);
             this.button2.TabIndex = 27;
@@ -410,12 +405,50 @@ namespace Dental.Forms
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(288, 197);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(501, 244);
+            this.dataGridView1.TabIndex = 28;
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label10.Location = new System.Drawing.Point(284, 167);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(100, 23);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "User List";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(709, 165);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 30;
+            this.button3.Text = "Add";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label2.Location = new System.Drawing.Point(200, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 23);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "Logo";
+            // 
             // Settings
             // 
-            this.ClientSize = new System.Drawing.Size(801, 604);
+            this.ClientSize = new System.Drawing.Size(801, 562);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
@@ -437,6 +470,7 @@ namespace Dental.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -447,7 +481,6 @@ namespace Dental.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label exit;
         private System.Windows.Forms.Panel panel1;
-        private Label label2;
         private PictureBox pictureBox1;
         private Button button1;
         private Label label3;
@@ -464,5 +497,9 @@ namespace Dental.Forms
         private Label label8;
         private Label label9;
         private Button button2;
+        private DataGridView dataGridView1;
+        private Label label10;
+        private Button button3;
+        private Label label2;
     }
 }

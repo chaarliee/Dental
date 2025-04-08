@@ -57,6 +57,7 @@
             this.Unpaid = new System.Windows.Forms.RadioButton();
             this.label10 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.panelServicesEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.servicequantity_0)).BeginInit();
             this.SuspendLayout();
@@ -104,12 +105,13 @@
             // 
             // panelServicesEdit
             // 
+            this.panelServicesEdit.Controls.Add(this.button4);
             this.panelServicesEdit.Controls.Add(this.servicequantity_0);
             this.panelServicesEdit.Controls.Add(this.servicecombobox_0);
             this.panelServicesEdit.Controls.Add(this.serviceprice_0);
-            this.panelServicesEdit.Location = new System.Drawing.Point(202, 86);
+            this.panelServicesEdit.Location = new System.Drawing.Point(179, 86);
             this.panelServicesEdit.Name = "panelServicesEdit";
-            this.panelServicesEdit.Size = new System.Drawing.Size(313, 172);
+            this.panelServicesEdit.Size = new System.Drawing.Size(336, 172);
             this.panelServicesEdit.TabIndex = 145;
             // 
             // servicequantity_0
@@ -337,6 +339,15 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(308, 1);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(25, 23);
+            this.button4.TabIndex = 167;
+            this.button4.Text = "X";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // EditBilling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -409,5 +420,6 @@
         private System.Windows.Forms.RadioButton Unpaid;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
     }
 }

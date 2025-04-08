@@ -62,11 +62,11 @@ namespace Dental.Forms.Dialogs
                         {
                             // Handle status-related UI logic
                             string status = reader["status"].ToString();
-                            if (status == "Finished")
-                            {
-                                btnSave.Text = "Print";
-                                btnCancel.Visible = false;
-                            }
+                            //if (status == "Finished")
+                            //{
+                            //    btnSave.Text = "Print";
+                            //    btnCancel.Visible = false;
+                            //}
 
                             // ✅ Set labels from view
                             label_patient.Text = reader["PatientFirstName"].ToString();
@@ -134,7 +134,7 @@ namespace Dental.Forms.Dialogs
                                 DataSource = GetDynamicDataSource(),
                                 DisplayMember = "services_name",
                                 ValueMember = "Id",
-                                Name = "Dservicecombobox_" + rowIndex
+                                Name = "servicecombobox_" + rowIndex
                             };
                             comboBoxService.SelectedValue = serviceId;
 
@@ -142,7 +142,7 @@ namespace Dental.Forms.Dialogs
                             {
                                 Location = new Point(132, yOffset),
                                 Size = new Size(66, 20),
-                                Name = "Dservicequantity_" + rowIndex,
+                                Name = "servicequantity_" + rowIndex,
                                 Value = Convert.ToDecimal(reader["quantity"]),
                                 Enabled = !isFixed // disable if fixed
                             };
@@ -151,14 +151,29 @@ namespace Dental.Forms.Dialogs
                             {
                                 Location = new Point(203, yOffset),
                                 Size = new Size(100, 20),
-                                Name = "Dserviceprice_" + rowIndex,
+                                Name = "serviceprice_" + rowIndex,
                                 Text = serviceFee.ToString(),
                             };
+
+                            Button button = new Button
+                            {
+                                Location = new Point(308, yOffset),
+                                Size = new Size(25, 23),
+                                Name = "btnclose_" + rowIndex,
+                                Text = "X",
+                                Tag = service_counter
+                                //Name = "serviceprice_" + service_counter,
+
+                            };
+
+                            button.Click += RemoveServiceRow_Click;
+
 
                             // 👇 Add controls
                             panelServicesEdit.Controls.Add(comboBoxService);
                             panelServicesEdit.Controls.Add(numericUpDownQty);
                             panelServicesEdit.Controls.Add(textBoxPrice);
+                            panelServicesEdit.Controls.Add(button);
 
                             yOffset += 30;
                             rowIndex++;
@@ -171,6 +186,93 @@ namespace Dental.Forms.Dialogs
                 }
             }
         }
+
+        private void RemoveServiceRow_Click(object sender, EventArgs e)
+        {
+            Button closeButton = sender as Button;
+            if (closeButton?.Tag == null) return;
+
+            string index = closeButton.Tag.ToString();
+            List<Control> controlsToRemove = new List<Control>();
+
+            // Gather all controls with the same suffix index
+            foreach (Control ctrl in panelServicesEdit.Controls)
+            {
+                if (ctrl.Name.EndsWith("_" + index))
+                {
+                    controlsToRemove.Add(ctrl);
+                }
+            }
+
+            // Remove them from the panel
+            foreach (var ctrl in controlsToRemove)
+            {
+                panelServicesEdit.Controls.Remove(ctrl);
+                ctrl.Dispose(); // Free memory
+            }
+
+            // Repack remaining controls vertically
+            RepackServiceRows();
+        }
+
+        private void RepackServiceRows()
+        {
+            int yOffset = 0;
+            int newIndex = 0;
+
+            // Get all control sets by index
+            var grouped = panelServicesEdit.Controls
+                .Cast<Control>()
+                .GroupBy(ctrl => ctrl.Name.Split('_').Last())
+                .ToList();
+
+            panelServicesEdit.Controls.Clear(); // Clear old layout
+
+            foreach (var group in grouped.OrderBy(g => g.First().Location.Y))
+            {
+                // Recreate controls with new index and layout
+                ComboBox comboBox = group.OfType<ComboBox>().FirstOrDefault();
+                NumericUpDown qty = group.OfType<NumericUpDown>().FirstOrDefault();
+                TextBox price = group.OfType<TextBox>().FirstOrDefault();
+                Button closeBtn = group.OfType<Button>().FirstOrDefault();
+
+                if (comboBox != null)
+                {
+                    comboBox.Location = new Point(0, yOffset);
+                    comboBox.Name = "servicecombobox_" + newIndex;
+                    panelServicesEdit.Controls.Add(comboBox);
+                }
+
+                if (qty != null)
+                {
+                    qty.Location = new Point(132, yOffset);
+                    qty.Name = "servicequantity_" + newIndex;
+                    panelServicesEdit.Controls.Add(qty);
+                }
+
+                if (price != null)
+                {
+                    price.Location = new Point(203, yOffset);
+                    price.Name = "serviceprice_" + newIndex;
+                    panelServicesEdit.Controls.Add(price);
+                }
+
+                if (closeBtn != null)
+                {
+                    closeBtn.Location = new Point(308, yOffset);
+                    closeBtn.Name = "btnclose_" + newIndex;
+                    closeBtn.Tag = newIndex;
+                    panelServicesEdit.Controls.Add(closeBtn);
+                }
+
+                yOffset += 30;
+                newIndex++;
+            }
+
+            service_counter = newIndex; // Keep counter accurate
+        }
+
+
 
         private void GetServiceFeeAndFixed(int serviceId, out decimal fee, out bool isFixed)
         {
@@ -317,123 +419,128 @@ namespace Dental.Forms.Dialogs
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-{
-    if (!Paid.Checked && !Unpaid.Checked)
-    {
-        MessageBox.Show("Please select whether the payment is Paid or Unpaid before proceeding.");
-        return;
-    }
-
-    int appointmentId = fetched_appointment_id;
-
-    if (appointmentId > 0)
-    {
-        string connectionString = Config.ConnectionString;
-
-        using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            SqlTransaction transaction = null;
-
-            try
-            {
-                connection.Open();
-                transaction = connection.BeginTransaction();
-
-                // Prepare discount flags
-                string hasDiscount = checkBox_discount.Checked ? "Yes" : "No";
-                decimal total = 0;
-
-                if (!decimal.TryParse(total_textbox.Text, out total))
+                if (!Paid.Checked && !Unpaid.Checked)
                 {
-                    MessageBox.Show("Invalid total amount.");
+                    MessageBox.Show("Please select whether the payment is Paid or Unpaid before proceeding.");
                     return;
                 }
 
-                // Update Appointments
-                string updateAppointmentQuery = @"
-                    UPDATE Appointments 
-                    SET status = 'Finished', 
-                        total = @total, 
-                        has_discount = @has_discount 
-                    WHERE id = @AppointmentID";
+                int appointmentId = fetched_appointment_id;
 
-                using (SqlCommand appointmentCommand = new SqlCommand(updateAppointmentQuery, connection, transaction))
+                if (appointmentId > 0)
                 {
-                    appointmentCommand.Parameters.AddWithValue("@AppointmentID", appointmentId);
-                    appointmentCommand.Parameters.AddWithValue("@total", total);
-                    appointmentCommand.Parameters.AddWithValue("@has_discount", hasDiscount);
+                    string connectionString = Config.ConnectionString;
 
-                    int rowsAffected = appointmentCommand.ExecuteNonQuery();
-                    if (rowsAffected == 0)
+                    using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        MessageBox.Show("Appointment not found.");
-                        transaction.Rollback();
-                        return;
-                    }
-                }
+                        SqlTransaction transaction = null;
 
-                // Delete old services
-                string deleteQuery = "DELETE FROM appointment_services WHERE appointment_id = @AppointmentID";
-                using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, connection, transaction))
-                {
-                    deleteCmd.Parameters.AddWithValue("@AppointmentID", appointmentId);
-                    deleteCmd.ExecuteNonQuery();
-                }
-
-                // Re-insert updated services
-                string insertQuery = @"INSERT INTO appointment_services 
-                    (appointment_id, services_id, quantity, price, status, created_At) 
-                    VALUES (@appointment_id, @services_id, @quantity, @price, @status, @created_At)";
-
-                foreach (Control control in panelServicesEdit.Controls)
-                {
-                    if (control is ComboBox comboBox)
-                    {
-                        string index = comboBox.Name.Split('_').Last();
-
-                        ComboBox serviceBox = comboBox;
-                        NumericUpDown qtyBox = panelServicesEdit.Controls["Dservicequantity_" + index] as NumericUpDown;
-                        TextBox priceBox = panelServicesEdit.Controls["Dserviceprice_" + index] as TextBox;
-
-                        if (serviceBox?.SelectedValue != null && qtyBox != null && priceBox != null)
+                        try
                         {
-                            int serviceId = (int)serviceBox.SelectedValue;
-                            int quantity = (int)qtyBox.Value;
-                            decimal price = 0;
+                            connection.Open();
+                            transaction = connection.BeginTransaction();
 
-                            decimal.TryParse(priceBox.Text, out price);
+                            // Prepare discount flags
+                            string hasDiscount = checkBox_discount.Checked ? "Yes" : "No";
+                            decimal total = 0;
 
-                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection, transaction))
+                            if (!decimal.TryParse(total_textbox.Text, out total))
                             {
-                                insertCmd.Parameters.AddWithValue("@appointment_id", appointmentId);
-                                insertCmd.Parameters.AddWithValue("@services_id", serviceId);
-                                insertCmd.Parameters.AddWithValue("@quantity", quantity);
-                                insertCmd.Parameters.AddWithValue("@price", price);
-                                insertCmd.Parameters.AddWithValue("@status", Paid.Checked ? "Paid" : "Unpaid");
-                                insertCmd.Parameters.AddWithValue("@created_At", DateTime.Now);
-
-                                insertCmd.ExecuteNonQuery();
+                                MessageBox.Show("Invalid total amount.");
+                                return;
                             }
+
+                            // Update Appointments
+                            string updateAppointmentQuery = @"
+                                UPDATE Appointments 
+                                SET status = 'Finished', 
+                                    total = @total, 
+                                    has_discount = @has_discount 
+                                WHERE id = @AppointmentID";
+
+                            using (SqlCommand appointmentCommand = new SqlCommand(updateAppointmentQuery, connection, transaction))
+                            {
+                                appointmentCommand.Parameters.AddWithValue("@AppointmentID", appointmentId);
+                                appointmentCommand.Parameters.AddWithValue("@total", total);
+                                appointmentCommand.Parameters.AddWithValue("@has_discount", hasDiscount);
+                                MessageBox.Show("appointment_services delete." + appointmentId+"-"+ total+"-"+ hasDiscount);
+
+                                int rowsAffected = appointmentCommand.ExecuteNonQuery();
+                                if (rowsAffected == 0)
+                                {
+                                    MessageBox.Show("Appointment not found.");
+                                    transaction.Rollback();
+                                    return;
+                                }
+                            }
+
+                            // Delete old services
+                            string deleteQuery = "DELETE FROM appointment_services WHERE appointment_id = @AppointmentID";
+                            using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, connection, transaction))
+                            {
+                                deleteCmd.Parameters.AddWithValue("@AppointmentID", appointmentId);
+                                deleteCmd.ExecuteNonQuery();
+                                 MessageBox.Show("appointment_services delete." + appointmentId);
+                            }
+
+                            // Re-insert updated services
+                            string insertQuery = @"INSERT INTO appointment_services 
+                                (appointment_id, services_id, quantity, price, status, created_At) 
+                                VALUES (@appointment_id, @services_id, @quantity, @price, @status, @created_At)";
+
+                            foreach (Control control in panelServicesEdit.Controls)
+                            {
+                                if (control is ComboBox comboBox)
+                                {
+                                    string index = comboBox.Name.Split('_').Last();
+
+                                    ComboBox serviceBox = comboBox;
+                                    NumericUpDown qtyBox = panelServicesEdit.Controls["Dservicequantity_" + index] as NumericUpDown;
+                                    TextBox priceBox = panelServicesEdit.Controls["Dserviceprice_" + index] as TextBox;
+
+                                        //NumericUpDown qtyBox = panelServicesEdit.Controls["Dservicequantity_" + index] as NumericUpDown;
+                                        //TextBox priceBox = panelServicesEdit.Controls["Dserviceprice_" + index] as TextBox;
+
+                                if (serviceBox?.SelectedValue != null && qtyBox != null && priceBox != null)
+                                    {
+                                        int serviceId = (int)serviceBox.SelectedValue;
+                                        int quantity = (int)qtyBox.Value;
+                                        decimal price = 0;
+
+                                        decimal.TryParse(priceBox.Text, out price);
+
+                                        using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection, transaction))
+                                        {
+                                            insertCmd.Parameters.AddWithValue("@appointment_id", appointmentId);
+                                            insertCmd.Parameters.AddWithValue("@services_id", serviceId);
+                                            insertCmd.Parameters.AddWithValue("@quantity", quantity);
+                                            insertCmd.Parameters.AddWithValue("@price", price);
+                                            insertCmd.Parameters.AddWithValue("@status", Paid.Checked ? "Paid" : "Unpaid");
+                                            insertCmd.Parameters.AddWithValue("@created_At", DateTime.Now);
+
+                                            insertCmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
+                            }
+
+                            transaction.Commit();
+                            MessageBox.Show("Appointment and services successfully updated.");
+                            CloseControl();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction?.Rollback();
+                            MessageBox.Show("An error occurred: " + ex.Message);
                         }
                     }
                 }
-
-                transaction.Commit();
-                MessageBox.Show("Appointment and services successfully updated.");
-                CloseControl();
-            }
-            catch (Exception ex)
-            {
-                transaction?.Rollback();
-                MessageBox.Show("An error occurred: " + ex.Message);
-            }
+                else
+                {
+                    MessageBox.Show("Invalid Appointment ID.");
+                }
         }
-    }
-    else
-    {
-        MessageBox.Show("Invalid Appointment ID.");
-    }
-}
 
         private void button_total_Click(object sender, EventArgs e)
         {
@@ -472,20 +579,20 @@ namespace Dental.Forms.Dialogs
                             bool isFixed;
                             GetServiceFeeAndFixed(serviceId, out fee, out isFixed);
 
-                            ComboBox comboBox = (ComboBox)panelServicesEdit.Controls["Dservicecombobox_" + rowIndex];
+                            ComboBox comboBox = (ComboBox)panelServicesEdit.Controls["servicecombobox_" + rowIndex];
                             if (comboBox != null)
                             {
                                 comboBox.SelectedValue = serviceId;
                             }
 
-                            NumericUpDown numericUPdown = (NumericUpDown)panelServicesEdit.Controls["Dservicequantity_" + rowIndex];
+                            NumericUpDown numericUPdown = (NumericUpDown)panelServicesEdit.Controls["servicequantity_" + rowIndex];
                             if (numericUPdown != null)
                             {
                                 numericUPdown.Value = Convert.ToDecimal(reader["quantity"]);
                                 numericUPdown.Enabled = !isFixed; // 🔐 Disable if fixed
                             }
 
-                            TextBox textBox = (TextBox)panelServicesEdit.Controls["Dserviceprice_" + rowIndex];
+                            TextBox textBox = (TextBox)panelServicesEdit.Controls["serviceprice_" + rowIndex];
                             if (textBox != null)
                             {
                                 textBox.Text = fee.ToString("0.00");
@@ -513,15 +620,15 @@ namespace Dental.Forms.Dialogs
         private void AddServiceRow()
         {
 
-            System.Console.WriteLine("count: " + panelServicesEdit.Controls.Count / 3);
+            System.Console.WriteLine("count: " + panelServicesEdit.Controls.Count / 4);
 
-            if (panelServicesEdit.Controls.Count / 3 >= 5)
+            if (panelServicesEdit.Controls.Count / 4 >= 5)
             {
                 MessageBox.Show("You have reached the required number of services.");
             }
             else
             {
-                int yOffset = panelServicesEdit.Controls.Count / 3 * 30;
+                int yOffset = panelServicesEdit.Controls.Count / 4 * 30;
 
                 ComboBox comboBoxService = new ComboBox
                 {
@@ -534,37 +641,40 @@ namespace Dental.Forms.Dialogs
                     Name = "servicecombobox_" + service_counter
                 };
 
-                //comboBoxService.Name = "servicecombobox_" + panelServices.Controls.Count;
-
-                //System.Console.WriteLine("Added ComboBox with name: " + comboBoxService.Name);
-
-                //System.Console.WriteLine("count: " + service_counter);
-
-
-                //if (panelServices.Controls.Count > 0)
-                //{
-                //    Control lastControl = panelServices.Controls[panelServices.Controls.Count - 1];
-                //    if (lastControl is ComboBox)
-                //    {
-                //        System.Console.WriteLine("Last Combobox Name: " + lastControl.Name);
-                //    }
-                //}
-
+           
 
                 NumericUpDown numericUpDownQty = new NumericUpDown
                 {
                     Location = new Point(132, yOffset),
                     Size = new Size(66, 20),
-                    Name = "servicequantity_" + service_counter
+                    //Name = "servicequantity_" + service_counter
+                     Name = "Dservicequantity_" + service_counter
+                    
                 };
 
                 TextBox textBoxPrice = new TextBox
                 {
                     Location = new Point(203, yOffset),
                     Size = new Size(100, 20),
-                    Name = "serviceprice_" + service_counter,
-                   
+                    Name = "Dserviceprice_" + service_counter,
+                    //Name = "serviceprice_" + service_counter,
+
                 };
+
+                Button button1 = new Button
+                {
+                    Location = new Point(308, yOffset),
+                    Size = new Size(25, 23),
+                    Name = "btnclose_" + service_counter,
+                    Text = "X",
+                    Tag = service_counter
+                    //Name = "serviceprice_" + service_counter,
+
+                };
+
+                button1.Click += RemoveServiceRow_Click;
+
+
 
 
 
@@ -573,6 +683,7 @@ namespace Dental.Forms.Dialogs
                 panelServicesEdit.Controls.Add(comboBoxService);
                 panelServicesEdit.Controls.Add(numericUpDownQty);
                 panelServicesEdit.Controls.Add(textBoxPrice);
+                panelServicesEdit.Controls.Add(button1);
 
                 comboBoxService.SelectedIndexChanged += comboBoxService_SelectedIndexChanged;
 
@@ -585,7 +696,7 @@ namespace Dental.Forms.Dialogs
         private void comboBoxService_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            TextBox textBoxPrice = (TextBox)panelServicesEdit.Controls["serviceprice_" + comboBox.Name.Split('_')[1]];
+            TextBox textBoxPrice = (TextBox)panelServicesEdit.Controls["Dserviceprice_" + comboBox.Name.Split('_')[1]];
 
             if (comboBox.SelectedValue != null)
             {

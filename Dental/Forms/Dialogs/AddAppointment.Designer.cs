@@ -158,6 +158,8 @@
             this.label48 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.panelPatient = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dentistsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentists)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patients)).BeginInit();
@@ -173,12 +175,13 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panelPatient.SuspendLayout();
             this.SuspendLayout();
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(194, 90);
+            this.label7.Location = new System.Drawing.Point(190, 24);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(39, 13);
             this.label7.TabIndex = 60;
@@ -187,7 +190,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(194, 110);
+            this.label8.Location = new System.Drawing.Point(190, 44);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(32, 13);
             this.label8.TabIndex = 59;
@@ -206,7 +209,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(194, 130);
+            this.label6.Location = new System.Drawing.Point(190, 64);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 54;
@@ -215,7 +218,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(194, 148);
+            this.label5.Location = new System.Drawing.Point(190, 82);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 53;
@@ -224,7 +227,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(194, 165);
+            this.label4.Location = new System.Drawing.Point(3, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 52;
@@ -233,7 +236,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(192, 71);
+            this.label3.Location = new System.Drawing.Point(188, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 51;
@@ -242,7 +245,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 71);
+            this.label1.Location = new System.Drawing.Point(3, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 49;
@@ -299,7 +302,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 116);
+            this.label10.Location = new System.Drawing.Point(377, 62);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(30, 13);
             this.label10.TabIndex = 65;
@@ -360,7 +363,7 @@
             this.comboBoxPatients.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxPatients.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxPatients.FormattingEnabled = true;
-            this.comboBoxPatients.Location = new System.Drawing.Point(6, 86);
+            this.comboBoxPatients.Location = new System.Drawing.Point(2, 20);
             this.comboBoxPatients.Name = "comboBoxPatients";
             this.comboBoxPatients.Size = new System.Drawing.Size(180, 21);
             this.comboBoxPatients.TabIndex = 71;
@@ -405,9 +408,9 @@
             // 
             // reason
             // 
-            this.reason.Location = new System.Drawing.Point(8, 132);
+            this.reason.Location = new System.Drawing.Point(378, 78);
             this.reason.Name = "reason";
-            this.reason.Size = new System.Drawing.Size(171, 46);
+            this.reason.Size = new System.Drawing.Size(171, 104);
             this.reason.TabIndex = 76;
             this.reason.Text = "";
             // 
@@ -450,7 +453,7 @@
             // label_dob
             // 
             this.label_dob.AutoSize = true;
-            this.label_dob.Location = new System.Drawing.Point(249, 90);
+            this.label_dob.Location = new System.Drawing.Point(245, 24);
             this.label_dob.Name = "label_dob";
             this.label_dob.Size = new System.Drawing.Size(10, 13);
             this.label_dob.TabIndex = 95;
@@ -459,7 +462,7 @@
             // label_age
             // 
             this.label_age.AutoSize = true;
-            this.label_age.Location = new System.Drawing.Point(251, 110);
+            this.label_age.Location = new System.Drawing.Point(247, 44);
             this.label_age.Name = "label_age";
             this.label_age.Size = new System.Drawing.Size(10, 13);
             this.label_age.TabIndex = 94;
@@ -468,7 +471,7 @@
             // label_phone
             // 
             this.label_phone.AutoSize = true;
-            this.label_phone.Location = new System.Drawing.Point(251, 130);
+            this.label_phone.Location = new System.Drawing.Point(247, 64);
             this.label_phone.Name = "label_phone";
             this.label_phone.Size = new System.Drawing.Size(10, 13);
             this.label_phone.TabIndex = 93;
@@ -477,7 +480,7 @@
             // label_email
             // 
             this.label_email.AutoSize = true;
-            this.label_email.Location = new System.Drawing.Point(251, 148);
+            this.label_email.Location = new System.Drawing.Point(247, 82);
             this.label_email.Name = "label_email";
             this.label_email.Size = new System.Drawing.Size(10, 13);
             this.label_email.TabIndex = 92;
@@ -486,7 +489,7 @@
             // label_address
             // 
             this.label_address.AutoSize = true;
-            this.label_address.Location = new System.Drawing.Point(251, 165);
+            this.label_address.Location = new System.Drawing.Point(60, 50);
             this.label_address.Name = "label_address";
             this.label_address.Size = new System.Drawing.Size(10, 13);
             this.label_address.TabIndex = 91;
@@ -495,7 +498,7 @@
             // label_gender
             // 
             this.label_gender.AutoSize = true;
-            this.label_gender.Location = new System.Drawing.Point(249, 71);
+            this.label_gender.Location = new System.Drawing.Point(245, 5);
             this.label_gender.Name = "label_gender";
             this.label_gender.Size = new System.Drawing.Size(10, 13);
             this.label_gender.TabIndex = 90;
@@ -1467,7 +1470,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(250, 181);
+            this.label48.Location = new System.Drawing.Point(59, 66);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(10, 13);
             this.label48.TabIndex = 143;
@@ -1476,7 +1479,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(193, 181);
+            this.label49.Location = new System.Drawing.Point(2, 66);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(60, 13);
             this.label49.TabIndex = 142;
@@ -1485,28 +1488,55 @@
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(177, 181);
+            this.label50.Location = new System.Drawing.Point(-10, 132);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(10, 13);
             this.label50.TabIndex = 144;
             this.label50.Text = "-";
             this.label50.Visible = false;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(332, 40);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(39, 23);
+            this.button2.TabIndex = 145;
+            this.button2.Text = "New";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // panelPatient
+            // 
+            this.panelPatient.Controls.Add(this.label1);
+            this.panelPatient.Controls.Add(this.label3);
+            this.panelPatient.Controls.Add(this.label4);
+            this.panelPatient.Controls.Add(this.label48);
+            this.panelPatient.Controls.Add(this.label5);
+            this.panelPatient.Controls.Add(this.label49);
+            this.panelPatient.Controls.Add(this.label6);
+            this.panelPatient.Controls.Add(this.label8);
+            this.panelPatient.Controls.Add(this.label7);
+            this.panelPatient.Controls.Add(this.label_dob);
+            this.panelPatient.Controls.Add(this.comboBoxPatients);
+            this.panelPatient.Controls.Add(this.label_age);
+            this.panelPatient.Controls.Add(this.label_gender);
+            this.panelPatient.Controls.Add(this.label_phone);
+            this.panelPatient.Controls.Add(this.label_address);
+            this.panelPatient.Controls.Add(this.label_email);
+            this.panelPatient.Location = new System.Drawing.Point(5, 71);
+            this.panelPatient.Name = "panelPatient";
+            this.panelPatient.Size = new System.Drawing.Size(366, 114);
+            this.panelPatient.TabIndex = 86;
+            // 
             // AddAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panelPatient);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label50);
-            this.Controls.Add(this.label48);
-            this.Controls.Add(this.label49);
             this.Controls.Add(this.label47);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label_dob);
-            this.Controls.Add(this.label_age);
-            this.Controls.Add(this.label_phone);
-            this.Controls.Add(this.label_email);
-            this.Controls.Add(this.label_address);
-            this.Controls.Add(this.label_gender);
             this.Controls.Add(this.panelServices);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.buttonAddService);
@@ -1516,20 +1546,12 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.time_datepicker);
             this.Controls.Add(this.date_datepicker);
-            this.Controls.Add(this.comboBoxPatients);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -1560,6 +1582,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelPatient.ResumeLayout(false);
+            this.panelPatient.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1696,5 +1720,7 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panelPatient;
     }
 }
