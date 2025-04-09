@@ -23,8 +23,9 @@ namespace Dental.Forms
         public void loadMainForm(object Form)
         {
 
-            string loggedUsername = Form1.GlobalVariables.LoggedInUsername;
-         if (loggedUsername == "user" || loggedUsername == "admin")
+            bool loggedIsAdmin = Form1.GlobalVariables.IsAdmin;
+
+         if (loggedIsAdmin == true || loggedIsAdmin == false)
             {
                 if (this.mainpanel.Controls.Count > 0)
                     this.mainpanel.Controls.RemoveAt(0);

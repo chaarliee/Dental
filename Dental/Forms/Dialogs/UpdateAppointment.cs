@@ -558,6 +558,33 @@ namespace Dental.Forms.Dialogs
                     Visible = false
                 };
 
+                Button btnRemove = new Button
+                {
+                    Location = new Point(210, yOffset),
+                    Size = new Size(25, 23),
+                    Text = "X",
+                    Tag = service_counter
+                };
+
+                btnRemove.Click += (s, e) =>
+                {
+                    // Remove the row by looking for controls with the same tag or index
+                    var controlsToRemove = panelServicesEdit.Controls
+                        .OfType<Control>()
+                        .Where(ctrl => ctrl.Name.EndsWith("_" + btnRemove.Tag.ToString()))
+                        .ToList();
+
+                    foreach (var ctrl in controlsToRemove)
+                    {
+                        panelServicesEdit.Controls.Remove(ctrl);
+                        ctrl.Dispose();
+                    }
+
+                    // Optionally repack the remaining controls
+                    RepackServiceRows();
+                };
+
+
 
 
 
@@ -565,6 +592,7 @@ namespace Dental.Forms.Dialogs
                 panelServicesEdit.Controls.Add(comboBoxService);
                 //panelServices.Controls.Add(numericUpDownQty);
                 panelServicesEdit.Controls.Add(textBoxPrice);
+                panelServicesEdit.Controls.Add(btnRemove);
 
                 //comboBoxService.SelectedIndexChanged += comboBoxService_SelectedIndexChanged;
 
@@ -574,6 +602,45 @@ namespace Dental.Forms.Dialogs
 
 
 
+        }
+
+        private void RepackServiceRows()
+        {
+            int index = 0;
+            var grouped = panelServicesEdit.Controls
+                .OfType<Control>()
+                .GroupBy(ctrl => ctrl.Name.Split('_').Last())
+                .OrderBy(g => g.Key);
+
+            foreach (var group in grouped)
+            {
+                int yOffset = index * 30;
+                foreach (var ctrl in group)
+                {
+                    if (ctrl is ComboBox)
+                    {
+                        ctrl.Location = new Point(0, yOffset);
+                        ctrl.Name = "servicecombobox_" + index;
+                    }
+                    else if (ctrl is NumericUpDown)
+                    {
+                        ctrl.Location = new Point(210, yOffset);
+                        ctrl.Name = "servicequantity_" + index;
+                    }
+                    else if (ctrl is TextBox)
+                    {
+                        ctrl.Location = new Point(280, yOffset);
+                        ctrl.Name = "serviceprice_" + index;
+                    }
+                    else if (ctrl is Button)
+                    {
+                        ctrl.Location = new Point(385, yOffset);
+                        ctrl.Name = "btnclose_" + index;
+                        ctrl.Tag = index;
+                    }
+                }
+                index++;
+            }
         }
 
         private void refreshServices(string connectionString, int appointment_id)

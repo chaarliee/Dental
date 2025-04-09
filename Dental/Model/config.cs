@@ -15,8 +15,8 @@ namespace Dental.Model
     {
         public static string ConnectionString = "Server=DESKTOP-TSBJPEA;Database=Dental;Trusted_Connection=True;";
 
-        public static string Email_Sender = ""; // Your email address
-        public static string Email_Password = ""; // Your password
+        public static string Email_Sender = "ceupena413@gmail.com"; // Your email address
+        public static string Email_Password = "empwhzsdxyhsrkqf"; // Your password
         public static string Email_SMTP = "smtp.gmail.com"; // Your email host
         public static int Email_PORT = 587; // Your email port
 

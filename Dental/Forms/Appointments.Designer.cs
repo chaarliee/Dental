@@ -38,16 +38,8 @@ namespace Dental.Forms
             this.panel1 = new System.Windows.Forms.Panel();
             this.add_appointment_btn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.first_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.services_names = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.service_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vwAppointmentFullDetailsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dentalDataSet17 = new Dental.DentalDataSet17();
             this.viewappointmentBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.dentalDataSet9 = new Dental.DentalDataSet9();
             this.viewappointmentBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
@@ -83,8 +75,19 @@ namespace Dental.Forms
             this.view_appointmentTableAdapter3 = new Dental.DentalDataSet9TableAdapters.View_appointmentTableAdapter();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.vw_AppointmentFullDetailsTableAdapter = new Dental.DentalDataSet17TableAdapters.vw_AppointmentFullDetailsTableAdapter();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PatientFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ServicesList = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DentistName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PatientPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwAppointmentFullDetailsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource2)).BeginInit();
@@ -133,7 +136,6 @@ namespace Dental.Forms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 41);
             this.panel1.TabIndex = 1;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // add_appointment_btn
             // 
@@ -160,85 +162,30 @@ namespace Dental.Forms
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.first_name,
-            this.FullName,
-            this.dateDataGridViewTextBoxColumn,
-            this.timeDataGridViewTextBoxColumn,
-            this.services_names,
-            this.phone,
+            this.Column1,
             this.status,
-            this.service_status,
-            this.createdAtDataGridViewTextBoxColumn,
-            this.Id});
-            this.dataGridView1.DataSource = this.viewappointmentBindingSource3;
+            this.date,
+            this.time,
+            this.PatientFirstName,
+            this.ServicesList,
+            this.DentistName,
+            this.PatientPhone});
+            this.dataGridView1.DataSource = this.vwAppointmentFullDetailsBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(0, 201);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(798, 356);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
-            // first_name
+            // vwAppointmentFullDetailsBindingSource
             // 
-            this.first_name.DataPropertyName = "first_name";
-            this.first_name.HeaderText = "Patient";
-            this.first_name.Name = "first_name";
+            this.vwAppointmentFullDetailsBindingSource.DataMember = "vw_AppointmentFullDetails";
+            this.vwAppointmentFullDetailsBindingSource.DataSource = this.dentalDataSet17;
             // 
-            // FullName
+            // dentalDataSet17
             // 
-            this.FullName.DataPropertyName = "FullName";
-            this.FullName.HeaderText = "Dentist";
-            this.FullName.Name = "FullName";
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.MaxInputLength = 3276743;
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            // 
-            // timeDataGridViewTextBoxColumn
-            // 
-            this.timeDataGridViewTextBoxColumn.DataPropertyName = "time";
-            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
-            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
-            // 
-            // services_names
-            // 
-            this.services_names.DataPropertyName = "services_names";
-            this.services_names.HeaderText = "Services";
-            this.services_names.Name = "services_names";
-            // 
-            // phone
-            // 
-            this.phone.DataPropertyName = "phone";
-            this.phone.HeaderText = "Phone";
-            this.phone.Name = "phone";
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            // 
-            // service_status
-            // 
-            this.service_status.DataPropertyName = "service_status";
-            this.service_status.HeaderText = "Payment Status";
-            this.service_status.Name = "service_status";
-            this.service_status.Visible = false;
-            // 
-            // createdAtDataGridViewTextBoxColumn
-            // 
-            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "created_At";
-            this.createdAtDataGridViewTextBoxColumn.HeaderText = "created_At";
-            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.Width = 5;
+            this.dentalDataSet17.DataSetName = "DentalDataSet17";
+            this.dentalDataSet17.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // viewappointmentBindingSource3
             // 
@@ -367,10 +314,11 @@ namespace Dental.Forms
             this.label_number_appointment.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_number_appointment.Location = new System.Drawing.Point(18, 33);
             this.label_number_appointment.Name = "label_number_appointment";
+            this.label_number_appointment.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_number_appointment.Size = new System.Drawing.Size(20, 25);
             this.label_number_appointment.TabIndex = 2;
             this.label_number_appointment.Text = "-";
-            this.label_number_appointment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_number_appointment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
@@ -512,6 +460,59 @@ namespace Dental.Forms
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // vw_AppointmentFullDetailsTableAdapter
+            // 
+            this.vw_AppointmentFullDetailsTableAdapter.ClearBeforeFill = true;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Id";
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 5;
+            // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            // 
+            // date
+            // 
+            this.date.DataPropertyName = "date";
+            this.date.HeaderText = "Date";
+            this.date.Name = "date";
+            // 
+            // time
+            // 
+            this.time.DataPropertyName = "time";
+            this.time.HeaderText = "Time";
+            this.time.Name = "time";
+            // 
+            // PatientFirstName
+            // 
+            this.PatientFirstName.DataPropertyName = "PatientFirstName";
+            this.PatientFirstName.HeaderText = "Patient Name";
+            this.PatientFirstName.Name = "PatientFirstName";
+            // 
+            // ServicesList
+            // 
+            this.ServicesList.DataPropertyName = "ServicesList";
+            this.ServicesList.HeaderText = "Services List";
+            this.ServicesList.Name = "ServicesList";
+            // 
+            // DentistName
+            // 
+            this.DentistName.DataPropertyName = "DentistName";
+            this.DentistName.HeaderText = "Dentist Name";
+            this.DentistName.Name = "DentistName";
+            // 
+            // PatientPhone
+            // 
+            this.PatientPhone.DataPropertyName = "PatientPhone";
+            this.PatientPhone.HeaderText = "Phone";
+            this.PatientPhone.Name = "PatientPhone";
+            // 
             // Appointments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -536,6 +537,8 @@ namespace Dental.Forms
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwAppointmentFullDetailsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource2)).EndInit();
@@ -622,15 +625,16 @@ namespace Dental.Forms
         private Label label7;
         private Label label5;
         private Label label4;
-        private DataGridViewTextBoxColumn first_name;
-        private DataGridViewTextBoxColumn FullName;
-        private DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn services_names;
-        private DataGridViewTextBoxColumn phone;
+        private DentalDataSet17 dentalDataSet17;
+        private BindingSource vwAppointmentFullDetailsBindingSource;
+        private DentalDataSet17TableAdapters.vw_AppointmentFullDetailsTableAdapter vw_AppointmentFullDetailsTableAdapter;
+        private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn status;
-        private DataGridViewTextBoxColumn service_status;
-        private DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn date;
+        private DataGridViewTextBoxColumn time;
+        private DataGridViewTextBoxColumn PatientFirstName;
+        private DataGridViewTextBoxColumn ServicesList;
+        private DataGridViewTextBoxColumn DentistName;
+        private DataGridViewTextBoxColumn PatientPhone;
     }
 }

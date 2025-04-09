@@ -297,6 +297,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DentalDataSet13.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DentalDataSet14.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet14.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet15.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet15.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet16.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet16.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DentalDataSet17.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DentalDataSet17.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DentalDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -396,6 +416,12 @@
     <Compile Include="Forms\Dialogs\AddServices.Designer.cs">
       <DependentUpon>AddServices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dialogs\AddUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\AddUser.Designer.cs">
+      <DependentUpon>AddUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Dialogs\EditBilling.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -419,6 +445,18 @@
     </Compile>
     <Compile Include="Forms\Dialogs\EditServices.Designer.cs">
       <DependentUpon>EditServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dialogs\EditUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\EditUser.Designer.cs">
+      <DependentUpon>EditUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dialogs\ForgotPass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialogs\ForgotPass.Designer.cs">
+      <DependentUpon>ForgotPass.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Dialogs\UpdateAppointment.cs">
       <SubType>UserControl</SubType>
@@ -502,6 +540,9 @@
     <EmbeddedResource Include="Forms\Dialogs\AddServices.resx">
       <DependentUpon>AddServices.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\AddUser.resx">
+      <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\EditBilling.resx">
       <DependentUpon>EditBilling.cs</DependentUpon>
     </EmbeddedResource>
@@ -513,6 +554,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\EditServices.resx">
       <DependentUpon>EditServices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\EditUser.resx">
+      <DependentUpon>EditUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialogs\ForgotPass.resx">
+      <DependentUpon>ForgotPass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialogs\UpdateAppointment.resx">
       <DependentUpon>UpdateAppointment.cs</DependentUpon>
@@ -620,6 +667,50 @@
     </None>
     <None Include="DentalDataSet13.xss">
       <DependentUpon>DentalDataSet13.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet14.xsc">
+      <DependentUpon>DentalDataSet14.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet14.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet14.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet14.xss">
+      <DependentUpon>DentalDataSet14.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet15.xsc">
+      <DependentUpon>DentalDataSet15.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet15.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet15.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet15.xss">
+      <DependentUpon>DentalDataSet15.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet16.xsc">
+      <DependentUpon>DentalDataSet16.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet16.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet16.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet16.xss">
+      <DependentUpon>DentalDataSet16.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet17.xsc">
+      <DependentUpon>DentalDataSet17.xsd</DependentUpon>
+    </None>
+    <None Include="DentalDataSet17.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DentalDataSet17.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DentalDataSet17.xss">
+      <DependentUpon>DentalDataSet17.xsd</DependentUpon>
     </None>
     <None Include="DentalDataSet2.xsc">
       <DependentUpon>DentalDataSet2.xsd</DependentUpon>

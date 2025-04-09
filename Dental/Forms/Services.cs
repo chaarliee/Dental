@@ -17,13 +17,13 @@ namespace Dental.Forms
     {
 
 
-        string loggedUsername = Form1.GlobalVariables.LoggedInUsername;
+        bool loggedIsAdmin = Form1.GlobalVariables.IsAdmin;
         public Services()
         {
             InitializeComponent();
             loadData();
 
-            if(loggedUsername == "admin")
+            if(loggedIsAdmin)
             {
                 // Show the button if the user is admin
                 add_patient_btn.Visible = true;
@@ -83,7 +83,7 @@ namespace Dental.Forms
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (loggedUsername == "admin")
+            if (loggedIsAdmin )
             {
                 if (e.RowIndex >= 0)
                 {

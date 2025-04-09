@@ -34,9 +34,8 @@ namespace Dental.Forms
 
         private void Patients_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dentalDataSet12.Patients' table. You can move, or remove it, as needed.
-            this.patientsTableAdapter1.Fill(this.dentalDataSet12.Patients);
-          
+            // TODO: This line of code loads data into the 'dentalDataSet14.Patients' table. You can move, or remove it, as needed.
+            this.patientsTableAdapter2.Fill(this.dentalDataSet14.Patients);
 
 
         }
@@ -96,14 +95,20 @@ namespace Dental.Forms
                 DataGridViewRow selectedRow = dataGridView1.Rows[index];
                 int patient_id = int.Parse(selectedRow.Cells[0].Value.ToString());
 
-                string fname = selectedRow.Cells[1].Value.ToString(); // Assuming the first column is the ID
-                string lname = selectedRow.Cells[2].Value.ToString();
-                string address = selectedRow.Cells[3].Value.ToString();
-                string phone = selectedRow.Cells[4].Value.ToString();
-                string email = selectedRow.Cells[5].Value.ToString();
-                string dob = selectedRow.Cells[6].Value.ToString();
-                string gender = selectedRow.Cells[7].Value.ToString();
-                string age = selectedRow.Cells[9].Value.ToString();
+                string fname = selectedRow.Cells[1].Value != DBNull.Value ? selectedRow.Cells[1].Value.ToString() : "";
+                string lname = selectedRow.Cells[2].Value != DBNull.Value ? selectedRow.Cells[2].Value.ToString() : "";
+                string address = selectedRow.Cells[3].Value != DBNull.Value ? selectedRow.Cells[3].Value.ToString() : "";
+                string phone = selectedRow.Cells[4].Value != DBNull.Value ? selectedRow.Cells[4].Value.ToString() : "";
+                string email = selectedRow.Cells[5].Value != DBNull.Value ? selectedRow.Cells[5].Value.ToString() : "";
+
+                DateTime dob = DateTime.MinValue;
+                if (selectedRow.Cells[6].Value != DBNull.Value)
+                {
+                    DateTime.TryParse(selectedRow.Cells[6].Value.ToString(), out dob);
+                }
+
+                string gender = selectedRow.Cells[7].Value != DBNull.Value ? selectedRow.Cells[7].Value.ToString() : "";
+                string age = selectedRow.Cells[9].Value != DBNull.Value ? selectedRow.Cells[9].Value.ToString() : "";
                 //int insurance = int.Parse(selectedRow.Cells[10].Value.ToString());
 
                 int insurance = 0;
@@ -112,6 +117,9 @@ namespace Dental.Forms
                 {
                     int.TryParse(selectedRow.Cells[10].Value.ToString(), out insurance);
                 }
+
+                // Assuming the 11th column is the insurance number
+                string insuranceNum = selectedRow.Cells[11].Value.ToString();
 
 
                 EditPatient editPatientControl = new EditPatient();
@@ -125,6 +133,7 @@ namespace Dental.Forms
                 editPatientControl.Gender = gender;
                 editPatientControl.Age = age;
                 editPatientControl.Insurance = insurance;
+                editPatientControl.insuranceNumber = insuranceNum;
 
                 editPatientControl.DisplayData();
                 this.Controls.Add(editPatientControl);

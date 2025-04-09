@@ -296,8 +296,17 @@ namespace Dental.Forms
                         SUM(total) AS TotalRevenue,
                         COUNT(CASE WHEN status = 'Finished' THEN 1 END) AS FinishedAppointments,
                         COUNT(CASE WHEN status = 'Cancelled' THEN 1 END) AS CancelledAppointments
+                    FROM vw_AppointmentFullDetails
+                    WHERE MONTH(date) = @SelectedMonth AND YEAR(date) = @SelectedYear"; 
+                    
+                    /*string selectQuery = @"
+                    SELECT 
+                        COUNT(*) AS TotalScheduledAppointment,
+                        SUM(total) AS TotalRevenue,
+                        COUNT(CASE WHEN status = 'Finished' THEN 1 END) AS FinishedAppointments,
+                        COUNT(CASE WHEN status = 'Cancelled' THEN 1 END) AS CancelledAppointments
                     FROM view_appointment
-                    WHERE MONTH(date) = @SelectedMonth AND YEAR(date) = @SelectedYear";
+                    WHERE MONTH(date) = @SelectedMonth AND YEAR(date) = @SelectedYear";*/
 
                     using (SqlCommand command = new SqlCommand(selectQuery, connection))
                     {
@@ -558,7 +567,7 @@ namespace Dental.Forms
                     SELECT 
                         COUNT(*) AS TotalAppointments,
                         first_name
-                    FROM view_appointment
+                    FROM vw_AppointmentFullDetails
                    WHERE patient_id = @PatientId
                       AND MONTH(date) = @SelectedMonth
                       AND YEAR(date) = @SelectedYear

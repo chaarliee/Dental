@@ -137,8 +137,31 @@ namespace Dental.Forms
             string smtpHost = Config.Email_SMTP; // Replace with your SMTP server hostname
             int smtpPort = Config.Email_PORT; // Replace with your SMTP server port (usually 587 for TLS)
 
+            TimeSpan timeStart;
+            if (!TimeSpan.TryParse(appointmentTime, out timeStart))
+            {
+                timeStart = TimeSpan.Zero; // fallback if parsing fails
+            }
+
+            string timeEnd = timeStart.Add(TimeSpan.FromHours(1)).ToString(@"hh\:mm");
+
             string subject = "Appointment Reminder";
-            string body = $"Dear Patient,\n\nThis is a friendly reminder of your appointment on {appointmentDate.ToShortDateString()} at {appointmentTime}.\n\nSincerely,\nThe Dental Clinic";
+            string body =
+    "Philippines Appointment Details\n\n" +
+    "Serrato Dental Clinic\n\n" +
+    "Cebu Business Hotel Cor. Junquera Street. Colon, Cebu City, Philippines\n\n" +
+    "Dentist Cebu - Serrato Dental Clinic\n" +
+    "9:00AM-5:00PM (MON-SAT) (032)\n" +
+    "266 5556 0945-688-0428\n\n" +
+    "Dear Patient,\n\n" +
+    "Thank you for scheduling an appointment with us. Here are your appointment details:\n\n" +
+    "Appointment Date: " + appointmentDate.ToString("MM/dd/yyyy") + "\n" +
+    "Time Start: " + timeStart.ToString(@"hh\:mm") + " am\n" +
+    "Time End: " + timeEnd + " am\n\n" +
+    "Best Regards,\n" +
+    "Serrato Dental Clinic";
+
+
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(senderEmail);

@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textbox_dob = new System.Windows.Forms.TextBox();
             this.textbox_age = new System.Windows.Forms.TextBox();
             this.textbox_address = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -148,6 +147,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label43 = new System.Windows.Forms.Label();
+            this.insuranceNum = new System.Windows.Forms.TextBox();
+            this.dateTimePickerDOB = new System.Windows.Forms.DateTimePicker();
+            this.dentalDataSet15 = new Dental.DentalDataSet15();
+            this.viewappointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.view_appointmentTableAdapter = new Dental.DentalDataSet15TableAdapters.View_appointmentTableAdapter();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -164,6 +170,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -183,13 +192,6 @@
             this.label8.Size = new System.Drawing.Size(26, 13);
             this.label8.TabIndex = 59;
             this.label8.Text = "Age";
-            // 
-            // textbox_dob
-            // 
-            this.textbox_dob.Location = new System.Drawing.Point(3, 353);
-            this.textbox_dob.Name = "textbox_dob";
-            this.textbox_dob.Size = new System.Drawing.Size(180, 20);
-            this.textbox_dob.TabIndex = 57;
             // 
             // textbox_age
             // 
@@ -1060,7 +1062,7 @@
             // checkBox11
             // 
             this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(218, 128);
+            this.checkBox11.Location = new System.Drawing.Point(229, 128);
             this.checkBox11.Name = "checkBox11";
             this.checkBox11.Size = new System.Drawing.Size(108, 17);
             this.checkBox11.TabIndex = 130;
@@ -1130,9 +1132,9 @@
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(6, 30);
+            this.panel1.Location = new System.Drawing.Point(6, 193);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(538, 381);
+            this.panel1.Size = new System.Drawing.Size(538, 271);
             this.panel1.TabIndex = 139;
             // 
             // groupBox7
@@ -1361,17 +1363,18 @@
             this.tabControl1.Location = new System.Drawing.Point(199, 37);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(570, 443);
+            this.tabControl1.Size = new System.Drawing.Size(570, 506);
             this.tabControl1.TabIndex = 145;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.label41);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(562, 417);
+            this.tabPage1.Size = new System.Drawing.Size(562, 480);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Physical Details";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1388,17 +1391,64 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(3, 431);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(64, 13);
+            this.label43.TabIndex = 147;
+            this.label43.Text = "Insurance #";
+            // 
+            // insuranceNum
+            // 
+            this.insuranceNum.Location = new System.Drawing.Point(3, 447);
+            this.insuranceNum.Name = "insuranceNum";
+            this.insuranceNum.Size = new System.Drawing.Size(180, 20);
+            this.insuranceNum.TabIndex = 148;
+            // 
+            // dateTimePickerDOB
+            // 
+            this.dateTimePickerDOB.Location = new System.Drawing.Point(3, 353);
+            this.dateTimePickerDOB.Name = "dateTimePickerDOB";
+            this.dateTimePickerDOB.Size = new System.Drawing.Size(180, 20);
+            this.dateTimePickerDOB.TabIndex = 149;
+            // 
+            // dentalDataSet15
+            // 
+            this.dentalDataSet15.DataSetName = "DentalDataSet15";
+            this.dentalDataSet15.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // viewappointmentBindingSource
+            // 
+            this.viewappointmentBindingSource.DataMember = "View_appointment";
+            this.viewappointmentBindingSource.DataSource = this.dentalDataSet15;
+            // 
+            // view_appointmentTableAdapter
+            // 
+            this.view_appointmentTableAdapter.ClearBeforeFill = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 27);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(538, 160);
+            this.dataGridView1.TabIndex = 142;
+            // 
             // EditPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dateTimePickerDOB);
+            this.Controls.Add(this.insuranceNum);
+            this.Controls.Add(this.label43);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.delete_btn);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textbox_dob);
             this.Controls.Add(this.textbox_age);
             this.Controls.Add(this.textbox_address);
             this.Controls.Add(this.button1);
@@ -1417,7 +1467,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "EditPatient";
-            this.Size = new System.Drawing.Size(804, 582);
+            this.Size = new System.Drawing.Size(804, 987);
             this.Load += new System.EventHandler(this.EditPatient_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
@@ -1447,6 +1497,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dentalDataSet15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewappointmentBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1456,7 +1509,6 @@
 
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textbox_dob;
         private System.Windows.Forms.TextBox textbox_age;
         private System.Windows.Forms.TextBox textbox_address;
         private System.Windows.Forms.Button button1;
@@ -1593,5 +1645,12 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.TextBox insuranceNum;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDOB;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private DentalDataSet15 dentalDataSet15;
+        private System.Windows.Forms.BindingSource viewappointmentBindingSource;
+        private DentalDataSet15TableAdapters.View_appointmentTableAdapter view_appointmentTableAdapter;
     }
 }

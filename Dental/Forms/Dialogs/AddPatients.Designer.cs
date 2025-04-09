@@ -46,10 +46,12 @@
             this.address = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.dob = new System.Windows.Forms.TextBox();
             this.age = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.insuranceNum = new System.Windows.Forms.TextBox();
+            this.dateTimePickerDOB = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // button1
@@ -163,7 +165,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(240, 235);
+            this.btnCancel.Location = new System.Drawing.Point(240, 274);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 26;
@@ -173,7 +175,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(321, 235);
+            this.btnSave.Location = new System.Drawing.Point(321, 274);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 27;
@@ -206,13 +208,6 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "Age";
             // 
-            // dob
-            // 
-            this.dob.Location = new System.Drawing.Point(6, 198);
-            this.dob.Name = "dob";
-            this.dob.Size = new System.Drawing.Size(180, 20);
-            this.dob.TabIndex = 37;
-            // 
             // age
             // 
             this.age.Location = new System.Drawing.Point(216, 198);
@@ -238,15 +233,40 @@
             this.label9.TabIndex = 42;
             this.label9.Text = "Insurance";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 260);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(64, 13);
+            this.label10.TabIndex = 44;
+            this.label10.Text = "Insurance #";
+            // 
+            // insuranceNum
+            // 
+            this.insuranceNum.Location = new System.Drawing.Point(6, 276);
+            this.insuranceNum.Name = "insuranceNum";
+            this.insuranceNum.Size = new System.Drawing.Size(180, 20);
+            this.insuranceNum.TabIndex = 45;
+            // 
+            // dateTimePickerDOB
+            // 
+            this.dateTimePickerDOB.Location = new System.Drawing.Point(6, 199);
+            this.dateTimePickerDOB.Name = "dateTimePickerDOB";
+            this.dateTimePickerDOB.Size = new System.Drawing.Size(180, 20);
+            this.dateTimePickerDOB.TabIndex = 46;
+            // 
             // AddPatients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dateTimePickerDOB);
+            this.Controls.Add(this.insuranceNum);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.dob);
             this.Controls.Add(this.age);
             this.Controls.Add(this.address);
             this.Controls.Add(this.button1);
@@ -265,7 +285,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "AddPatients";
-            this.Size = new System.Drawing.Size(416, 271);
+            this.Size = new System.Drawing.Size(416, 300);
             this.Load += new System.EventHandler(this.AddPatients_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -291,9 +311,11 @@
         private System.Windows.Forms.TextBox address;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox dob;
         private System.Windows.Forms.TextBox age;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox insuranceNum;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDOB;
     }
 }

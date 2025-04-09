@@ -24,9 +24,10 @@ namespace Dental.Forms.Dialogs
         public string Gender { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string Age { get; set; }
-
+        public string insuranceNumber { get; set; }
+        
         public int Insurance { get; set; }
 
 
@@ -72,9 +73,20 @@ namespace Dental.Forms.Dialogs
             textbox_gender.Text = Gender;
             textbox_address.Text = Address;
             textbox_email.Text = Email;
-            textbox_dob.Text = DateOfBirth;
+            //dateTimePickerDOB.Value = DateOfBirth;
             textbox_age.Text = Age;
             comboBox1.SelectedValue = Convert.ToInt32(Insurance);
+            insuranceNum.Text = insuranceNumber;
+
+            if (DateOfBirth > dateTimePickerDOB.MinDate && DateOfBirth < dateTimePickerDOB.MaxDate)
+            {
+                dateTimePickerDOB.Value = DateOfBirth;
+            }
+            else
+            {
+                dateTimePickerDOB.Value = DateTime.Today; // or set to a fallback date
+            }
+
 
             displayPatientReport(patient_id);
 
@@ -325,13 +337,15 @@ namespace Dental.Forms.Dialogs
             string address = textbox_address.Text;
             string phone = textbox_phone.Text;
             string email = textbox_email.Text;
-            string dateOfBirth = textbox_dob.Text;
+            DateTime dateOfBirth = dateTimePickerDOB.Value;
             string gender = textbox_gender.Text;
             string age = textbox_age.Text;
+            int insurance = Convert.ToInt32(comboBox1.SelectedValue);
+            string insuranceNumber = insuranceNum.Text;
 
 
             string connectionString = Config.ConnectionString; // Replace with your connection string
-            string query = "UPDATE Patients SET first_name = @fullName, last_name = @lastName, address = @address, phone = @phone, email = @email, DOB = @dateOfBirth, gender = @gender, age = @age WHERE Id = @id";
+            string query = "UPDATE Patients SET first_name = @fullName, last_name = @lastName, address = @address, phone = @phone, email = @email, DOB = @dateOfBirth, gender = @gender, age = @age,insurance = @insurance,insuranceNum = @insuranceNumber WHERE Id = @id";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -347,6 +361,9 @@ namespace Dental.Forms.Dialogs
                     command.Parameters.AddWithValue("@gender", gender);
                     command.Parameters.AddWithValue("@age", age);
                     command.Parameters.AddWithValue("@id", patient_id); //patientID should be the id of the patient you are updating
+                    // Add insurance parameters
+                    command.Parameters.AddWithValue("@insurance", insurance);
+                    command.Parameters.AddWithValue("@insuranceNumber", insuranceNumber);
 
                     try
                     {
@@ -354,7 +371,7 @@ namespace Dental.Forms.Dialogs
                         command.ExecuteNonQuery();
 
 
-                        save_patient_history(patient_id); 
+                        //save_patient_history(patient_id); 
 
 
                         MessageBox.Show("Patient information updated successfully.");
@@ -488,52 +505,52 @@ namespace Dental.Forms.Dialogs
 
             LoadPatientHistory(patient_id);
             Load_insurance();
-            //loadPatient_appointment();
+            loadPatient_appointment();
         }
 
-        //public void loadPatient_appointment()
-        //{
-        //    string connectionString = Config.ConnectionString;
-        //    string query = @"SELECT 
-        //                date, 
-        //                time, 
-        //                DentistName, 
-        //                ServicesList, 
-        //                status 
-        //             FROM vw_AppointmentFullDetails";
+        public void loadPatient_appointment()
+        {
+            string connectionString = Config.ConnectionString;
+            string query = @"SELECT 
+                        date, 
+                        time, 
+                        DentistName, 
+                        ServicesList, 
+                        status 
+                     FROM vw_AppointmentFullDetails";
 
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    using (SqlCommand command = new SqlCommand(query, connection))
-        //    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-        //    {
-        //        try
-        //        {
-        //            DataTable dt = new DataTable();
-        //            adapter.Fill(dt);
-        //            dataGridView1.DataSource = dt;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dataGridView1.DataSource = dt;
 
-        //            // Optional: Customize column headers
-        //            if (dataGridView1.Columns["date"] != null)
-        //                dataGridView1.Columns["date"].HeaderText = "Date";
+                    // Optional: Customize column headers
+                    if (dataGridView1.Columns["date"] != null)
+                        dataGridView1.Columns["date"].HeaderText = "Date";
 
-        //            if (dataGridView1.Columns["time"] != null)
-        //                dataGridView1.Columns["time"].HeaderText = "Time";
+                    if (dataGridView1.Columns["time"] != null)
+                        dataGridView1.Columns["time"].HeaderText = "Time";
 
-        //            if (dataGridView1.Columns["DentistName"] != null)
-        //                dataGridView1.Columns["DentistName"].HeaderText = "Dentist";
+                    if (dataGridView1.Columns["DentistName"] != null)
+                        dataGridView1.Columns["DentistName"].HeaderText = "Dentist";
 
-        //            if (dataGridView1.Columns["ServicesList"] != null)
-        //                dataGridView1.Columns["ServicesList"].HeaderText = "Services";
+                    if (dataGridView1.Columns["ServicesList"] != null)
+                        dataGridView1.Columns["ServicesList"].HeaderText = "Services";
 
-        //            if (dataGridView1.Columns["status"] != null)
-        //                dataGridView1.Columns["status"].HeaderText = "Status";
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show("Failed to load appointments: " + ex.Message);
-        //        }
-        //    }
-        //}
+                    if (dataGridView1.Columns["status"] != null)
+                        dataGridView1.Columns["status"].HeaderText = "Status";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to load appointments: " + ex.Message);
+                }
+            }
+        }
 
 
         private void Load_insurance()

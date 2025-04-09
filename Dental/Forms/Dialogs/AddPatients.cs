@@ -34,6 +34,12 @@ namespace Dental.Forms.Dialogs
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
+                    DataRow noneRow = dt.NewRow();
+                    noneRow["id"] = DBNull.Value;
+                    noneRow["company"] = "None";
+                    dt.Rows.InsertAt(noneRow, 0);
+
+
                     comboBox1.DataSource = dt;
                     comboBox1.DisplayMember = "company";
                     comboBox1.ValueMember = "id";
@@ -72,8 +78,8 @@ namespace Dental.Forms.Dialogs
         private void btnSave_Click(object sender, EventArgs e)
         {
             string connectionString = Config.ConnectionString;
-            string query = "INSERT INTO Patients (first_name, last_name, address, gender, DOB, phone, email, created_At, age, insurance) " +
-                    "VALUES (@first_name, @last_name, @address, @gender, @DOB, @phone, @email, @created_At, @age, @insurance)";
+            string query = "INSERT INTO Patients (first_name, last_name, address, gender, DOB, phone, email, created_At, age, insurance,insuranceNum) " +
+                    "VALUES (@first_name, @last_name, @address, @gender, @DOB, @phone, @email, @created_At, @age, @insurance, @insuranceNum)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -82,16 +88,21 @@ namespace Dental.Forms.Dialogs
                 command.Parameters.AddWithValue("@last_name", last_name.Text);
                 command.Parameters.AddWithValue("@address", address.Text);
                 command.Parameters.AddWithValue("@gender", gender.Text);
-                command.Parameters.AddWithValue("@DOB", dob.Text);
+                command.Parameters.AddWithValue("@DOB", dateTimePickerDOB.Value.Date);
                 command.Parameters.AddWithValue("@age", int.Parse(age.Text));
                 command.Parameters.AddWithValue("@phone", phone.Text);
                 command.Parameters.AddWithValue("@email", email.Text);
                 command.Parameters.AddWithValue("@created_At", DateTime.Now);
+                command.Parameters.AddWithValue("@insuranceNum", insuranceNum.Text);
 
-                if (comboBox1.SelectedValue != null)
-                    command.Parameters.AddWithValue("@insurance", Convert.ToInt32(comboBox1.SelectedValue));
-                else
+                if (comboBox1.SelectedValue == null || comboBox1.SelectedValue == DBNull.Value)
+                {
                     command.Parameters.AddWithValue("@insurance", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@insurance", Convert.ToInt32(comboBox1.SelectedValue));
+                }
 
 
                 try

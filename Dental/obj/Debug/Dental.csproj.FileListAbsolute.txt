@@ -175,3 +175,6 @@ D:\Application_project\C#\Dental\Dental\bin\Debug\RestSharp.dll
 D:\Application_project\C#\Dental\Dental\bin\Debug\RestSharp.xml
 D:\Application_project\C#\Dental\Dental\obj\Debug\Dental.Forms.Dialogs.EditDentists.resources
 D:\Application_project\C#\Dental\Dental\obj\Debug\Dental.Forms.Dialogs.EditServices.resources
+D:\Application_project\C#\Dental\Dental\obj\Debug\Dental.Forms.Dialogs.AddUser.resources
+D:\Application_project\C#\Dental\Dental\obj\Debug\Dental.Forms.Dialogs.EditUser.resources
+D:\Application_project\C#\Dental\Dental\obj\Debug\Dental.Forms.Dialogs.ForgotPass.resources

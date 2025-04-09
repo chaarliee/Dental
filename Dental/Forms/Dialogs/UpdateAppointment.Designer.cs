@@ -63,6 +63,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.removeServices_0 = new System.Windows.Forms.Button();
             this.panelServicesEdit.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,10 +123,11 @@
             // 
             // panelServicesEdit
             // 
+            this.panelServicesEdit.Controls.Add(this.removeServices_0);
             this.panelServicesEdit.Controls.Add(this.servicecombobox_0);
-            this.panelServicesEdit.Location = new System.Drawing.Point(232, 204);
+            this.panelServicesEdit.Location = new System.Drawing.Point(212, 204);
             this.panelServicesEdit.Name = "panelServicesEdit";
-            this.panelServicesEdit.Size = new System.Drawing.Size(266, 195);
+            this.panelServicesEdit.Size = new System.Drawing.Size(286, 195);
             this.panelServicesEdit.TabIndex = 124;
             // 
             // servicecombobox_0
@@ -394,6 +396,16 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // removeServices_0
+            // 
+            this.removeServices_0.Enabled = false;
+            this.removeServices_0.Location = new System.Drawing.Point(256, 0);
+            this.removeServices_0.Name = "removeServices_0";
+            this.removeServices_0.Size = new System.Drawing.Size(25, 23);
+            this.removeServices_0.TabIndex = 80;
+            this.removeServices_0.Text = "X";
+            this.removeServices_0.UseVisualStyleBackColor = true;
+            // 
             // UpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,5 +489,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button removeServices_0;
     }
 }

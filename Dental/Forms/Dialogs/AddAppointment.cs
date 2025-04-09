@@ -45,6 +45,7 @@ namespace Dental.Forms.Dialogs
 
         public int service_counter = 1;
         public int select_patient;
+        public bool isNewPatient = false;
         public event EventHandler AppointmentAdded;
 
         private void InitializeDataTable()
@@ -148,64 +149,90 @@ namespace Dental.Forms.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            decimal discount = 0; // Default value
-            string has_discount = "No"; // Default value
-            
+            decimal discount = 0;
+            string has_discount = "No";
+
             if (label50.Text != "0")
             {
                 discount = 0.10M;
                 has_discount = "Yes";
             }
-           
 
+            string connectionString = Config.ConnectionString;
 
-                string connectionString = Config.ConnectionString;
-            //string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At);SELECT SCOPE_IDENTITY();";
-            string query = "INSERT INTO Appointments (patient_id, dentist_id, date, time, reason, status,created_At,discount,has_discount,total) VALUES (@patient_id, @dentist_id, @date, @time, @reason, @status,@created_At,@discount,@has_discount,@total);SELECT SCOPE_IDENTITY();";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@patient_id", select_patient);
-                    command.Parameters.AddWithValue("@dentist_id", comboBox2.SelectedValue);
-                    command.Parameters.AddWithValue("@date", date_datepicker.Value.Date);
-                    command.Parameters.AddWithValue("@time", time_datepicker.Value.TimeOfDay);
-                    command.Parameters.AddWithValue("@reason", reason.Text);
-                    command.Parameters.AddWithValue("@status", AppointmentStatus);
-                    command.Parameters.AddWithValue("@created_At", DateTime.Now);
-                    command.Parameters.AddWithValue("@discount", discount);
-                    command.Parameters.AddWithValue("@has_discount", has_discount);
-                    command.Parameters.AddWithValue("@total", 0); 
+                    connection.Open();
 
-
-
-                    try
+                    // 🟨 Insert new patient if needed
+                    if (isNewPatient)
                     {
-                        //connection.Open();
-                        //command.ExecuteNonQuery();
-                        //MessageBox.Show("Appointment information saved successfully.");
-                        //AppointmentAdded?.Invoke(this, EventArgs.Empty); // Raise the event
-                        //CloseControl();
+                        string fullName = "";
+                        string phone = "";
+                        string email = "";
 
-                        connection.Open();
-                        int appointmentId = Convert.ToInt32(command.ExecuteScalar()); // Get the appointmentId
+                        foreach (Control ctrl in panelPatient.Controls)
+                        {
+                            if (ctrl is TextBox tb)
+                            {
+                                if (tb.Name == "textbox_patient") fullName = tb.Text;
+                                else if (tb.Name == "textbox_phone") phone = tb.Text;
+                                else if (tb.Name == "textbox_email") email = tb.Text;
+                            }
+                        }
 
-                        MessageBox.Show("Appointment information saved successfully. Appointment ID: " + appointmentId);
+                        string insertPatientQuery = @"
+                    INSERT INTO Patients (first_name, phone, email, created_At)
+                    VALUES (@first_name, @phone, @email, @created_At);
+                    SELECT SCOPE_IDENTITY();";
+
+                        using (SqlCommand patientCmd = new SqlCommand(insertPatientQuery, connection))
+                        {
+                            patientCmd.Parameters.AddWithValue("@first_name", fullName);
+                            patientCmd.Parameters.AddWithValue("@phone", phone);
+                            patientCmd.Parameters.AddWithValue("@email", email);
+                            patientCmd.Parameters.AddWithValue("@created_At", DateTime.Now);
+
+                            // 🟢 Get the newly inserted patient ID
+                            select_patient = Convert.ToInt32(patientCmd.ExecuteScalar());
+                        }
+                    }
+
+                    // 🟩 Insert appointment
+                    string appointmentQuery = @"
+                INSERT INTO Appointments 
+                (patient_id, dentist_id, date, time, reason, status, created_At, discount, has_discount, total)
+                VALUES 
+                (@patient_id, @dentist_id, @date, @time, @reason, @status, @created_At, @discount, @has_discount, @total);
+                SELECT SCOPE_IDENTITY();";
+
+                    using (SqlCommand command = new SqlCommand(appointmentQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@patient_id", select_patient);
+                        command.Parameters.AddWithValue("@dentist_id", comboBox2.SelectedValue);
+                        command.Parameters.AddWithValue("@date", date_datepicker.Value.Date);
+                        command.Parameters.AddWithValue("@time", time_datepicker.Value.TimeOfDay);
+                        command.Parameters.AddWithValue("@reason", reason.Text);
+                        command.Parameters.AddWithValue("@status", AppointmentStatus);
+                        command.Parameters.AddWithValue("@created_At", DateTime.Now);
+                        command.Parameters.AddWithValue("@discount", discount);
+                        command.Parameters.AddWithValue("@has_discount", has_discount);
+                        command.Parameters.AddWithValue("@total", 0);
+
+                        int appointmentId = Convert.ToInt32(command.ExecuteScalar());
+
+                        MessageBox.Show("Appointment saved. Appointment ID: " + appointmentId);
 
                         SaveServiceDataInDB(appointmentId);
-
                         save_patient_history(select_patient, appointmentId);
-
-
-                       
-
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("An error occurred while saving appointment the data: " + ex.Message);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while saving appointment: " + ex.Message);
             }
         }
 
@@ -421,71 +448,110 @@ namespace Dental.Forms.Dialogs
 
         private void AddServiceRow()
         {
-            if (service_counter == 6)
+            int serviceCount = panelServices.Controls.OfType<ComboBox>().Count();
+            if (serviceCount >= 6)
             {
                 MessageBox.Show("You have reached the required number of services.");
+                return;
             }
-            else
+
+            int yOffset = serviceCount * 30;
+            string suffix = serviceCount.ToString();
+
+            // ComboBox for services
+            ComboBox comboBoxService = new ComboBox
             {
-                int yOffset = panelServices.Controls.Count / 3 * 30;
+                Location = new Point(0, yOffset),
+                Size = new Size(190, 21),
+                DataSource = GetDynamicDataSource(),
+                DisplayMember = "services_name",
+                ValueMember = "Id",
+                Name = "servicecombobox_" + suffix
+            };
 
-                ComboBox comboBoxService = new ComboBox
+            // Hidden price textbox
+            TextBox textBoxPrice = new TextBox
+            {
+                Location = new Point(200, yOffset),
+                Size = new Size(90, 21),
+                Name = "serviceprice_" + suffix,
+                Visible = false
+            };
+
+            // Button to remove the row
+            Button btnRemove = new Button
+            {
+                Location = new Point(205, yOffset),
+                Size = new Size(25, 23),
+                Text = "X",
+                Name = "btnclose_" + suffix,
+                Tag = suffix
+            };
+
+            // Proper remove logic
+            btnRemove.Click += (s, e) =>
+            {
+                string index = ((Button)s).Tag.ToString();
+
+                Control combo = panelServices.Controls.Find("servicecombobox_" + index, false).FirstOrDefault();
+                Control price = panelServices.Controls.Find("serviceprice_" + index, false).FirstOrDefault();
+                Control button = panelServices.Controls.Find("btnclose_" + index, false).FirstOrDefault();
+
+                if (combo != null) panelServices.Controls.Remove(combo);
+                if (price != null) panelServices.Controls.Remove(price);
+                if (button != null) panelServices.Controls.Remove(button);
+
+                combo?.Dispose();
+                price?.Dispose();
+                button?.Dispose();
+
+                RepackServiceRows(); // Realign after removing
+            };
+
+            // Add controls to the panel
+            panelServices.Controls.Add(comboBoxService);
+            panelServices.Controls.Add(textBoxPrice);
+            panelServices.Controls.Add(btnRemove);
+
+        }
+
+        private void RepackServiceRows()
+        {
+            var groups = panelServices.Controls
+         .OfType<Control>()
+         .Where(c => c.Name.StartsWith("servicecombobox_") || c.Name.StartsWith("serviceprice_") || c.Name.StartsWith("btnclose_"))
+         .GroupBy(c => c.Name.Split('_')[1])
+         .OrderBy(g => int.Parse(g.Key))
+         .ToList();
+
+            int index = 0;
+
+            foreach (var group in groups)
+            {
+                int yOffset = index * 30;
+
+                foreach (var ctrl in group)
                 {
-                    Location = new Point(0, yOffset+30),
-                    Size = new Size(240, 21),
-                    DataSource = GetDynamicDataSource(),
-                    //DataSource = comboBox1Services.DataSource,
-                    DisplayMember = "services_name",
-                    ValueMember = "Id",
-                    Name = "servicecombobox_" + service_counter
-                };
+                    if (ctrl is ComboBox)
+                    {
+                        ctrl.Location = new Point(0, yOffset);
+                        ctrl.Name = "servicecombobox_" + index;
+                    }
+                    else if (ctrl is TextBox)
+                    {
+                        ctrl.Location = new Point(200, yOffset);
+                        ctrl.Name = "serviceprice_" + index;
+                    }
+                    else if (ctrl is Button)
+                    {
+                        ctrl.Location = new Point(205, yOffset);
+                        ctrl.Name = "btnclose_" + index;
+                        ctrl.Tag = index;
+                    }
+                }
 
-                //comboBoxService.Name = "servicecombobox_" + panelServices.Controls.Count;
-
-                //System.Console.WriteLine("Added ComboBox with name: " + comboBoxService.Name);
-
-                //System.Console.WriteLine("count: " + service_counter);
-
-
-                //if (panelServices.Controls.Count > 0)
-                //{
-                //    Control lastControl = panelServices.Controls[panelServices.Controls.Count - 1];
-                //    if (lastControl is ComboBox)
-                //    {
-                //        System.Console.WriteLine("Last Combobox Name: " + lastControl.Name);
-                //    }
-                //}
-
-
-                //NumericUpDown numericUpDownQty = new NumericUpDown
-                //{
-                //    Location = new Point(132, yOffset),
-                //    Size = new Size(66, 20),
-                //    Name = "servicequantity_" + service_counter
-                //};
-
-                TextBox textBoxPrice = new TextBox
-                {
-                    Location = new Point(203, yOffset),
-                    Size = new Size(100, 20),
-                    Name = "serviceprice_" + service_counter,
-                    Visible = false
-                };
-
-
-
-
-
-                panelServices.Controls.Add(comboBoxService);
-                //panelServices.Controls.Add(numericUpDownQty);
-                panelServices.Controls.Add(textBoxPrice);
-
-                comboBoxService.SelectedIndexChanged += comboBoxService_SelectedIndexChanged;
-
-
-                service_counter++;
-            }// else
-
+                index++;
+            }
         }
 
 
@@ -762,6 +828,8 @@ namespace Dental.Forms.Dialogs
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            isNewPatient = true;
             panelPatient.Controls.Clear();
 
             int ycontrol = 0;
@@ -814,20 +882,7 @@ namespace Dental.Forms.Dialogs
             };
             ycontrol += 20;
 
-            Label label4 = new Label
-            {
-                Text = "Address",
-                Location = new Point(xcontrol, ycontrol),
-                AutoSize = true
-            };
-            ycontrol += 15;
-
-            TextBox newTextBox4 = new TextBox
-            {
-                Name = "textbox_address",
-                Location = new Point(xcontrol, ycontrol), // X=10, Y=10
-                Size = new Size(200, 30)      // Width=200, Height=30
-            };
+           
 
 
             panelPatient.Controls.Add(newTextBox);
@@ -836,8 +891,7 @@ namespace Dental.Forms.Dialogs
             panelPatient.Controls.Add(label2);
             panelPatient.Controls.Add(newTextBox3);
             panelPatient.Controls.Add(label3);
-            panelPatient.Controls.Add(newTextBox4);
-            panelPatient.Controls.Add(label4);
+      
 
 
         }

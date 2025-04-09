@@ -61,10 +61,15 @@ namespace Dental.Forms
 
         private void Appointments_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dentalDataSet17.vw_AppointmentFullDetails' table. You can move, or remove it, as needed.
+            this.vw_AppointmentFullDetailsTableAdapter.Fill(this.dentalDataSet17.vw_AppointmentFullDetails);
             // TODO: This line of code loads data into the 'dentalDataSet9.View_appointment' table. You can move, or remove it, as needed.
-            this.view_appointmentTableAdapter3.Fill(this.dentalDataSet9.View_appointment);
-            // TODO: This line of code loads data into the 'dentalDataSet5.View_appointment' table. You can move, or remove it, as needed.
+         
 
+            getTotalAppointmentToday();
+
+            DateTime selectedDate = DateTime.Now; // Get the date from the dateTimePicker
+            DisplayAvailableTimesInLabels(selectedDate);
 
         }
 
@@ -87,25 +92,43 @@ namespace Dental.Forms
         private void loadData()
         {
             string connectionString = Config.ConnectionString;
-            string query = "SELECT * FROM view_appointment";
+
+            string query = @"
+        SELECT 
+            Id AS [ID],
+            status AS [Status],
+            CONVERT(VARCHAR, date, 101) AS [Date],        -- MM/dd/yyyy
+            CONVERT(VARCHAR, time, 108) AS [Time],        -- HH:mm:ss
+            PatientFirstName AS [Patient Name],
+            services_list AS [Services List],
+            DentistName AS [Dentist Name],
+            PatientPhone AS [Phone]
+        FROM vw_AppointmentFullDetails
+        ORDER BY date DESC, time DESC";
+
             using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    try
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        dataGridView1.AutoGenerateColumns = true;
+                        dataGridView1.DataSource = dt;
+
+                        // 🔧 Set width of the first column ("ID")
+                        if (dataGridView1.Columns.Contains("ID"))
                         {
-                            DataTable dt = new DataTable();
-                            dt.Load(reader);
-                            dataGridView1.DataSource = dt;
+                            dataGridView1.Columns["ID"].Width = 5;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading data: " + ex.Message);
                 }
             }
         }
@@ -119,7 +142,7 @@ namespace Dental.Forms
                 int index = e.RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[index];
               
-                int appointment_id = int.Parse(selectedRow.Cells[9].Value.ToString());
+                int appointment_id = int.Parse(selectedRow.Cells[0].Value.ToString());
               
 
                 //MessageBox.Show("appointment_id: " + appointment_id);
@@ -298,9 +321,6 @@ namespace Dental.Forms
             return availableTimes;
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
     }
 }

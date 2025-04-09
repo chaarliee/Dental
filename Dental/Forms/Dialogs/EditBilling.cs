@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dental.Model;
 using System.Data.SqlClient;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System.Diagnostics;
+using System.IO;
+using PdfSharp;
+using PdfSharp.UniversalAccessibility.Drawing;
+using System.Net.Mail;
+using System.Net;
 
 namespace Dental.Forms.Dialogs
 {
@@ -24,7 +32,9 @@ namespace Dental.Forms.Dialogs
 
         public int service_counter = 1;
 
+        public string current_status;
 
+        public string patient_email;
 
 
 
@@ -61,19 +71,21 @@ namespace Dental.Forms.Dialogs
                         if (reader.Read())
                         {
                             // Handle status-related UI logic
-                            string status = reader["status"].ToString();
-                            //if (status == "Finished")
-                            //{
-                            //    btnSave.Text = "Print";
-                            //    btnCancel.Visible = false;
-                            //}
+                            current_status = reader["status"].ToString();
+                            if (current_status == "Finished")
+                            {
+                                btnSave.Text = "Print";
+                                btnCancel.Visible = false;
+                            }
 
                             // ✅ Set labels from view
                             label_patient.Text = reader["PatientFirstName"].ToString();
                             label_dentist.Text = reader["DentistName"].ToString();
                             label_date.Text = Convert.ToDateTime(reader["date"]).ToString("yyyy-MM-dd");
                             label_time.Text = TimeSpan.Parse(reader["time"].ToString()).ToString(@"hh\:mm");
-                            label_status.Text = status;
+                            label_status.Text = reader["status"].ToString();
+
+                            patient_email = reader["PatientEmail"].ToString();
 
                             // Optional: load more data like reason, phone, email, etc.
                             // label_email.Text = reader["PatientEmail"].ToString();
@@ -418,8 +430,305 @@ namespace Dental.Forms.Dialogs
             CloseControl();
         }
 
+        public enum XFontStyleee
+        {
+            Regular = 0,
+            Bold = 1,
+            Italic = 2,
+            BoldItalic = 3
+        }
+
+        public (string patientName, string address, string age, string date, string contact, string subtotal, string discount, string totalDue) GetAppointmentSummary(int fetched_appointment_id)
+        {
+            string connectionString = Config.ConnectionString;
+            string query = "SELECT PatientFirstName, address, age, Date, PatientPhone, total, discount, has_discount FROM vw_AppointmentFullDetails WHERE Id = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Id", fetched_appointment_id);
+
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string patientName = reader["PatientFirstName"].ToString();
+                            string address = reader["address"].ToString();
+                            string age = reader["age"].ToString();
+                            string date = Convert.ToDateTime(reader["Date"]).ToString("MM-dd-yyyy");
+                            string contact = reader["PatientPhone"].ToString();
+                            string subtotal = Convert.ToDecimal(reader["total"]).ToString("0.00");
+                            string discount = reader["has_discount"].ToString() == "Yes" ? "10%" : "0%";
+
+                            // Calculate totalDue (if discount is applied)
+                            decimal total = Convert.ToDecimal(reader["total"]);
+                            decimal totalDue = discount == "10%" ? total * 0.90m : total;
+
+                            return (patientName, address, age, date, contact, subtotal, discount, totalDue.ToString("0.00"));
+                        }
+                        else
+                        {
+                            MessageBox.Show("Appointment not found.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching appointment details: " + ex.Message);
+                }
+            }
+
+            // Return defaults if failed
+            return ("", "", "", "", "", "", "", "");
+        }
+
+        public (string applicationName, string address, string phone) GetClinicInfo()
+        {
+            string connectionString = Config.ConnectionString;
+            string query = "SELECT TOP 1 application_name, address, phone FROM Settings";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string appName = reader["application_name"].ToString();
+                            string clinicAddress = reader["address"].ToString();
+                            string phone = reader["phone"].ToString();
+
+                            return (appName, clinicAddress, phone);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching clinic info: " + ex.Message);
+                }
+            }
+
+            // Return default empty strings if failed
+            return ("", "", "");
+        }
+
+        public void GetDataForServiceReport( out string[] services, out int[] quantities, out decimal[] totals)
+        {
+            string connectionString = Config.ConnectionString;
+            List<string> servicesList = new List<string>();
+            List<int> quantitiesList = new List<int>();
+            List<decimal> totalsList = new List<decimal>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string selectQuery = @"
+                SELECT 
+                    services_name,
+                    quantity,
+                    price
+                FROM view_appointment_services
+                WHERE appointment_id = @AppointmentID";
+
+                    using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@AppointmentID", fetched_appointment_id);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                servicesList.Add(reader["services_name"].ToString());
+                                quantitiesList.Add(Convert.ToInt32(reader["quantity"]));
+                                totalsList.Add(Convert.ToDecimal(reader["price"]));
+                            }
+                        }
+                    }
+                }
+
+                // Convert lists to arrays for output
+                services = servicesList.ToArray();
+                quantities = quantitiesList.ToArray();
+                totals = totalsList.ToArray();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+                services = new string[0];
+                quantities = new int[0];
+                totals = new decimal[0];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+                services = new string[0];
+                quantities = new int[0];
+                totals = new decimal[0];
+            }
+        }
+
+
+
+
+
+
+        public void printBilling() {
+            // Dummy data (replace with actual variables or pull from DB/UI)
+
+            var details = GetAppointmentSummary(fetched_appointment_id);
+            var clinicInfo = GetClinicInfo();
+
+            string processBY = Form1.GlobalVariables.LoggedInName ?? "-";
+
+
+            string patientName = details.patientName;
+            string address = details.address;
+            string age = details.age;
+            string date = details.date;
+            string contact = clinicInfo.phone;
+            string subtotal = details.subtotal;
+            string discount = details.discount;
+            string totalDue = details.totalDue;
+
+            string[] services;
+            int[] quantities;
+            decimal[] totals;
+
+            GetDataForServiceReport(out services, out quantities, out totals);
+
+            //        var services = new List<(string Desc, int Qty, decimal Price, decimal Total)>
+            //{
+            //    ("Extraction", 1, 200, 200),
+            //    ("Cleaning", 2, 500, 1000)
+            //};
+
+            // Create PDF document
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Billing Receipt";
+
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont headerFont = new XFont("Arial", 18);
+            XFont subHeaderFont = new XFont("Arial", 10);
+            XFont boldFont = new XFont("Arial", 10);
+            XFont normalFont = new XFont("Arial", 10);
+
+
+
+            double y = 40;
+            double left = 40;
+
+            // Clinic Info
+            gfx.DrawString(clinicInfo.applicationName, headerFont, XBrushes.Black, new XPoint(left, y));
+            y += 25;
+            gfx.DrawString("Cebu Business Hotel Cor. Junquera Street, Colon, Cebu City, Philippines", normalFont, XBrushes.Black, new XPoint(left, y));
+            y += 20;
+            gfx.DrawString($"Contact: {contact}", normalFont, XBrushes.Black, new XPoint(left, y));
+            y += 20;
+            gfx.DrawLine(XPens.Black, left, y, 550, y);
+            y += 20;
+
+            // Patient Info
+            gfx.DrawString("Patient:", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString(patientName, normalFont, XBrushes.Black, new XPoint(left + 60, y));
+
+            gfx.DrawString("Age:", boldFont, XBrushes.Black, new XPoint(300, y));
+            gfx.DrawString(age, normalFont, XBrushes.Black, new XPoint(340, y));
+            y += 20;
+
+            gfx.DrawString("Address:", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString(address, normalFont, XBrushes.Black, new XPoint(left + 60, y));
+
+            gfx.DrawString("Date:", boldFont, XBrushes.Black, new XPoint(300, y));
+            gfx.DrawString(date, normalFont, XBrushes.Black, new XPoint(340, y));
+            y += 30;
+
+            // Services Header
+            gfx.DrawString("Services Rendered", headerFont, XBrushes.Black, new XPoint(left, y));
+            y += 25;
+
+            // Table headers
+            gfx.DrawString("Description", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString("Qty", boldFont, XBrushes.Black, new XPoint(left + 200, y));
+            gfx.DrawString("Unit Price", boldFont, XBrushes.Black, new XPoint(left + 260, y));
+            gfx.DrawString("Total", boldFont, XBrushes.Black, new XPoint(left + 360, y));
+            y += 20;
+
+            // Service rows
+            //foreach (var item in services)
+            //{
+            //    gfx.DrawString(item.Desc, normalFont, XBrushes.Black, new XPoint(left, y));
+            //    gfx.DrawString(item.Qty.ToString(), normalFont, XBrushes.Black, new XPoint(left + 200, y));
+            //    gfx.DrawString(item.Price.ToString("0.00"), normalFont, XBrushes.Black, new XPoint(left + 260, y));
+            //    gfx.DrawString(item.Total.ToString("0.00"), normalFont, XBrushes.Black, new XPoint(left + 360, y));
+            //    y += 18;
+            //}
+            if (services != null && services.Length > 0)
+            {
+                for (int i = 0; i < services.Length; i++)
+                {
+                    gfx.DrawString(services[i], normalFont, XBrushes.Black, new XPoint(left, y));
+                    gfx.DrawString($"x{quantities[i]}", normalFont, XBrushes.Black, new XPoint(left + 200, y));
+                    gfx.DrawString(totals[i].ToString("N2"), normalFont, XBrushes.Black, new XPoint(left + 260, y));
+
+                    int totalprice = quantities[i] * (int)totals[i];
+
+                     gfx.DrawString(totalprice.ToString(), normalFont, XBrushes.Black, new XPoint(left + 360, y));
+                    //
+                    y += 18;
+                   
+                }
+            }
+            else
+            {
+                gfx.DrawString("No service data found.", normalFont, XBrushes.Black, new XPoint(left + 260, y));
+            }
+
+
+            y += 20;
+            gfx.DrawString("Subtotal:", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString(subtotal, normalFont, XBrushes.Black, new XPoint(left + 100, y));
+            y += 18;
+
+            gfx.DrawString("Discount:", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString(discount, normalFont, XBrushes.Black, new XPoint(left + 100, y));
+            y += 18;
+
+            gfx.DrawString("Total Amount Due:", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString(totalDue, normalFont, XBrushes.Black, new XPoint(left + 130, y));
+            y += 40;
+
+            gfx.DrawString("Proccessed By:", boldFont, XBrushes.Black, new XPoint(left, y));
+            gfx.DrawString(processBY, normalFont, XBrushes.Black, new XPoint(left + 130, y));
+            y += 40;
+            // Footer
+            gfx.DrawString("Thank you for choosing Serrato Dental Clinic!", boldFont, XBrushes.Black, new XPoint(left, y));
+            y += 20;
+            gfx.DrawString("For Inquiries, please contact us at"+ clinicInfo.phone, normalFont, XBrushes.Black, new XPoint(left, y));
+
+            // Save
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "BillingReceipt.pdf");
+            document.Save(filePath);
+            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (current_status == "Finished")
+            {
+                printBilling();
+            }
+            else {
+
                 if (!Paid.Checked && !Unpaid.Checked)
                 {
                     MessageBox.Show("Please select whether the payment is Paid or Unpaid before proceeding.");
@@ -464,7 +773,7 @@ namespace Dental.Forms.Dialogs
                                 appointmentCommand.Parameters.AddWithValue("@AppointmentID", appointmentId);
                                 appointmentCommand.Parameters.AddWithValue("@total", total);
                                 appointmentCommand.Parameters.AddWithValue("@has_discount", hasDiscount);
-                                MessageBox.Show("appointment_services delete." + appointmentId+"-"+ total+"-"+ hasDiscount);
+                                MessageBox.Show("appointment_services delete." + appointmentId + "-" + total + "-" + hasDiscount);
 
                                 int rowsAffected = appointmentCommand.ExecuteNonQuery();
                                 if (rowsAffected == 0)
@@ -475,39 +784,41 @@ namespace Dental.Forms.Dialogs
                                 }
                             }
 
-                            // Delete old services
                             string deleteQuery = "DELETE FROM appointment_services WHERE appointment_id = @AppointmentID";
                             using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, connection, transaction))
                             {
                                 deleteCmd.Parameters.AddWithValue("@AppointmentID", appointmentId);
-                                deleteCmd.ExecuteNonQuery();
-                                 MessageBox.Show("appointment_services delete." + appointmentId);
+                                int rowsDeleted = deleteCmd.ExecuteNonQuery();
+                                MessageBox.Show($"Deleted {rowsDeleted} service rows for appointment ID: {appointmentId}");
                             }
 
-                            // Re-insert updated services
+                            // Insert new rows
                             string insertQuery = @"INSERT INTO appointment_services 
-                                (appointment_id, services_id, quantity, price, status, created_At) 
-                                VALUES (@appointment_id, @services_id, @quantity, @price, @status, @created_At)";
+                                    (appointment_id, services_id, quantity, price, status, created_At) 
+                                    VALUES (@appointment_id, @services_id, @quantity, @price, @status, @created_At)";
 
-                            foreach (Control control in panelServicesEdit.Controls)
+                            // Count inserted rows for confirmation
+                            int insertCount = 0;
+
+                            // Loop through only ComboBoxes
+                            foreach (Control control in panelServicesEdit.Controls.OfType<ComboBox>())
                             {
-                                if (control is ComboBox comboBox)
-                                {
-                                    string index = comboBox.Name.Split('_').Last();
+                                string index = control.Name.Split('_').Last();
 
-                                    ComboBox serviceBox = comboBox;
-                                    NumericUpDown qtyBox = panelServicesEdit.Controls["Dservicequantity_" + index] as NumericUpDown;
-                                    TextBox priceBox = panelServicesEdit.Controls["Dserviceprice_" + index] as TextBox;
+                                ComboBox serviceBox = control as ComboBox;
+                                NumericUpDown qtyBox = panelServicesEdit.Controls.Find($"servicequantity_{index}", false).FirstOrDefault() as NumericUpDown
+                                                      ?? panelServicesEdit.Controls.Find($"Dservicequantity_{index}", false).FirstOrDefault() as NumericUpDown;
 
-                                        //NumericUpDown qtyBox = panelServicesEdit.Controls["Dservicequantity_" + index] as NumericUpDown;
-                                        //TextBox priceBox = panelServicesEdit.Controls["Dserviceprice_" + index] as TextBox;
+                                TextBox priceBox = panelServicesEdit.Controls.Find($"serviceprice_{index}", false).FirstOrDefault() as TextBox
+                                                 ?? panelServicesEdit.Controls.Find($"Dserviceprice_{index}", false).FirstOrDefault() as TextBox;
 
                                 if (serviceBox?.SelectedValue != null && qtyBox != null && priceBox != null)
+                                {
+                                    try
                                     {
-                                        int serviceId = (int)serviceBox.SelectedValue;
+                                        int serviceId = Convert.ToInt32(serviceBox.SelectedValue);
                                         int quantity = (int)qtyBox.Value;
                                         decimal price = 0;
-
                                         decimal.TryParse(priceBox.Text, out price);
 
                                         using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection, transaction))
@@ -520,13 +831,19 @@ namespace Dental.Forms.Dialogs
                                             insertCmd.Parameters.AddWithValue("@created_At", DateTime.Now);
 
                                             insertCmd.ExecuteNonQuery();
+                                            insertCount++;
                                         }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show($"Error inserting service: {ex.Message}");
                                     }
                                 }
                             }
 
                             transaction.Commit();
-                            MessageBox.Show("Appointment and services successfully updated.");
+                            MessageBox.Show($"Updated appointment. {insertCount} service rows inserted.");
+                            SendConfirmationEmail(patient_email);
                             CloseControl();
                         }
                         catch (Exception ex)
@@ -540,7 +857,50 @@ namespace Dental.Forms.Dialogs
                 {
                     MessageBox.Show("Invalid Appointment ID.");
                 }
+            }
+                
+            
+            
         }
+
+        private void SendConfirmationEmail(string recipientEmail)
+        {
+            try
+            {
+                string feedbackFormLink = "https://docs.google.com/forms/d/e/1FAIpQLSda9jDMS6HcqcR0_MRUWCCruFv0-pwgMD4VbKFX30EGcZRltw/viewform?usp=header"; // Replace with your actual Google Form link
+
+                string subject = "We value your feedback - Serrato Dental Clinic";
+                string body = $"Dear Patient,\n\nThank you for visiting Serrato Dental Clinic.\nWe would appreciate it if you could take a moment to provide feedback on your recent appointment.\n\nPlease click the link below to complete our short feedback form:\n{feedbackFormLink}\n\nThank you!\n\n- Serrato Dental Clinic";
+
+                string senderEmail = Config.Email_Sender;
+                string senderPassword = Config.Email_Password;
+                string smtpHost = Config.Email_SMTP;
+                int smtpPort = Config.Email_PORT;
+
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(senderEmail);
+                mailMessage.To.Add(recipientEmail);
+                mailMessage.Subject = subject;
+                mailMessage.Body = body;
+                mailMessage.IsBodyHtml = false;
+
+                SmtpClient smtpClient = new SmtpClient
+                {
+                    Host = smtpHost,
+                    Port = smtpPort,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true
+                };
+
+                smtpClient.Send(mailMessage);
+                Console.WriteLine($"Feedback form sent to {recipientEmail}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to send feedback form: " + ex.Message);
+            }
+        }
+
 
         private void button_total_Click(object sender, EventArgs e)
         {
@@ -648,7 +1008,7 @@ namespace Dental.Forms.Dialogs
                     Location = new Point(132, yOffset),
                     Size = new Size(66, 20),
                     //Name = "servicequantity_" + service_counter
-                     Name = "Dservicequantity_" + service_counter
+                     Name = "servicequantity_" + service_counter
                     
                 };
 
@@ -656,7 +1016,7 @@ namespace Dental.Forms.Dialogs
                 {
                     Location = new Point(203, yOffset),
                     Size = new Size(100, 20),
-                    Name = "Dserviceprice_" + service_counter,
+                    Name = "serviceprice_" + service_counter,
                     //Name = "serviceprice_" + service_counter,
 
                 };

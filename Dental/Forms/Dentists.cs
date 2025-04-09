@@ -17,6 +17,7 @@ namespace Dental.Forms
     public partial class Dentists: Form
     {
         string loggedUsername = Form1.GlobalVariables.LoggedInUsername;
+        bool Isadmin = Form1.GlobalVariables.IsAdmin;
         private string connectionString = Config.ConnectionString;
 
         public Dentists()
@@ -25,7 +26,8 @@ namespace Dental.Forms
             loadData();
 
           
-            if (loggedUsername == "admin")
+            if (Isadmin)
+            //if (loggedUsername == "admin")
             {
                 // Show the button if the user is admin
                 button1.Visible = true;
